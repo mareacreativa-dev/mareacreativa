@@ -1,3 +1,7 @@
+---
+const year = new Date().getFullYear();
+---
+
 <footer class="bg-secondary text-white py-12">
 	<div class="container mx-auto px-4">
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -40,12 +44,6 @@
 							href="/proyectos"
 							class="text-gray-300 hover:text-white transition-colors"
 							>Proyectos</a
-						>
-					</li>
-					<li>
-						<a
-							href="/blog"
-							class="text-gray-300 hover:text-white transition-colors">Blog</a
 						>
 					</li>
 					<li>
@@ -106,7 +104,7 @@
 			</div>
 		</div>
 		<div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
-			<p>2025 M A R E A - CREATIVA. Todos los derechos reservados.</p>
+			<p>M A R E A - CREATIVA. Todos los derechos reservados {year}</p>
 		</div>
 	</div>
 </footer>
