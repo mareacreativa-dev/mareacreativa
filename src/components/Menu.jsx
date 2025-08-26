@@ -8,7 +8,7 @@ const Menu = () => {
 	};
 
 	return (
-		<div className=" p-4  bg-secondary ">
+		<div className="p-4 bg-secondary relative">
 			<nav className="flex justify-between items-center ">
 				<a
 					href="/"
@@ -18,7 +18,7 @@ const Menu = () => {
 						src="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756154116/logo_blanco_icono_ylvs82.svg"
 						alt="Marea Creativa Logo"
 						className="h-8"
-						Title="Marea Creativa Logo"
+						title="Marea Creativa Logo"
 						draggable="false"
 					/>
 					<span>
@@ -46,22 +46,14 @@ const Menu = () => {
 					>
 						Proyectos
 					</a>
-					{/* 			<a
-						href="/blog"
-						className="font-medium text-white hover:text-primary transition-colors"
-					>
-						Blog
-					</a>
- */}
 					<a
 						href="/contacto"
-						class="inline-block bg-gradient-to-r from-primary to-primary-700 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors border border-blue-600"
+						className="inline-block bg-gradient-to-r from-primary to-primary-700 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors border border-blue-600"
 					>
 						Contacto
 					</a>
 				</div>
 
-				{/* Botón para mostrar/ocultar menú en móviles */}
 				<button
 					className="md:hidden text-white cursor-pointer"
 					onClick={toggleMenu}
@@ -89,8 +81,9 @@ const Menu = () => {
 			{/* Menú móvil */}
 			<div
 				className={`md:hidden ${
-					isMenuOpen ? "block" : "hidden"
-				} bg-secondary w-full absolute top-16 left-0 shadow-md border-b-2 border-primary`}
+					isMenuOpen ? "absolute block" : "hidden"
+				} bg-secondary w-full left-0 shadow-md z-50 border-b-2 border-primary`}
+				style={{ top: "100%" }}
 			>
 				<div className="container mx-auto p-7 flex flex-col space-y-4">
 					<a
@@ -111,12 +104,6 @@ const Menu = () => {
 					>
 						Proyectos
 					</a>
-					{/* 				<a
-						href="/blog"
-						className="py-2 font-medium text-white hover:text-primary transition-colors"
-					>
-						Blog
-					</a> */}
 					<a
 						href="/contacto"
 						className="py-2 font-medium text-white hover:text-primary transition-colors"
