@@ -28,7 +28,7 @@
     "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741014600/gabriels_m8o1il.jpg",
     "tags":["Diseño Web"],
     "url": "https://gabrielsmachineshop.com/",
-    "pais": "Estados Unidos"
+    "pais": "EEUU"
   },
   {
     "title": "Food Pack",
@@ -36,7 +36,7 @@
     "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741016313/foodpack_kcjztp.jpg",
     "tags":["Diseño Web", "Identidad Corporativa"],
     "url": "https://foodpack.us/",
-    "pais": "Estados Unidos"
+    "pais": "EEUU"
   },
   {
     "title": "MP Pharma",
@@ -44,15 +44,15 @@
     "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741017122/mppharma_td1tks.jpg",
     "tags":["Diseño Web", "Identidad Corporativa"],
     "url": "https://www.mppharma.us/",
-    "pais": "Estados Unidos"
+    "pais": "EEUU"
   },
   {
-    "title": "The Blockbuster",
-    "description": "Web App desarrollada como Demo, inspirada en la iconica marca de Blockbuster, con un diseño moderno y atractivo adaptada al mercado actual.",
-    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741018024/blackbuster_lz9liw.jpg",
-    "tags":["Diseño Web", "Desarrollo"],
-    "url": "https://theblockbuster.vercel.app/",
-    "pais": "Personal Project"
+    "title": "Second Language Mode On",
+    "description": "Plataforma que organiza experiencias virtuales en vivo, para ayudar a mejorar un idioma de forma práctica y natural, rompiendo la barrera del aula tradicional.",
+    "image": "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756239522/second_language_balnbf.jpg",
+    "tags":["Diseño Grafico", "Diseño Web",  "Identidad Corporativa"],
+    "url": "https://secondlanguagemodeon.com/",
+    "pais": "España"
   },
   {
     "title": "Eco Clean",
@@ -104,10 +104,34 @@
   },
   {
     "title": "Prisma",
-    "description": "Desarrollo de indentidad de marca para estudio de arquitectura ",
+    "description": "Desarrollo de indentidad de marca para estudio de arquitectura",
     "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741039908/prisma_yoa3kj.jpg",
     "tags":["Diseño Grafico", "Identidad Corporativa"],
     "pais": "Argentina"
-  
+  },
+  {
+    "title": "Move Now Shoes",
+    "description": "Plataforma para customizar tus zapatillas Move Now",
+    "image": "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756240792/movenow_sz4ftk.jpg",
+    "tags":["Diseño Web", "Marketing Digital"],
+    "url": "https://www.movenowshoes.com/",
+    "pais": "Argentina"
+  },
+  {
+    "title": "Costa del este",
+    "description": "Sitio web de casas de alquiler vacacional en la costa atlántica",
+    "image": "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756239340/costa_del_este_agzlas.jpg",
+    "tags":["Diseño Web", "Fotos", "SEO"],
+    "url": "https://costadelesteav2.com.ar/",
+    "pais": "Argentina"
+  },
+  {
+    "title": "Flejie",
+    "description": "Fábrica de muebles de peluquería",
+    "image": "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756239616/Flejie_ak8nl2.jpg",
+    "tags":["Diseño Web", "Fotos", "SEO", "E-commerce"],
+    "url": "https://www.flejie.com.ar/",
+    "pais": "Argentina"
   }
+ 
 ]
