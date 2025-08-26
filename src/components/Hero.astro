@@ -22,13 +22,14 @@ const {
 	</div>
 	<div class="container mx-auto px-4 relative z-10">
 		<div class="max-w-3xl">
-			<h1 class="text-4xl md:text-5xl font-bold mb-6">
+			<h1 class="text-4xl md:text-5xl font-bold mb-6" transition:name="title">
 				{title}
 			</h1>
-			<p class="text-xl mb-8 font-extralight">
+			<p class="text-xl mb-8 font-extralight" transition:name="subtitle">
 				{subtitle}
 			</p>
 			<a
+				transition:name="cta"
 				href={ctaLink}
 				class="inline-block bg-gradient-to-r from-primary to-primary-700 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors border border-blue-600"
 			>
