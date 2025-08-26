@@ -1,0 +1,113 @@
+[
+  {
+    "title": "Todo Coches Elche",
+    "description": "Desarrollo de indentidad de marca, y diseño de página web con tienda online, para la venta de coches de segunda mano.",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741017545/todococheselche_sssb9f.jpg",
+    "tags":["Diseño Web","Identidad Corporativa"],
+    "pais": "España"
+  },
+  {
+    "title": "Wash & Plus",
+    "description": "Desarrollo de web app para sistema de gestion de servicios, impresion de tikets y control de facturacion",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741013917/washplus_pqnp25.jpg",
+    "tags":["Web App","Desarrollo"],
+    "pais": "España"
+
+  },
+  {
+    "title": "Motos Ayllon",
+    "description": "Dearrollamos la identidad de la marca con un logo moderno, para luego crear una página web que refleje la esencia de la marca. con una tienda online de     mas de mil productos.",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741012931/motosayllon_clxirl.jpg",
+    "tags":["Tienda Online", "SEO"],
+    "url": "https://www.motosayllon.com",
+    "pais": "España"
+  },
+  {
+    "title": "Gabriel´s Machine Shop",
+    "description": "Desarrollo de sitio web para el taller de mecanica automotriz, con un diseño moderno y atractivo para los clientes.",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741014600/gabriels_m8o1il.jpg",
+    "tags":["Diseño Web"],
+    "url": "https://gabrielsmachineshop.com/",
+    "pais": "Estados Unidos"
+  },
+  {
+    "title": "Food Pack",
+    "description": "Desarrollo de identidad corporativa y diseño de página web para empresa de venta blisters personalizados de salsa de soja",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741016313/foodpack_kcjztp.jpg",
+    "tags":["Diseño Web", "Identidad Corporativa"],
+    "url": "https://foodpack.us/",
+    "pais": "Estados Unidos"
+  },
+  {
+    "title": "MP Pharma",
+    "description": "Desarrollo de identidad corporativa y diseño de página web para mp pharma una empresa que desarrolla maquinaria para la industria farmaceutica",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741017122/mppharma_td1tks.jpg",
+    "tags":["Diseño Web", "Identidad Corporativa"],
+    "url": "https://www.mppharma.us/",
+    "pais": "Estados Unidos"
+  },
+  {
+    "title": "The Blockbuster",
+    "description": "Web App desarrollada como Demo, inspirada en la iconica marca de Blockbuster, con un diseño moderno y atractivo adaptada al mercado actual.",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741018024/blackbuster_lz9liw.jpg",
+    "tags":["Diseño Web", "Desarrollo"],
+    "url": "https://theblockbuster.vercel.app/",
+    "pais": "Personal Project"
+  },
+  {
+    "title": "Eco Clean",
+    "description": "Desarrollo de indentidad de marca y papeleria comercial para empresa de limpieza de sofás a domicilio",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741024885/ecocleanp_v4kpdm.jpg",
+    "tags":["Diseño Grafico", "Identidad Corporativa"],
+    "pais": "España"
+  
+  },
+  {
+    "title": "Small Pleastures",
+    "description": "Desarrollo de indentidad de marca y papeleria comercial ",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741025424/5_nzig0x.jpg",
+    "tags":["Diseño Grafico", "Identidad Corporativa"],
+    "pais": "España"
+  
+  },
+  {
+    "title": "Brave",
+    "description": "Desarrollo de indentidad de marca y papeleria comercial ",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741026525/brave_u7msst.jpg",
+    "tags":["Diseño Grafico", "Identidad Corporativa"],
+    "pais": "Argentina"
+  
+  },
+  {
+    "title": "Articulos para viajeros",
+    "description": "Desarrollo de indentidad de marca y papeleria comercial ",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741026880/articulosparaviajerosportada_msld6d.jpg",
+    "tags":["Diseño Grafico", "Identidad Corporativa"],
+    "pais": "España"
+  
+  },
+  {
+    "title": "Hercules E-Liquid",
+    "description": "Desarrollo de indentidad de marca y packaging para empresa de liquidos para cigarrillos electronicos",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741035997/hercules_nzxafo.jpg",
+    "tags":[ "Identidad Corporativa", "Packaging"],
+    "pais": "Argentina"
+  
+  },
+  {
+    "title": "VCC It Solutions",
+    "description": "Desarrollo de indentidad de marca para empresa de soluciones informaticas",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741039656/vcc_grgqxg.jpg",
+    "tags":["Diseño Grafico", "Identidad Corporativa"],
+    "pais": "Argentina"
+  
+  },
+  {
+    "title": "Prisma",
+    "description": "Desarrollo de indentidad de marca para estudio de arquitectura ",
+    "image": "https://res.cloudinary.com/dhoxoi8ob/image/upload/v1741039908/prisma_yoa3kj.jpg",
+    "tags":["Diseño Grafico", "Identidad Corporativa"],
+    "pais": "Argentina"
+  
+  }
+]

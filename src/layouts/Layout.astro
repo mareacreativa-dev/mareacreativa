@@ -1,4 +1,5 @@
 ---
+import Footer from "../components/Footer.astro";
 import Menu from "../components/Menu";
 import "../styles/global.css";
 const {
@@ -6,6 +7,7 @@ const {
 	description = "Agencia de diseño y desarrollo web. Creamos sitios optimizados para SEO y ventas. 🚀 Webs rápidas, seguras y a medida de tus necesidades",
 	keywords = "diseño web, desarrollo web, seo, tiendas online",
 } = Astro.props;
+import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -13,15 +15,25 @@ const {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756154116/logo_blanco_icono_ylvs82.svg"
+		/>
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ClientRouter />
 		<meta name="description" content={description} />
 		<meta name="keywords" content={keywords} />
 	</head>
 	<body>
-		<Menu client:load />
-		<slot />
+		<header>
+			<Menu client:load />
+		</header>
+		<main class="flex-grow bg-tertiary">
+			<slot />
+		</main>
+		<Footer />
 	</body>
 </html>
 

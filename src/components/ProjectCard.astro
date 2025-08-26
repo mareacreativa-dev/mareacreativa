@@ -1,0 +1,64 @@
+---
+import { MousePointerClick } from "@lucide/astro";
+
+export interface Props {
+	title: string;
+	description: string;
+	image: string;
+	url?: string;
+	tags?: string[];
+	pais?: string;
+}
+
+const {
+	title,
+	description,
+	image,
+	url,
+	tags = [],
+	pais = "España",
+} = Astro.props;
+---
+
+<div
+	class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+>
+	<div class="overflow-hidden">
+		<img
+			src={image}
+			alt={title}
+			class="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
+			draggable="false"
+			title="Imagen destacada"
+			loading="lazy"
+		/>
+	</div>
+	<div class="p-6">
+		<h2 class="text-xl font-bold mb-2">{title}</h2>
+		<span class="text-sm bg-gray-500 text-white py-0.5 px-3 rounded-full"
+			>{pais}</span
+		>
+		<p class="text-gray-600 mb-4 text-sm mt-2">{description}</p>
+		{
+			tags.length > 0 && (
+				<div class="flex flex-wrap gap-2 mb-4">
+					{tags.map((tag) => (
+						<span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">
+							{tag}
+						</span>
+					))}
+				</div>
+			)
+		}
+		{
+			url && (
+				<a href={url} class="text-sm" target="_blank">
+					<div class="flex items-center  justify-start gap-2  p-2 rounded-xl">
+						<MousePointerClick class="text-gray-500" />
+						<span class="text-gray-500 font-semibold">Ver Online</span>
+					</div>
+				</a>
+			)
+		}
+	</div>
+</div>

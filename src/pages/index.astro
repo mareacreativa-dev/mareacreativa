@@ -1,23 +1,22 @@
 ---
+import HeroIndex from "../components/HeroIndex.astro";
 import Layout from "../layouts/Layout.astro";
+import ServiceSection from "../components/ServiceSection.astro";
+import ProjectsHighlights from "../components/ProjectsHighlights.astro";
+import TestimonialSection from "../components/TestimonialSection.astro";
+import CtaSection from "../components/CtaSection.astro";
 ---
 
 <Layout>
 	<div id="hero">
-		<ol>
-			<li>
-				About us &rarr; Hacer de cero Experiencias &rarr; Proyectos &rarr;
-				Ponemos las web que tengamos, habría que modificar un poco las cards
-			</li>
-			<li>
-				Experiencias &rarr; Proyectos &rarr; Ponemos las web que tengamos,
-				habría que modificar un poco las cards.
-			</li>
-			<li>
-				Servicios &rarr; Listado de los servicios que hacemos. Ej: Desarrollo
-				web, Rebranding, manejo de redes, etc.
-			</li>
-			<li>Contacto &rarr; dejamos tal cual</li>
-		</ol>
+		<HeroIndex
+			title="Diseño y Desarrollo de aplicaciones web "
+			subtitle="Creamos sitios web modernos, rápidos y optimizados para negocios que quieren destacar en internet."
+		/>
+		<ServiceSection />
+
+		<ProjectsHighlights />
+		<TestimonialSection />
+		<CtaSection />
 	</div>
 </Layout>

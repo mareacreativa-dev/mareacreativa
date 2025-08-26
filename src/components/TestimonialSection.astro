@@ -1,0 +1,34 @@
+---
+import Testimonial from "./Testimonial.astro";
+---
+
+<section class="py-16">
+	<div class="container mx-auto px-4">
+		<div class="text-center mb-12">
+			<span class="text-3xl font-bold mb-4">Lo que dicen nuestros clientes</span
+			>
+			<p class="text-gray-600 max-w-2xl mx-auto">
+				Descubre por qué nuestros clientes confían en nosotros para sus
+				proyectos digitales.
+			</p>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			<Testimonial
+				quote="Estamos muy contentos con el trabajo que hicieron en nuestra página. La comunicación fue excelente y el resultado final superó nuestras expectativas. ¡Recomendamos totalmente sus servicios!"
+				author="Matias V."
+				company="TodoCoches Elche"
+			/>
+			<Testimonial
+				quote="Hicieron un trabajo increíble con nuestro nuevo logotipo. Capturaron perfectamente la esencia de nuestra marca y lograron un diseño moderno y fácil de integrar. ¡Nos encanta el resultado!"
+				author="Gabriel S."
+				company="CEO, Food Pack & Carry LLC"
+			/>
+			<Testimonial
+				quote="La tienda online que crearon para nosotros es justo lo que necesitábamos. Patricio entendió nuestras necesidades comerciales y ofreció una solución atractiva y fácil de usar."
+				author="Salvador G."
+				company="CEO, MpPharma LLC"
+			/>
+		</div>
+	</div>
+</section>

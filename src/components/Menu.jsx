@@ -8,7 +8,7 @@ const Menu = () => {
 	};
 
 	return (
-		<div className=" p-4  bg-black ">
+		<div className=" p-4  bg-secondary ">
 			<nav className="flex justify-between items-center ">
 				<a
 					href="/"
@@ -46,13 +46,13 @@ const Menu = () => {
 					>
 						Proyectos
 					</a>
-					<a
+					{/* 			<a
 						href="/blog"
 						className="font-medium text-white hover:text-primary transition-colors"
 					>
 						Blog
 					</a>
-
+ */}
 					<a
 						href="/contacto"
 						class="inline-block bg-gradient-to-r from-primary to-primary-700 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors border border-blue-600"
@@ -111,12 +111,12 @@ const Menu = () => {
 					>
 						Proyectos
 					</a>
-					<a
+					{/* 				<a
 						href="/blog"
 						className="py-2 font-medium text-white hover:text-primary transition-colors"
 					>
 						Blog
-					</a>
+					</a> */}
 					<a
 						href="/contacto"
 						className="py-2 font-medium text-white hover:text-primary transition-colors"

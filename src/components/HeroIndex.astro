@@ -1,0 +1,46 @@
+---
+export interface Props {
+	title: string;
+	subtitle: string;
+	ctaText?: string;
+	ctaLink?: string;
+}
+
+const {
+	title,
+	subtitle,
+	ctaText = "Habla con nosotros",
+	ctaLink = "/contacto",
+} = Astro.props;
+---
+
+<section class="bg-secondary text-white py-36 relative overflow-hidden">
+	<div
+		class="absolute inset-0 z-0 bg-secondary"
+		style="
+			background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 30%, rgba(44, 62, 80, 0.2) 100%), 
+			url('https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756216204/marea_background_ico_dh5xdc.svg') top left / cover no-repeat;
+			opacity: 0.8;
+		"
+	>
+	</div>
+	<div class="container mx-auto px-4 relative z-10">
+		<div class="max-w-5xl">
+			<h1 class="text-4xl md:text-7xl font-bold mb-6 fade-in-up">
+				{title}
+			</h1>
+			<p class="text-xl mb-8 font-extralight">
+				{subtitle}
+			</p>
+			<a
+				href={ctaLink}
+				class="inline-block bg-gradient-to-r from-primary to-primary-700 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors border border-blue-600"
+				style="transition: box-shadow 700ms;"
+				onmouseover="this.style.boxShadow='0 0 20px var(--color-primary)';"
+				onmouseout="this.style.boxShadow='none';"
+			>
+				{ctaText}
+			</a>
+		</div>
+	</div>
+</section>
