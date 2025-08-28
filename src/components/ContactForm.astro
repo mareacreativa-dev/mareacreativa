@@ -1,109 +1,140 @@
 <div class="bg-white p-8 rounded-lg shadow-md">
-	<h2 class="text-2xl font-bold mb-6">Formulario de contacto</h2>
-	<form
-		id="contactForm"
-		action="https://docs.google.com/forms/d/e/1FAIpQLScFrWSrTddXWfFHzSOfyuNnVlWd-aHI53d0K3jhlQL2KKI4dg/formResponse"
-		method="POST"
-		class="space-y-4"
-	>
-		<div>
-			<label for="name" class="block text-sm font-medium text-gray-700 mb-1"
-				>Nombre</label
-			>
-			<input
-				type="text"
-				id="name"
-				name="entry.1800349953"
-				class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
-				required
-			/>
-		</div>
-		<div>
-			<label for="email" class="block text-sm font-medium text-gray-700 mb-1"
-				>Email</label
-			>
-			<input
-				type="email"
-				id="email"
-				name="entry.2124881491"
-				class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
-				required
-			/>
-		</div>
-		<div>
-			<label for="phone" class="block text-sm font-medium text-gray-700 mb-1"
-				>Teléfono</label
-			>
-			<input
-				type="text"
-				id="phone"
-				name="entry.798637810"
-				class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
-				required
-			/>
-		</div>
-		<div>
-			<label for="message" class="block text-sm font-medium text-gray-700 mb-1"
-				>Mensaje</label
-			>
-			<textarea
-				id="message"
-				name="entry.2098013047"
-				rows="4"
-				class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
-				required></textarea>
-		</div>
-		<div>
-			<label for="captcha" class="block text-sm font-medium text-gray-700 mb-1">
-				4 + 5 =
-			</label>
-			<input
-				type="text"
-				id="captcha"
-				name="captcha"
-				placeholder="Escribe el resultado"
-				class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
-				required
-			/>
-		</div>
-		<button
-			type="submit"
-			class="w-full bg-primary text-white font-medium px-6 py-3 rounded-md hover:bg-blue-700 transition-colors"
-		>
-			Enviar mensaje
-		</button>
-		<p id="responseMessage" class="mt-4 text-green-600 hidden">
-			Mensaje enviado con éxito.
-		</p>
-	</form>
+  <h2 class="text-2xl font-bold mb-6">Formulario de contacto</h2>
+  <form
+    id="contactForm"
+    action="https://docs.google.com/forms/d/e/1FAIpQLScFrWSrTddXWfFHzSOfyuNnVlWd-aHI53d0K3jhlQL2KKI4dg/formResponse"
+    method="POST"
+    class="space-y-4"
+  >
+    <div>
+      <label for="name" class="block text-sm font-medium text-gray-700 mb-1"
+        >Nombre</label
+      >
+      <input
+        type="text"
+        id="name"
+        name="entry.1800349953"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
+        required
+      />
+    </div>
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700 mb-1"
+        >Email</label
+      >
+      <input
+        type="email"
+        id="email"
+        name="entry.2124881491"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
+        required
+      />
+    </div>
+    <div>
+      <label for="phone" class="block text-sm font-medium text-gray-700 mb-1"
+        >Teléfono</label
+      >
+      <input
+        type="text"
+        id="phone"
+        name="entry.798637810"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
+        required
+      />
+    </div>
+    <div>
+      <label for="message" class="block text-sm font-medium text-gray-700 mb-1"
+        >Mensaje</label
+      >
+      <textarea
+        id="message"
+        name="entry.2098013047"
+        rows="4"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
+        required></textarea>
+    </div>
+    <div>
+      <label for="captcha" class="block text-sm font-medium text-gray-700 mb-1">
+        4 + 5 =
+      </label>
+      <input
+        type="text"
+        id="captcha"
+        name="captcha"
+        placeholder="Escribe el resultado"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
+        required
+      />
+    </div>
+    <button
+      type="submit"
+      class="w-full bg-primary text-white font-medium px-6 py-3 rounded-md hover:bg-blue-700 transition-colors"
+    >
+      Enviar mensaje
+    </button>
+    <p id="responseMessage" class="mt-4 text-green-600 hidden">
+      Mensaje enviado con éxito.
+    </p>
+  </form>
 </div>
-
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+></script>
+<script type="text/javascript">
+  (function () {
+    emailjs.init({
+      publicKey: "JiJnaCt5D381Waewl",
+    });
+  })();
+</script>
 <script>
-	document
-		.getElementById("contactForm")
-		.addEventListener("submit", function (event) {
-			event.preventDefault();
-			const form = event.target;
-			const formData = new FormData(form);
-			const captchaInput = document.getElementById("captcha").value;
-			if (captchaInput !== "9") {
-				event.preventDefault();
-				alert("Por favor, resuelve correctamente la suma 4 + 5.");
-			} else {
-				fetch(form.action, {
-					method: "POST",
-					body: formData,
-					mode: "no-cors",
-				})
-					.then(() => {
-						document
-							.getElementById("responseMessage")
-							.classList.remove("hidden");
-						form.reset();
-					})
-					.catch(() => {
-						alert("Hubo un error al enviar el formulario. Inténtalo de nuevo.");
-					});
-			}
-		});
+  function sendEmail() {
+    let params = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      phone: document.getElementById("phone").value,
+      message: document.getElementById("message").value,
+    };
+    return emailjs
+      .send(
+        "service_7dc1ucy",
+        "template_2y7kpq9",
+        params
+        // "user_2YxW4mJt3b8K5hX"
+      )
+      .catch((error) => {
+        console.error("Error al enviar el mensaje:", error);
+        // alert("Hubo un error al enviar el mensaje. Inténtalo de nuevo.");
+      });
+  }
+
+  document
+    .getElementById("contactForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      const captchaInput = document.getElementById("captcha").value;
+      if (captchaInput !== "9") {
+        event.preventDefault();
+        alert("Por favor, resuelve correctamente la suma 4 + 5.");
+      } else {
+        sendEmail()
+          // fetch(form.action, {
+          //   method: "POST",
+          //   body: formData,
+          //   mode: "no-cors",
+          // })
+          .then(() => {
+            document
+              .getElementById("responseMessage")
+              .classList.remove("hidden");
+            form.reset();
+          })
+          .catch(() => {
+            alert("Hubo un error al enviar el formulario. Inténtalo de nuevo.");
+          });
+      }
+    });
 </script>
