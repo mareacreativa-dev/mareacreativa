@@ -3,45 +3,59 @@ import Footer from "../components/Footer.astro";
 import Menu from "../components/Menu";
 import "../styles/global.css";
 const {
-	title = "M A R E A - Creativa . Diseño y Desarrollo Web | SEO Local y Tiendas Online",
-	description = "Agencia de diseño y desarrollo web. Creamos sitios optimizados para SEO y ventas. 🚀 Webs rápidas, seguras y a medida de tus necesidades",
-	keywords = "diseño web, desarrollo web, seo, tiendas online",
+  title = "Marea Creativa | Diseño Web, Inteligencia Artificial y SEO Local",
+  description = "Agencia especialista en diseño web estratégico, automatización con inteligencia artificial y posicionamiento SEO local. Escalamos negocios físicos y digitales 24/7.",
+  keywords = "diseño web, desarrollo web, seo local, automatizacion, marketing digital, chatbots, ia, inteligencia artificial, paginas web, tiendas online",
+  image = "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771944145/home_hero_yqmogi.png",
 } = Astro.props;
 import { ClientRouter } from "astro:transitions";
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link
-			rel="icon"
-			type="image/svg+xml"
-			href="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756154116/logo_blanco_icono_ylvs82.svg"
-		/>
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<ClientRouter />
-		<meta name="description" content={description} />
-		<meta name="keywords" content={keywords} />
-	</head>
-	<body>
-		<header>
-			<Menu client:load />
-		</header>
-		<main class="flex-grow bg-tertiary">
-			<slot />
-		</main>
-		<Footer />
-	</body>
-</html>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756154116/logo_blanco_icono_ylvs82.svg"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ClientRouter />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
 
-<style>
-	html,
-	body {
-		margin: 0;
-		padding: 0;
-		font-family: system-ui, Roboto;
-	}
-</style>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+  </head>
+  <body>
+    <header>
+      <Menu client:load />
+    </header>
+    <main class="flex-grow bg-tertiary">
+      <slot />
+    </main>
+    <Footer />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, Roboto;
+      }
+    </style>
+  </body>
+</html>
