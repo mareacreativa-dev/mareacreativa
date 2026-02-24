@@ -52,7 +52,7 @@ const allServices = [
     description:
       "Flujos de trabajo automáticos que eliminan tareas manuales repetitivas.",
     image:
-      "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771929987/automation_v2_qxqfq3.webp",
+      "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771948015/Gemini_Generated_Image_rpyoearpyoearpyo_pivghj.webp",
     variant: "image",
     imageClassName: "object-cover object-bottom",
     href: "/automatizacion-de-procesos",
@@ -124,6 +124,14 @@ const filteredServices = allServices.filter(
       let startX = 0;
       let scrollLeft = 0;
       let isDragging = false;
+
+      // Handle Mouse Wheel for Horizontal Scroll
+      slider.addEventListener("wheel", (e) => {
+        if (e.deltaY !== 0 && slider.scrollWidth > slider.clientWidth) {
+          e.preventDefault();
+          slider.scrollLeft += e.deltaY;
+        }
+      });
 
       slider.addEventListener("mousedown", (e) => {
         const mouseEvent = /** @type {MouseEvent} */ e;

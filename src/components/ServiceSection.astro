@@ -9,6 +9,7 @@ const services = [
       "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771930277/office_team_sdjvxo.jpg",
     variant: "image",
     imageClassName: "object-cover object-bottom",
+    href: "/diseno-y-desarrollo-web",
   },
   {
     title: "Rebranding e identidad",
@@ -18,6 +19,7 @@ const services = [
       "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771929812/rebranding_al9jxt.webp",
     variant: "image",
     imageClassName: "object-cover object-bottom",
+    href: "/rebranding-identidad",
   },
   {
     title: "Chatbots Personalizados",
@@ -27,6 +29,7 @@ const services = [
       "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771930346/chatbots_v2_sltcgz.png",
     variant: "image",
     imageClassName: "object-cover object-bottom",
+    href: "/chatbots-personalizados",
   },
   {
     title: "Servicios para Negocios Locales",
@@ -36,15 +39,17 @@ const services = [
       "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771930116/salon_v2_dbpsof.png",
     variant: "image",
     imageClassName: "object-cover object-bottom",
+    href: "/servicios-negocios-locales",
   },
   {
     title: "Automatización de Procesos",
     description:
       "Flujos de trabajo automáticos que eliminan tareas manuales repetitivas.",
     image:
-      "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771929987/automation_v2_qxqfq3.webp",
+      "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771948015/Gemini_Generated_Image_rpyoearpyoearpyo_pivghj.webp",
     variant: "image",
     imageClassName: "object-cover object-bottom",
+    href: "/automatizacion-de-procesos",
   },
   {
     title: "Gestión y Hostelería",
@@ -54,6 +59,7 @@ const services = [
       "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771929988/cafe_v2_nrrwj7.webp",
     variant: "image",
     imageClassName: "object-cover object-bottom",
+    href: "/gestion-hosteleria",
   },
 ];
 ---
@@ -83,7 +89,8 @@ const services = [
               variant={service.variant}
               imageClassName={service.imageClassName}
               index={index}
-              className="h-[400px]"
+              className="h-[480px] w-full"
+              href={service.href}
             />
           );
         })

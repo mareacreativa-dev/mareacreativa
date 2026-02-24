@@ -20,7 +20,7 @@ export default function AnimatedServiceCard({
   iconName = "Laptop",
   className = "",
   imageClassName = "object-cover object-top",
-  href = null,
+  href = "",
 }) {
   const IconProps = { size: 120, strokeWidth: 1 };
   const TopIconProps = { size: 48, strokeWidth: 1.5 };
@@ -32,6 +32,7 @@ export default function AnimatedServiceCard({
     return (
       <MotionComponent
         href={href}
+        draggable={false}
         className={`group relative overflow-hidden rounded-[32px] bg-gray-50 flex flex-col shadow-sm border border-gray-100 hover:shadow-xl transition-shadow ${className} ${href ? 'cursor-pointer block' : ''}`}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -43,6 +44,7 @@ export default function AnimatedServiceCard({
           <motion.img
             src={image}
             alt={title}
+            draggable={false}
             className={`w-full h-full ${imageClassName}`}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           />
@@ -69,6 +71,7 @@ export default function AnimatedServiceCard({
   return (
     <MotionComponent
       href={href}
+      draggable={false}
       className={`group relative overflow-hidden rounded-[32px] bg-white shadow-sm border border-gray-100 hover:shadow-xl transition-shadow flex flex-col ${className}  ${href ? 'cursor-pointer block' : ''}`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}

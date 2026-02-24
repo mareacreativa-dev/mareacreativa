@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import AnimatedServiceCard from "../components/AnimatedServiceCard.jsx";
 import CtaSection from "../components/CtaSection.astro";
+import HeroService from "../components/HeroService.astro";
 
 const services = [
   {
@@ -48,7 +49,7 @@ const services = [
     description:
       "Flujos de trabajo automáticos que eliminan tareas manuales repetitivas.",
     image:
-      "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771929987/automation_v2_qxqfq3.webp",
+      "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771948015/Gemini_Generated_Image_rpyoearpyoearpyo_pivghj.webp",
     variant: "image",
     imageClassName: "object-cover object-bottom",
     href: "/automatizacion-de-procesos",
@@ -66,73 +67,13 @@ const services = [
 ];
 ---
 
-<Layout title="Todos los Soluciones y Servicios | Marea Creativa">
-  <!-- Cabecera Premium centrada en negocio y conversión -->
-  <section
-    class="relative w-full bg-white pt-28 pb-16 px-4 md:px-8 overflow-hidden min-h-[50vh] flex flex-col justify-center items-center text-center border-b border-gray-100"
-  >
-    <!-- Subtle background glow -->
-    <div
-      class="absolute inset-0 z-0 pointer-events-none"
-      style="background: radial-gradient(circle at 50% 0%, rgba(14, 68, 249, 0.03), transparent 60%);"
-    >
-    </div>
-
-    <div class="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
-      <div
-        class="inline-flex items-center space-x-2 bg-blue-50 text-blue-700 rounded-full px-5 py-2 mb-8 font-semibold text-xs tracking-wider uppercase border border-blue-100 w-fit fade-in-up"
-      >
-        <span>Soluciones Digitales Integrales</span>
-      </div>
-
-      <!-- Title -->
-      <h1
-        class="text-5xl md:text-6xl lg:text-[4rem] font-semibold tracking-tight text-gray-900 leading-[1.1] mb-5 fade-in-up"
-        style="animation-delay: 50ms;"
-      >
-        Ecosistemas trabajando
-        <br />
-        <span class="text-blue-600 font-bold">por ti 24/7.</span>
-      </h1>
-
-      <!-- Subtitle -->
-      <p
-        class="text-lg md:text-xl text-gray-500 max-w-2xl leading-relaxed mb-8 fade-in-up"
-        style="animation-delay: 100ms;"
-      >
-        Descubre nuestras metodologías y tecnologías diseñadas meticulosamente
-        para automatizar flujos de venta, atraer clientes 24/7 y posicionar tu
-        marca como líder indiscutible en su sector.
-      </p>
-
-      <!-- CTAs -->
-      <div
-        class="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto fade-in-up"
-        style="animation-delay: 200ms;"
-      >
-        <a
-          href="/contacto"
-          class="inline-flex justify-center items-center bg-blue-600 text-white font-medium text-lg px-8 py-3.5 rounded-full hover:bg-blue-700 transition duration-200"
-        >
-          Hablar con un experto
-        </a>
-      </div>
-    </div>
-  </section>
-  <style>
-    .fade-in-up {
-      animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+<Layout title="Todas las Soluciones y Servicios | Marea Creativa">
+  <HeroService
+    badge="Soluciones Digitales Integrales"
+    title="Ecosistemas trabajando por ti 24/7."
+    subtitle="Descubre nuestras metodologías y tecnologías diseñadas para automatizar flujos de venta, atraer clientes 24/7 y posicionarte."
+    image="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771948158/Gemini_Generated_Image_l9nm6ml9nm6ml9nm_qw74u9.webp"
+  />
 
   <!-- Lista de Servicios en Grid Apple-Style -->
   <section class="py-24 bg-[#fcfcfd]">
