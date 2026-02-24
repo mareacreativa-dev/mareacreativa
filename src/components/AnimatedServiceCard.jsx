@@ -20,7 +20,7 @@ export default function AnimatedServiceCard({
   iconName = "Laptop",
   className = "",
   imageClassName = "object-cover object-top",
-  href,
+  href = null,
 }) {
   const IconProps = { size: 120, strokeWidth: 1 };
   const TopIconProps = { size: 48, strokeWidth: 1.5 };
@@ -50,14 +50,14 @@ export default function AnimatedServiceCard({
           <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/80 to-transparent"></div>
         </div>
         
-        <div className="relative z-10 p-8 pt-10 flex flex-col h-full text-white">
+        <div className="relative z-10 p-6 pt-8 flex flex-col h-full text-white">
           <div className="mb-2 text-xs font-bold tracking-widest uppercase text-white/80">
             Marea Creativa
           </div>
-          <h3 className="text-3xl font-bold mb-3 tracking-tight">
+          <h3 className="text-2xl font-bold mb-3 tracking-tight">
             {title}
           </h3>
-          <p className="text-white/90 font-medium text-lg max-w-[90%] leading-relaxed">
+          <p className="text-white/90 font-medium text-base max-w-[95%] leading-relaxed">
             {description}
           </p>
         </div>
@@ -76,19 +76,19 @@ export default function AnimatedServiceCard({
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ scale: 1.02 }}
     >
-      <div className="p-8 relative z-10">
+      <div className="p-6 relative z-10">
         <div className="mb-4 text-[#1c55ff]">
           <FinalIcon {...TopIconProps} />
         </div>
-        <h3 className="text-2xl font-bold mb-3 text-gray-900 tracking-tight">
+        <h3 className="text-xl font-bold mb-3 text-gray-900 tracking-tight">
           {title}
         </h3>
-        <p className="text-gray-500 font-medium leading-relaxed">
+        <p className="text-gray-500 font-medium text-sm leading-relaxed">
           {description}
         </p>
       </div>
 
-      <div className="flex-grow relative flex items-end justify-center pb-8 opacity-20 text-[#1c55ff] overflow-hidden">
+      <div className="flex-grow relative flex items-end justify-center pb-6 opacity-20 text-[#1c55ff] overflow-hidden">
         {/* Large decorative icon at the bottom */}
         <motion.div
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
