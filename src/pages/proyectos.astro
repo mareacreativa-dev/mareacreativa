@@ -1,64 +1,54 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
+import HeroService from "../components/HeroService.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import CtaSection from "../components/CtaSection.astro";
 import Project from "../projects/data.json";
 ---
 
 <Layout
-	title="Proyectos de Diseño y Desarrollo Web | SEO Local y Tiendas Online"
+  title="Proyectos Realizados | Marea Creativa - Diseñamos tiendas que venden"
 >
-	<Hero
-		title="Nuestros Proyectos"
-		subtitle="Explora nuestro portfolio de trabajos y descubre cómo hemos ayudado a nuestros clientes a alcanzar sus objetivos digitales."
-	/>
+  <HeroService
+    title="Nuestros Proyectos"
+    subtitle="Explora una selección directa de nuestros últimos retos superados. Diseño web espectacular conectado a ingeniería que genera negocio recurrente."
+    image="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771929988/cafe_v2_nrrwj7.webp"
+    badge="Casos de Éxito"
+  />
 
-	<section class="py-16">
-		<div class="container mx-auto px-4">
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-				{
-					Project?.map((project: any) => (
-						<ProjectCard
-							title={project.title}
-							description={project.description}
-							image={project.image}
-							tags={project.tags}
-							url={project.url}
-							pais={project.pais}
-						/>
-					))
-				}
-			</div>
-		</div>
-	</section>
+  <section class="py-24 bg-[#fcfcfd]">
+    <div class="container mx-auto px-4 md:px-8 max-w-7xl">
+      <div class="text-left mb-16 max-w-3xl">
+        <h2
+          class="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-gray-900"
+        >
+          Experiencia. <span class="text-gray-500">Diseño. Resultados.</span>
+        </h2>
+        <p class="text-xl text-gray-500 font-medium">
+          Descubre cómo hemos ayudado a nuestros clientes a escalar sus negocios
+          digitales, modernizar su identidad y agilizar sus procesos.
+        </p>
+      </div>
 
-	<!-- CTA -->
-	<section class="py-16 bg-secondary text-white relative overflow-hidden">
-		<div class="absolute inset-0 z-0">
-			<img
-				src="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756216204/marea_background_ico_dh5xdc.svg"
-				alt="Background pattern"
-				class="w-full h-full object-cover opacity-20"
-				title="Background pattern"
-				draggable="false"
-			/>
-		</div>
-		<div class="container mx-auto px-4 text-center relative z-10">
-			<span class="text-3xl font-bold mb-4">¿Tienes un proyecto en mente?</span>
-			<p class="text-xl mb-8 max-w-2xl mx-auto">
-				Contáctanos hoy mismo y hablemos sobre cómo podemos ayudarte a hacerlo
-				realidad.
-			</p>
-			<a
-				href="/contacto"
-				class="inline-block bg-gradient-to-r from-primary to-primary-700 text-white font-medium px-6 py-3 rounded-lg
-				 hover:bg-blue-700 border border-blue-600 relative"
-				style="transition: box-shadow 700ms;"
-				onmouseover="this.style.boxShadow='0 0 20px var(--color-primary)';"
-				onmouseout="this.style.boxShadow='none';"
-			>
-				Habla con nosotros
-			</a>
-		</div>
-	</section>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+      >
+        {
+          Project?.map((project: any) => (
+            <ProjectCard
+              title={project.title}
+              description={project.description}
+              image={project.image}
+              tags={project.tags}
+              url={project.url}
+              pais={project.pais}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <CtaSection />
 </Layout>

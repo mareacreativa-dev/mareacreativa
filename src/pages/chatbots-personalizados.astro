@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroService from "../components/HeroService.astro";
+import ServiceCarousel from "../components/ServiceCarousel.astro";
+---
+
+<Layout
+  title="Desarrollo de Chatbots e IA Inteligencia Artificial | Marea Creativa"
+>
+  <HeroService
+    badge="Inteligencia Artificial"
+    title="Chatbots Personalizados con IA Avanzada"
+    subtitle="Automatiza la atención de miles de usuarios al mismo tiempo, cierra procesos de venta y mejora tus métricas con agentes virtuales inteligentes operativos 24/7."
+    image="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771930346/chatbots_v2_sltcgz.png"
+  />
+
+  <section
+    class="max-w-4xl mx-auto py-20 px-6 md:px-8 text-gray-600 text-lg leading-relaxed font-medium"
+  >
+    <h2 class="text-3xl font-bold text-gray-900 mb-8 tracking-tight">
+      Agentes que aprenden de tu propio negocio
+    </h2>
+    <p class="mb-6">
+      No se trata de los antiguos bots con respuestas estáticas que frustran a
+      los clientes. Integramos IA generativa que se entrena con los PDFs, datos
+      de facturación, bases de conocimiento interno y páginas de soporte de tu
+      propia empresa. Conversan con un lenguaje natural y empático.
+    </p>
+    <p class="mb-10">
+      Cualquier usuario puede recibir asistencia técnica, realizar una reserva,
+      o cerrar el carrito de compras a medianoche mediante un asistente
+      implementado en tu landing page o conectado vía API a WhatsApp
+      empresarial.
+    </p>
+
+    <div
+      class="p-8 bg-blue-50/50 rounded-[32px] border border-blue-100 mt-4 text-center"
+    >
+      <h3 class="text-2xl font-bold text-primary mb-4">
+        La revolución del soporte
+      </h3>
+      <p class="mb-6 max-w-2xl mx-auto">
+        Integramos estos agentes conversacionales directamente hacia tus CRMs
+        para evitar pérdida de seguimiento (Hubspot, Salesforce, Airtable o a tu
+        propio Excel).
+      </p>
+    </div>
+  </section>
+
+  <div class="bg-gray-50 pt-10 pb-20">
+    <div class="max-w-7xl auto px-4 mb-8 text-center">
+      <h3 class="text-2xl font-bold text-gray-900">Explora Otros Servicios</h3>
+    </div>
+    <ServiceCarousel currentServiceTitle="Chatbots Personalizados" />
+  </div>
+</Layout>

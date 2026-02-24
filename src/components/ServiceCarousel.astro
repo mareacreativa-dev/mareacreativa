@@ -1,0 +1,192 @@
+---
+import AnimatedServiceCard from "./AnimatedServiceCard.jsx";
+
+export interface Props {
+  currentServiceTitle?: string;
+}
+
+const { currentServiceTitle } = Astro.props;
+
+const allServices = [
+  {
+    title: "Diseño web y desarrollo",
+    description: "Plataformas web optimizadas para máxima conversión.",
+    image:
+      "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771930277/office_team_sdjvxo.jpg",
+    variant: "image",
+    imageClassName: "object-cover object-bottom",
+    href: "/diseno-y-desarrollo-web",
+  },
+  {
+    title: "Rebranding e identidad",
+    description:
+      "Identidad visual que refleja autoridad y profesionalismo comercial.",
+    image:
+      "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771929812/rebranding_al9jxt.webp",
+    variant: "image",
+    imageClassName: "object-cover object-bottom",
+    href: "/rebranding-identidad",
+  },
+  {
+    title: "Chatbots Personalizados",
+    description:
+      "Asistentes virtuales con IA para responder consultas y ventas 24/7.",
+    image:
+      "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771930346/chatbots_v2_sltcgz.png",
+    variant: "image",
+    imageClassName: "object-cover object-bottom",
+    href: "/chatbots-personalizados",
+  },
+  {
+    title: "Servicios para Negocios Locales",
+    description:
+      "Atención y procesos óptimos para peluquerías y salones de belleza.",
+    image:
+      "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771930116/salon_v2_dbpsof.png",
+    variant: "image",
+    imageClassName: "object-cover object-bottom",
+    href: "/servicios-negocios-locales",
+  },
+  {
+    title: "Automatización de Procesos",
+    description:
+      "Flujos de trabajo automáticos que eliminan tareas manuales repetitivas.",
+    image:
+      "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771929987/automation_v2_qxqfq3.webp",
+    variant: "image",
+    imageClassName: "object-cover object-bottom",
+    href: "/automatizacion-de-procesos",
+  },
+  {
+    title: "Gestión y Hostelería",
+    description:
+      "Sistemas eficientes para reservas y marketing en cafeterías y restaurantes.",
+    image:
+      "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771929988/cafe_v2_nrrwj7.webp",
+    variant: "image",
+    imageClassName: "object-cover object-bottom",
+    href: "/gestion-hosteleria",
+  },
+];
+
+const filteredServices = allServices.filter(
+  (s) => s.title !== currentServiceTitle,
+);
+---
+
+<div class="w-full relative max-w-[1400px] mx-auto group">
+  <!-- Gradient mask to indicate more content to the right -->
+  <div
+    class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-gray-50/90 to-transparent z-10 transition-opacity"
+  >
+  </div>
+
+  <!-- Left mask (optional, shown only when scrolling, but we keep it simple or just use right) -->
+  <div
+    class="pointer-events-none absolute left-0 top-0 bottom-0 w-8 md:w-16 bg-gradient-to-r from-gray-50/90 to-transparent z-10"
+  >
+  </div>
+
+  <div
+    class="grab-slider flex overflow-x-auto gap-6 sm:gap-8 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar px-4 md:px-8 cursor-grab"
+  >
+    {
+      filteredServices.map((service, index) => (
+        <div class="shrink-0 w-[85vw] sm:w-[420px] snap-center">
+          <AnimatedServiceCard
+            client:visible
+            title={service.title}
+            description={service.description}
+            variant={service.variant}
+            image={service.image}
+            imageClassName={service.imageClassName}
+            index={index}
+            className="h-[450px] w-full select-none"
+            href={service.href}
+          />
+        </div>
+      ))
+    }
+    <!-- Espaciador extra al final para que la última tarjeta no quede pegada bajo el gradiente -->
+    <div class="shrink-0 w-12 md:w-24"></div>
+  </div>
+</div>
+
+<script>
+  // @ts-nocheck
+  // Script para permitir arrastrar y soltar con el ratón (Grab to Pan)
+  document.addEventListener("DOMContentLoaded", () => {
+    const sliders = document.querySelectorAll(".grab-slider");
+
+    sliders.forEach((sliderNode) => {
+      const slider = /** @type {HTMLElement} */ sliderNode;
+      let isDown = false;
+      let startX = 0;
+      let scrollLeft = 0;
+      let isDragging = false;
+
+      slider.addEventListener("mousedown", (e) => {
+        const mouseEvent = /** @type {MouseEvent} */ e;
+        isDown = true;
+        isDragging = false;
+        slider.classList.add("cursor-grabbing");
+        slider.classList.remove("cursor-grab", "snap-x", "snap-mandatory"); // Quitamos el 'snap' al arrastrar para que sea fluido
+        startX = mouseEvent.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+      });
+
+      slider.addEventListener("mouseleave", () => {
+        isDown = false;
+        slider.classList.remove("cursor-grabbing");
+        slider.classList.add("cursor-grab", "snap-x", "snap-mandatory");
+      });
+
+      slider.addEventListener("mouseup", () => {
+        isDown = false;
+        slider.classList.remove("cursor-grabbing");
+        slider.classList.add("cursor-grab", "snap-x", "snap-mandatory");
+      });
+
+      slider.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const mouseEvent = /** @type {MouseEvent} */ e;
+        const x = mouseEvent.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2; // Multiplicador de velocidad de arrastre
+
+        if (Math.abs(walk) > 5) {
+          isDragging = true; // Si se mueve más de 5px consideramos que es arrastre
+        }
+
+        slider.scrollLeft = scrollLeft - walk;
+      });
+
+      // Prevenir el clic en enlaces si el usuario estaba arrastrando
+      slider.addEventListener(
+        "click",
+        (e) => {
+          if (isDragging) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        },
+        true, // Capturar en la fase bajada antes de que el enlace hijo lo dispare
+      );
+
+      // Prevenir el arrastre nativo de imágenes/enlaces para que no interfiera
+      slider.addEventListener("dragstart", (e) => {
+        e.preventDefault();
+      });
+    });
+  });
+</script>
+<style>
+  /* Ocultar barra de scroll nativa */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>

@@ -1,50 +1,127 @@
 ---
 export interface Props {
-	title: string;
-	subtitle: string;
-	ctaText?: string;
-	ctaLink?: string;
+  title: string;
+  subtitle: string;
+  ctaText?: string;
+  ctaLink?: string;
+  badge?: string;
 }
 
 const {
-	title,
-	subtitle,
-	ctaText = "Habla con nosotros",
-	ctaLink = "/contacto",
+  title,
+  subtitle,
+  ctaText = "Hablar con un experto",
+  ctaLink = "/contacto",
+  badge = "Startup Tecnológica",
 } = Astro.props;
+
+// For highlighting text like in the reference image
+const highlightedTitle = "sin trabajar el doble";
+const mainTitle = title
+  .replace("sin que tú ni tu equipo tengan que trabajar el doble.", "")
+  .replace("sin trabajar el doble", "")
+  .trim();
+
+// Image for the right side card
+const imgRight =
+  "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771930277/office_team_sdjvxo.jpg";
 ---
 
-<section class="bg-secondary text-white py-36 relative overflow-hidden">
-	<div
-		class="absolute inset-0 z-0 bg-secondary"
-		style="
-			background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 30%, rgba(44, 62, 80, 0.2) 100%), 
-			url('https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756216204/marea_background_ico_dh5xdc.svg') top left / cover no-repeat;
-			opacity: 0.8;
-		"
-	>
-	</div>
-	<div class="container mx-auto px-4 relative z-10">
-		<div class="max-w-5xl">
-			<h1
-				class="text-4xl md:text-7xl font-bold mb-6 fade-in-up"
-				transition:name="title"
-			>
-				{title}
-			</h1>
-			<p class="text-xl mb-8 font-extralight" transition:name="subtitle">
-				{subtitle}
-			</p>
-			<a
-				transition:name="cta"
-				href={ctaLink}
-				class="inline-block bg-gradient-to-r from-primary to-primary-700 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors border border-blue-600"
-				style="transition: box-shadow 700ms;"
-				onmouseover="this.style.boxShadow='0 0 20px var(--color-primary)';"
-				onmouseout="this.style.boxShadow='none';"
-			>
-				{ctaText}
-			</a>
-		</div>
-	</div>
+<section class="w-full bg-white pb-16 px-4 md:px-6 lg:px-8">
+  <div
+    class="relative w-full max-w-[1400px] mx-auto rounded-b-[32px] md:rounded-b-[48px] overflow-hidden bg-[#f8f9fb] shadow-sm border-x border-b border-gray-100 flex flex-col md:flex-row fade-in-up"
+  >
+    <!-- Contenido del Hero (Mitad Izquierda) -->
+    <div
+      class="relative z-10 w-full md:w-1/2 lg:w-3/5 flex flex-col justify-center pt-20 md:pt-24 pb-12 px-8 md:px-14 lg:px-20 order-2 md:order-1"
+    >
+      <!-- Subtle background glow/reflection inside the card -->
+      <div
+        class="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4 pointer-events-none"
+      >
+      </div>
+
+      {
+        badge && (
+          <div
+            class="inline-flex items-center space-x-2 bg-white text-blue-700 rounded-full px-5 py-2 mb-8 font-semibold text-xs tracking-wider uppercase shadow-sm border border-gray-100 w-fit relative z-10 fade-in-up"
+            style="animation-delay: 50ms;"
+          >
+            <span>{badge}</span>
+          </div>
+        )
+      }
+
+      <h1
+        class="text-4xl md:text-5xl lg:text-[4.5rem] font-semibold tracking-tight text-gray-900 leading-[1.05] mb-6 relative z-10 fade-in-up"
+        style="animation-delay: 100ms;"
+      >
+        {mainTitle}
+        <br />
+        <span class="text-blue-600 font-bold">{highlightedTitle}.</span>
+      </h1>
+
+      <p
+        class="text-lg md:text-xl text-gray-500 max-w-xl leading-relaxed mb-10 relative z-10 fade-in-up"
+        style="animation-delay: 150ms;"
+      >
+        {subtitle}
+      </p>
+
+      <div
+        class="flex flex-col sm:flex-row gap-4 relative z-10 content-start outline-none fade-in-up"
+        style="animation-delay: 200ms;"
+      >
+        <a
+          href={ctaLink}
+          class="inline-flex justify-center items-center bg-blue-600 text-white font-medium text-lg px-8 py-4 rounded-full hover:bg-blue-700 transition duration-200 shadow-md shadow-blue-500/20 active:scale-95"
+        >
+          {ctaText}
+        </a>
+        <a
+          href="/servicios"
+          class="inline-flex justify-center items-center bg-white text-gray-900 border border-gray-200 font-medium text-lg px-8 py-4 rounded-full hover:bg-gray-50 transition duration-200 active:scale-95 shadow-sm"
+        >
+          Descubrir cómo
+        </a>
+      </div>
+    </div>
+
+    <!-- Imagen del Hero (Mitad Derecha) -->
+    <div
+      class="relative w-full md:w-1/2 lg:w-2/5 h-64 md:h-auto order-1 md:order-2 group"
+    >
+      <!-- Blend gradient desktop (left to right) -->
+      <div
+        class="hidden md:block absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#f8f9fb] to-transparent z-20 pointer-events-none"
+      >
+      </div>
+      <!-- Blend gradient mobile (from top to bottom) -->
+      <div
+        class="block md:hidden absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#f8f9fb] to-transparent z-20 pointer-events-none"
+      >
+      </div>
+
+      <img
+        src={imgRight}
+        alt="Diseño web y equipo"
+        class="absolute inset-0 w-full h-full object-cover object-center z-10"
+      />
+    </div>
+  </div>
 </section>
+
+<style>
+  .fade-in-up {
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

@@ -1,0 +1,85 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroService from "../components/HeroService.astro";
+import ServiceCarousel from "../components/ServiceCarousel.astro";
+---
+
+<Layout title="Diseño Web y Desarrollo Profesional | Marea Creativa">
+  <HeroService
+    badge="Diseño Web"
+    title="Diseño y Desarrollo de Tiendas Online y Webs Corporativas"
+    subtitle="Plataformas web de alto rendimiento optimizadas para máxima conversión, pensadas para hacer crecer tu marca y multiplicar tus ventas online."
+    image="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771930277/office_team_sdjvxo.jpg"
+  />
+
+  <section
+    class="max-w-4xl mx-auto py-20 px-6 md:px-8 text-gray-600 text-lg leading-relaxed font-medium"
+  >
+    <h2 class="text-3xl font-bold text-gray-900 mb-8 tracking-tight">
+      Convertimos visitas en clientes reales
+    </h2>
+    <p class="mb-6">
+      El diseño de tu sitio web no es solo tu carta de presentación; es el motor
+      comercial que debe generar interés las 24 horas del día. En Marea
+      Creativa, desarrollamos sitios con arquitectura optimizada para el
+      posicionamiento SEO, velocidad de carga premium y experiencias de usuario
+      que guían a tus prospectos directamente hacia el cierre de la venta.
+    </p>
+    <p class="mb-10">
+      Nos especializamos en construir tiendas online y e-commerce robustos que
+      escalan con tus necesidades empresariales.
+    </p>
+
+    <div class="p-8 bg-blue-50/50 rounded-[32px] border border-blue-100">
+      <h3 class="text-xl font-bold text-primary mb-4">
+        ¿Qué incluye nuestro servicio web?
+      </h3>
+      <ul class="space-y-4">
+        <li class="flex items-center gap-3">
+          <svg
+            class="text-blue-500 w-6 h-6"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            ><path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          Auditoría y consultoría estratégica de arquitectura SEO
+        </li>
+        <li class="flex items-center gap-3">
+          <svg
+            class="text-blue-500 w-6 h-6"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            ><path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          Diseño UI/UX Apple-like centrado en el usuario
+        </li>
+        <li class="flex items-center gap-3">
+          <svg
+            class="text-blue-500 w-6 h-6"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            ><path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"></path>
+          </svg>
+          Optimizaciones avanzadas para la máxima conversión
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Related Services / Other Options -->
+  <div class="bg-gray-50 pt-10 pb-20">
+    <div class="max-w-7xl auto px-4 mb-8 text-center">
+      <h3 class="text-2xl font-bold text-gray-900">Explora Otros Servicios</h3>
+    </div>
+    <ServiceCarousel currentServiceTitle="Diseño web y desarrollo" />
+  </div>
+</Layout>

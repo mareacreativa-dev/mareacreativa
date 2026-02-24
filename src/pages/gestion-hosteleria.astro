@@ -1,0 +1,67 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroService from "../components/HeroService.astro";
+import ServiceCarousel from "../components/ServiceCarousel.astro";
+---
+
+<Layout title="Software, Marketing y Gestión para Hostelería | Marea Creativa">
+  <HeroService
+    badge="Restaurantes Inteligentes"
+    title="Sistemas de Gestión y Digitalización Integral para Hostelería"
+    subtitle="Simplifica la administración general de tu bar, cafetería o restaurante y eleva drásticamente los márgenes de beneficios con una digitalización adaptada a tu sector."
+    image="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771929988/cafe_v2_nrrwj7.webp"
+  />
+
+  <section
+    class="max-w-4xl mx-auto py-20 px-6 md:px-8 text-gray-600 text-lg leading-relaxed font-medium"
+  >
+    <h2 class="text-3xl font-bold text-gray-900 mb-8 tracking-tight">
+      Menos caos en las horas punta
+    </h2>
+    <p class="mb-6">
+      Organizar las comandas, agendar las mesas en múltiples plataformas online
+      a la vez y controlar el personal o los inventarios puede resultar un reto
+      letal para tu negocio de hostelería sin los softwares adecuados.
+    </p>
+    <p class="mb-10">
+      Nos ocupamos de conectar por completo tu infraestructura online y punto de
+      venta: desde TPVs inteligentes que se interconectan con una web
+      optimizada, sistemas de QR avanzados que admiten auto-pagos en mesa o
+      reseñas para incentivar el SEO en Google, hasta fidelización en piloto
+      automático (comunicaciones de ofertas de tu bar a sus mejores clientes).
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div
+        class="p-8 border border-gray-100 rounded-[32px] bg-white shadow-sm hover:shadow-md transition-shadow"
+      >
+        <h3 class="font-bold text-gray-900 text-xl mb-2">
+          Visibilidad Gastronómica Integral
+        </h3>
+        <p class="text-gray-500 font-medium text-base">
+          Posicionamos tu perfil de restaurante (TripAdvisor, Google Maps, Apple
+          Maps, Instagram) para captar tráfico inmediato tanto de turistas como
+          locales.
+        </p>
+      </div>
+      <div
+        class="p-8 border border-gray-100 rounded-[32px] bg-white shadow-sm hover:shadow-md transition-shadow"
+      >
+        <h3 class="font-bold text-gray-900 text-xl mb-2">
+          Pedidos QR interactivos
+        </h3>
+        <p class="text-gray-500 font-medium text-base">
+          Un canal autónomo que agiliza el trabajo de tus camareros, elevando el
+          upselling gracias al marketing de la carta digital de forma visual.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="bg-gray-50 pt-10 pb-20">
+    <div class="max-w-7xl auto px-4 mb-8 text-center">
+      <h3 class="text-2xl font-bold text-gray-900">Explora Otros Servicios</h3>
+    </div>
+    <ServiceCarousel currentServiceTitle="Gestión y Hostelería" />
+  </div>
+</Layout>

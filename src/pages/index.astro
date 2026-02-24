@@ -2,21 +2,21 @@
 import HeroIndex from "../components/HeroIndex.astro";
 import Layout from "../layouts/Layout.astro";
 import ServiceSection from "../components/ServiceSection.astro";
-import ProjectsHighlights from "../components/ProjectsHighlights.astro";
+import CompanyLogos from "../components/CompanyLogos.astro";
 import TestimonialSection from "../components/TestimonialSection.astro";
 import CtaSection from "../components/CtaSection.astro";
 ---
 
 <Layout>
-	<div id="hero">
-		<HeroIndex
-			title="Diseño y Desarrollo de aplicaciones web "
-			subtitle="Creamos sitios web modernos, rápidos y optimizados para negocios que quieren destacar en internet."
-		/>
-		<ServiceSection />
+  <div id="hero">
+    <HeroIndex
+      title="Tu empresa escalando las 24 horas, sin que tú ni tu equipo tengan que trabajar el doble."
+      subtitle="Convertimos tu web en una máquina de ventas e implementamos automatizaciones que atienden a tus clientes 24/7."
+    />
+    <ServiceSection />
 
-		<ProjectsHighlights />
-		<TestimonialSection />
-		<CtaSection />
-	</div>
+    <CompanyLogos />
+    <TestimonialSection />
+    <CtaSection />
+  </div>
 </Layout>
