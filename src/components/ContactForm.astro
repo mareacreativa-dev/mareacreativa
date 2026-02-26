@@ -152,6 +152,39 @@
     }
   }
 
+  async function enviarATelegram(datos) {
+    const token = "8396220653:AAGdOZCOCn3nXnpl6VCU02XMUqEUIGdfoow";
+    const chatId = "7202779540"; // ID del chat donde quieres recibir los leads
+    const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+    const mensaje =
+      `🚨 *Nueva Solicitud Web*\n\n` +
+      `👤 *Nombre:* ${datos.name}\n` +
+      `📧 *Email:* ${datos.email}\n` +
+      `📞 *Teléfono:* ${datos.phone || "No proporcionado"}\n\n` +
+      `📝 *Detalles:*\n${datos.message}`;
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: mensaje,
+          parse_mode: "Markdown",
+        }),
+      });
+
+      if (!response.ok) {
+        console.error("Error enviando a Telegram");
+      }
+    } catch (error) {
+      console.error("Error de red enviando a Telegram:", error);
+    }
+  }
+
   document
     .getElementById("contactForm")
     .addEventListener("submit", async function (event) {
@@ -178,7 +211,10 @@
       };
 
       try {
-        await enviarAFormSubmit(datosFormulario);
+        await Promise.all([
+          enviarAFormSubmit(datosFormulario),
+          enviarATelegram(datosFormulario),
+        ]);
 
         document.getElementById("responseMessage").classList.remove("hidden");
         form.reset();
