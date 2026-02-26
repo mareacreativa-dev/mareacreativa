@@ -126,40 +126,28 @@
 </div>
 
 <script>
-  async function enviarAHubspot(datos) {
-    const portalId = "147891495";
-    const formGuid = "23886a00-0e56-4aad-b5a7-9f9d5c53ea81";
-
-    // Al usar la región 'eu1' en HubSpot, la URL base de la API debe ser api-eu1.hsforms.com
-    const url = `https://api-eu1.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
+  async function enviarAFormSubmit(datos) {
+    const url = "https://formsubmit.co/ajax/mareacreativa90@gmail.com";
 
     const data = {
-      fields: [
-        { name: "firstname", value: datos.name },
-        { name: "email", value: datos.email },
-        { name: "telefono", value: datos.phone },
-        // En HubSpot generalmente el campo de "Descripción" del proyecto puede llamarse 'message' internamente,
-        // pero puedes ajustarlo si tu propiedad tiene otro nombre en HubSpot.
-        { name: "descripcion", value: datos.message },
-      ],
-      context: {
-        pageUri: window.location.href, // Guarda en qué página estaban cuando enviaron el form
-        pageName: document.title,
-      },
+      Nombre: datos.name,
+      Email: datos.email,
+      Teléfono: datos.phone || "No proporcionado",
+      "Detalles del Proyecto": datos.message,
+      _subject: `Nueva solicitud de proyecto de ${datos.name}`,
     };
 
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify(data),
     });
 
     if (!response.ok) {
-      const errorResponse = await response.json();
-      console.error("HubSpot response error:", errorResponse);
-      throw new Error("Error enviando a HubSpot");
+      throw new Error("Error enviando el correo");
     }
   }
 
@@ -181,7 +169,6 @@
       btn.innerHTML = "Enviando...";
       btn.disabled = true;
 
-      // Recolectamos los datos de nuestro hermoso formulario de Astro
       const datosFormulario = {
         name: document.getElementById("name").value,
         email: document.getElementById("email").value,
@@ -190,7 +177,7 @@
       };
 
       try {
-        await enviarAHubspot(datosFormulario);
+        await enviarAFormSubmit(datosFormulario);
 
         document.getElementById("responseMessage").classList.remove("hidden");
         form.reset();
