@@ -135,6 +135,7 @@
       Teléfono: datos.phone || "No proporcionado",
       "Detalles del Proyecto": datos.message,
       _subject: `Nueva solicitud de proyecto de ${datos.name}`,
+      _template: "box",
     };
 
     const response = await fetch(url, {
