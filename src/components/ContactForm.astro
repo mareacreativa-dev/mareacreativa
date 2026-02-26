@@ -13,12 +13,7 @@
     </p>
   </div>
 
-  <form
-    id="contactForm"
-    action="https://docs.google.com/forms/d/e/1FAIpQLScFrWSrTddXWfFHzSOfyuNnVlWd-aHI53d0K3jhlQL2KKI4dg/formResponse"
-    method="POST"
-    class="space-y-5"
-  >
+  <form id="contactForm" class="space-y-5">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
       <div>
         <label
@@ -30,7 +25,7 @@
         <input
           type="text"
           id="name"
-          name="entry.1800349953"
+          name="firstname"
           placeholder="Ej: Laura Méndez"
           class="w-full px-4 py-3 text-sm bg-gray-50 border-transparent rounded-[12px] focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none"
           required
@@ -46,7 +41,7 @@
         <input
           type="email"
           id="email"
-          name="entry.2124881491"
+          name="email"
           placeholder="hola@tuempresa.com"
           class="w-full px-4 py-3 text-sm bg-gray-50 border-transparent rounded-[12px] focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none"
           required
@@ -66,10 +61,9 @@
       <input
         type="text"
         id="phone"
-        name="entry.798637810"
+        name="telefono"
         placeholder="+34 600 000 000"
         class="w-full px-4 py-3 text-sm bg-gray-50 border-transparent rounded-[12px] focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none"
-        required
       />
     </div>
 
@@ -82,30 +76,23 @@
       </label>
       <textarea
         id="message"
-        name="entry.2098013047"
+        name="descripcion"
         rows="3"
         placeholder="Háblanos sobre los problemas actuales y tus metas a lograr..."
         class="w-full px-4 py-3 text-sm bg-gray-50 border-transparent rounded-[12px] focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none resize-none"
         required></textarea>
     </div>
 
-    <div class="flex items-end gap-5 bg-[#f8f9fb] p-5 rounded-[16px]">
-      <div class="flex-grow">
-        <label
-          for="captcha"
-          class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide"
-        >
-          Seguridad: 4 + 5 =
-        </label>
-        <input
-          type="text"
-          id="captcha"
-          name="captcha"
-          placeholder="Escribe el número"
-          class="w-full px-4 py-3 text-sm bg-white border border-gray-100 rounded-[12px] focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none"
-          required
-        />
-      </div>
+    <!-- Honeypot (Anti-Spam invisible para usuarios) -->
+    <div class="absolute left-[-5000px]" aria-hidden="true">
+      <input
+        type="text"
+        id="website_url"
+        name="website_url"
+        tabindex="-1"
+        autocomplete="off"
+        placeholder="Deja este campo en blanco"
+      />
     </div>
 
     <button
@@ -138,67 +125,81 @@
   </form>
 </div>
 
-<script
-  type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
-></script>
-<script type="text/javascript">
-  (function () {
-    emailjs.init({
-      publicKey: "JiJnaCt5D381Waewl",
-    });
-  })();
-</script>
 <script>
-  function sendEmail() {
-    let params = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      phone: document.getElementById("phone").value,
-      message: document.getElementById("message").value,
+  async function enviarAHubspot(datos) {
+    const portalId = "147891495";
+    const formGuid = "23886a00-0e56-4aad-b5a7-9f9d5c53ea81";
+
+    // Al usar la región 'eu1' en HubSpot, la URL base de la API debe ser api-eu1.hsforms.com
+    const url = `https://api-eu1.hsforms.com/submissions/v3/integration/submit/${portalId}/${formGuid}`;
+
+    const data = {
+      fields: [
+        { name: "firstname", value: datos.name },
+        { name: "email", value: datos.email },
+        { name: "telefono", value: datos.phone },
+        // En HubSpot generalmente el campo de "Descripción" del proyecto puede llamarse 'message' internamente,
+        // pero puedes ajustarlo si tu propiedad tiene otro nombre en HubSpot.
+        { name: "descripcion", value: datos.message },
+      ],
+      context: {
+        pageUri: window.location.href, // Guarda en qué página estaban cuando enviaron el form
+        pageName: document.title,
+      },
     };
-    return emailjs
-      .send(
-        "service_7dc1ucy",
-        "template_2y7kpq9",
-        params,
-        // "user_2YxW4mJt3b8K5hX"
-      )
-      .catch((error) => {
-        console.error("Error al enviar el mensaje:", error);
-      });
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      console.error("HubSpot response error:", errorResponse);
+      throw new Error("Error enviando a HubSpot");
+    }
   }
 
   document
     .getElementById("contactForm")
-    .addEventListener("submit", function (event) {
+    .addEventListener("submit", async function (event) {
       event.preventDefault();
       const form = event.target;
-      const captchaInput = document.getElementById("captcha").value;
+      const honeypotInput = document.getElementById("website_url").value;
 
-      if (captchaInput !== "9") {
-        event.preventDefault();
-        alert("Por favor, resuelve correctamente la suma de seguridad.");
-      } else {
-        const btn = form.querySelector('button[type="submit"]');
-        const oldText = btn.innerHTML;
-        btn.innerHTML = "Enviando...";
-        btn.disabled = true;
+      // Si el honeypot (campo oculto) contiene texto, es un bot.
+      if (honeypotInput !== "") {
+        console.warn("Spam detectado y bloqueado.");
+        return; // Salimos de la función silenciosamente
+      }
 
-        sendEmail()
-          .then(() => {
-            document
-              .getElementById("responseMessage")
-              .classList.remove("hidden");
-            form.reset();
-            btn.innerHTML = oldText;
-            btn.disabled = false;
-          })
-          .catch(() => {
-            alert("Hubo un error al enviar el formulario. Inténtalo de nuevo.");
-            btn.innerHTML = oldText;
-            btn.disabled = false;
-          });
+      const btn = form.querySelector('button[type="submit"]');
+      const oldText = btn.innerHTML;
+      btn.innerHTML = "Enviando...";
+      btn.disabled = true;
+
+      // Recolectamos los datos de nuestro hermoso formulario de Astro
+      const datosFormulario = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        message: document.getElementById("message").value,
+      };
+
+      try {
+        await enviarAHubspot(datosFormulario);
+
+        document.getElementById("responseMessage").classList.remove("hidden");
+        form.reset();
+      } catch (error) {
+        console.error("Error al enviar el mensaje:", error);
+        alert("Hubo un error al enviar el formulario. Inténtalo de nuevo.");
+      } finally {
+        btn.innerHTML = oldText;
+        btn.disabled = false;
       }
     });
 </script>

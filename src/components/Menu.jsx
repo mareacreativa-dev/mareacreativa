@@ -43,12 +43,6 @@ const Menu = () => {
 
 				{/* Menú para pantallas grandes */}
 				<div className="hidden md:flex space-x-8 items-center">
-					<a
-						href="/"
-						className="font-medium text-white hover:text-primary transition-colors"
-					>
-						Inicio
-					</a>
 					
 					{/* Dropdown de Servicios (Desktop) */}
 					<div className="relative group">
@@ -83,7 +77,7 @@ const Menu = () => {
 					</a>
 					<a
 						href="/contacto"
-						className="inline-block bg-gradient-to-r from-primary to-primary-700 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors border border-blue-600 shadow-lg shadow-blue-500/20"
+						className="inline-block bg-gradient-to-r from-primary to-primary-700 text-white font-medium px-6 py-3 rounded-full hover:bg-blue-700 transition-colors border border-blue-600 shadow-lg shadow-blue-500/20"
 					>
 						Contacto
 					</a>
@@ -121,12 +115,6 @@ const Menu = () => {
 				}`}
 			>
 				<div className="px-6 py-6 pb-8 flex flex-col space-y-4 max-w-7xl mx-auto bg-gray-900 rounded-b-3xl border-t border-gray-800">
-					<a
-						href="/"
-						className="py-2 font-medium text-xl text-white hover:text-primary transition-colors"
-					>
-						Inicio
-					</a>
 					
 					{/* Dropdown Servicios Mobile */}
 					<div className="flex flex-col">
@@ -155,7 +143,7 @@ const Menu = () => {
 					</a>
 					<a
 						href="/contacto"
-						className="mt-4 text-center bg-primary text-white font-medium px-6 py-4 rounded-xl hover:bg-blue-700 transition-colors"
+						className="mt-4 text-center bg-primary text-white font-medium px-6 py-4 rounded-full hover:bg-blue-700 transition-colors"
 					>
 						Habla con nosotros
 					</a>

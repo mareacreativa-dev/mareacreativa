@@ -92,7 +92,7 @@ const filteredServices = allServices.filter(
   >
     {
       filteredServices.map((service, index) => (
-        <div class="shrink-0 w-[85vw] sm:w-[420px] snap-center">
+        <div class="shrink-0 w-[85vw] sm:w-[320px] snap-center">
           <AnimatedServiceCard
             client:visible
             title={service.title}
@@ -101,7 +101,7 @@ const filteredServices = allServices.filter(
             image={service.image}
             imageClassName={service.imageClassName}
             index={index}
-            className="h-[450px] w-full select-none"
+            className="aspect-[3/4] h-auto w-full max-h-[450px]"
             href={service.href}
           />
         </div>

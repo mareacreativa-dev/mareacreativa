@@ -1,40 +1,39 @@
 ---
 export interface Props {
-	title: string;
-	subtitle?: string;
-	ctaText?: string;
-	ctaLink?: string;
+  title: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaLink?: string;
 }
 
 const {
-	title,
-	subtitle,
-	ctaText = "Habla con nosotros",
-	ctaLink = "/contacto",
+  title,
+  subtitle,
+  ctaText = "Habla con nosotros",
+  ctaLink = "/contacto",
 } = Astro.props;
 ---
 
 <section class="bg-secondary text-white py-16 relative overflow-hidden">
-	<div
-		class="absolute inset-0 z-0 bg-secondary opacity-30
-  bg-[url('https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756216204/marea_background_ico_dh5xdc.svg')] bg-cover bg-no-repeat bg-top-left"
-	>
-	</div>
-	<div class="container mx-auto px-4 relative z-10">
-		<div class="max-w-3xl">
-			<h1 class="text-4xl md:text-5xl font-bold mb-6" transition:name="title">
-				{title}
-			</h1>
-			<p class="text-xl mb-8 font-extralight" transition:name="subtitle">
-				{subtitle}
-			</p>
-			<a
-				transition:name="cta"
-				href={ctaLink}
-				class="inline-block bg-gradient-to-r from-primary to-primary-700 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors border border-blue-600"
-			>
-				{ctaText}
-			</a>
-		</div>
-	</div>
+  <div
+    class="absolute inset-0 z-0 bg-secondary opacity-30 bg-[url('https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756216204/marea_background_ico_dh5xdc.svg')] bg-cover bg-no-repeat bg-top-left"
+  >
+  </div>
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6" transition:name="title">
+        {title}
+      </h1>
+      <p class="text-xl mb-8 font-extralight" transition:name="subtitle">
+        {subtitle}
+      </p>
+      <a
+        transition:name="cta"
+        href={ctaLink}
+        class="inline-block bg-gradient-to-r from-primary to-primary-700 text-white font-medium px-6 py-3 rounded-full hover:bg-blue-700 transition-colors border border-blue-600"
+      >
+        {ctaText}
+      </a>
+    </div>
+  </div>
 </section>
