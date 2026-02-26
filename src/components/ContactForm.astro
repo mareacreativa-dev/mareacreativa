@@ -409,7 +409,8 @@
         const urlVoice = `https://api.telegram.org/bot${token}/sendVoice`;
         const formData = new FormData();
         formData.append("chat_id", chatId);
-        formData.append("voice", audioBlob, "nota_de_voz.webm");
+        const extension = audioBlob.type.includes("mp4") ? "mp4" : "webm";
+        formData.append("voice", audioBlob, `nota_de_voz.${extension}`);
         formData.append("caption", `🎙️ Audio adjunto de ${datos.name}`);
 
         await fetch(urlVoice, {
@@ -457,7 +458,8 @@
         };
 
         mediaRecorder.onstop = () => {
-          audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+          const mimeType = mediaRecorder.mimeType || "audio/webm";
+          audioBlob = new Blob(audioChunks, { type: mimeType });
           const audioUrl = URL.createObjectURL(audioBlob);
           audioPlayback.src = audioUrl;
 
