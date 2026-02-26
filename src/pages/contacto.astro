@@ -1,12 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ContactForm from "../components/ContactForm.astro";
-import {
-  MessageCircleQuestionMark,
-  Phone,
-  MapPin,
-  MailCheck,
-} from "lucide-react";
 ---
 
 <Layout
@@ -15,176 +9,197 @@ import {
   keywords="contacto marea creativa, agencia seo alicante, diseño web contacto, presupuesto diseño web, consultoria marketing digital"
   image="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771944145/home_hero_yqmogi.png"
 >
-  <!-- Contact Hero / Split Layout sin la tarjeta gris -->
-  <section class="w-full bg-white pt-10 md:pt-14 pb-14 px-4 md:px-6 lg:px-8">
+  <!-- Main Top Section (Hero + Form) -->
+  <section class="w-full bg-white pt-6 md:pt-10 pb-10 px-4 md:px-6 lg:px-8">
     <div class="max-w-5xl lg:max-w-6xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-        <!-- Mitad Izquierda: Textos y canales -->
-        <div class="flex flex-col justify-start">
-          <div
-            class="inline-flex items-center space-x-2 bg-blue-50 text-blue-700 rounded-full px-5 py-2 mb-8 font-semibold text-xs tracking-wider uppercase border border-blue-100 w-fit fade-in-up"
-          >
-            <span>Hablemos</span>
-          </div>
-
-          <h1
-            class="text-4xl md:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-gray-900 leading-[1.05] mb-4 fade-in-up"
-            style="animation-delay: 50ms;"
-          >
-            Ponte en <span class="text-blue-600 font-bold">contacto.</span>
-          </h1>
-
-          <p
-            class="text-sm md:text-base text-gray-500 max-w-lg leading-relaxed mb-8 fade-in-up"
-            style="animation-delay: 100ms;"
-          >
-            Estamos listos para transformar tu negocio. Completa la solicitud o
-            escríbenos directamente a nuestros canales.
-          </p>
-
-          <div
-            class="flex flex-col gap-5 fade-in-up"
-            style="animation-delay: 150ms;"
-          >
-            <div class="flex items-center gap-6 group">
-              <div
-                class="w-12 h-12 rounded-full bg-[#f8f9fb] shadow-sm border border-gray-100 text-blue-600 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300"
-              >
-                <Phone size={20} strokeWidth={1.5} />
-              </div>
-              <div>
-                <p
-                  class="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1"
-                >
-                  Llámanos o WhatsApp
-                </p>
-                <a
-                  href="https://wa.me/34605373537"
-                  target="_blank"
-                  class="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors"
-                  >+34 605 373 537</a
-                >
-              </div>
-            </div>
-
-            <div class="flex items-center gap-5 group">
-              <div
-                class="w-12 h-12 rounded-full bg-[#f8f9fb] shadow-sm border border-gray-100 text-blue-600 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300"
-              >
-                <MapPin size={20} strokeWidth={1.5} />
-              </div>
-              <div>
-                <p
-                  class="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1"
-                >
-                  Nuestra Ubicación
-                </p>
-                <p class="text-lg font-bold text-gray-900">Alicante, España</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mitad Derecha: Componente de Formulario Elevado -->
-        <div class="relative fade-in-up" style="animation-delay: 200ms;">
-          <ContactForm />
-        </div>
-      </div>
+      <ContactForm />
     </div>
   </section>
 
-  <!-- FAQ Section adaptada a los nuevos servicios -->
-  <section class="py-24 bg-[#f8f9fb] border-t border-gray-100">
-    <div class="container mx-auto px-4 md:px-8 max-w-5xl">
-      <div class="text-center mb-16 fade-in-up">
-        <h2 class="text-4xl font-bold tracking-tight text-gray-900 mb-6">
+  <!-- FAQ Section (Bottom, Full Width Grid) -->
+  <section class="py-10 md:py-14 bg-[#f8f9fb] border-t border-gray-100">
+    <div class="max-w-5xl lg:max-w-6xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="mb-8 text-center md:text-left fade-in-up">
+        <h2
+          class="text-2xl lg:text-3xl font-bold tracking-tight text-gray-900 mb-3"
+        >
           Preguntas Frecuentes
         </h2>
-        <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+        <p class="text-gray-500 text-sm md:text-base max-w-2xl">
           Resolvemos las dudas habituales acerca de nuestras soluciones
-          digitales y de automatización.
+          digitales.
         </p>
       </div>
 
       <div
         class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in-up"
-        style="animation-delay: 150ms;"
+        style="animation-delay: 100ms;"
       >
         <!-- FAQ 1 -->
-        <div
-          class="bg-white p-8 md:p-10 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300"
+        <details
+          class="group bg-white rounded-2xl border border-gray-100 p-5 md:p-6 shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden open:pb-6"
         >
-          <div
-            class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-6"
+          <summary
+            class="flex items-center justify-between font-bold text-base md:text-lg text-gray-900 list-none [&::-webkit-details-marker]:hidden"
           >
-            <MessageCircleQuestionMark size={24} />
+            <div class="flex items-center gap-3">
+              <div
+                class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path><path
+                    d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path
+                    d="M12 17h.01"></path>
+                </svg>
+              </div>
+              <span>¿Qué incluye el Diseño Web?</span>
+            </div>
+            <span
+              class="text-blue-600 font-medium text-2xl group-open:rotate-45 transition-transform duration-300 origin-center"
+              >+</span
+            >
+          </summary>
+          <div
+            class="mt-4 text-gray-500 text-sm leading-relaxed pl-11 animate-fade-in-down"
+          >
+            Nuestros proyectos incluyen diseño a medida responsive,
+            configuración del entorno web y optimización SEO on-page básica.
           </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
-            ¿Qué incluye exactamente el Diseño Web?
-          </h3>
-          <p class="text-gray-500 leading-relaxed">
-            Nuestros proyectos incluyen diseño a medida responsive, hosting,
-            dominio, optimización SEO on-page y formación para que puedas
-            autogestionar el contenido fácilmente.
-          </p>
-        </div>
+        </details>
 
         <!-- FAQ 2 -->
-        <div
-          class="bg-white p-8 md:p-10 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300"
+        <details
+          class="group bg-white rounded-[24px] border border-gray-100 p-6 md:p-8 shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden open:pb-8"
         >
-          <div
-            class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-6"
+          <summary
+            class="flex items-center justify-between font-bold text-lg md:text-xl text-gray-900 list-none [&::-webkit-details-marker]:hidden"
           >
-            <MessageCircleQuestionMark size={24} />
+            <div class="flex items-center gap-4">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path><path
+                    d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path
+                    d="M12 17h.01"></path>
+                </svg>
+              </div>
+              <span>¿Cómo funcionan los Chatbots de IA?</span>
+            </div>
+            <span
+              class="text-blue-600 font-medium text-2xl group-open:rotate-45 transition-transform duration-300 origin-center"
+              >+</span
+            >
+          </summary>
+          <div
+            class="mt-4 text-gray-500 text-sm leading-relaxed pl-11 animate-fade-in-down"
+          >
+            Entrenamos a una IA con los datos de tu empresa. Atiende a clientes
+            24/7 en tu web o WhatsApp, respondiendo dudas y captando leads por
+            ti.
           </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
-            ¿Cómo funcionan los Chatbots de IA?
-          </h3>
-          <p class="text-gray-500 leading-relaxed">
-            Entrenamos a una Inteligencia Artificial con los datos exactos de tu
-            empresa. El bot atiende a clientes 24/7 en tu web o WhatsApp,
-            respondiendo dudas y captando leads por ti.
-          </p>
-        </div>
+        </details>
 
         <!-- FAQ 3 -->
-        <div
-          class="bg-white p-8 md:p-10 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300"
+        <details
+          class="group bg-white rounded-[24px] border border-gray-100 p-6 md:p-8 shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden open:pb-8"
         >
-          <div
-            class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-6"
+          <summary
+            class="flex items-center justify-between font-bold text-lg md:text-xl text-gray-900 list-none [&::-webkit-details-marker]:hidden"
           >
-            <MessageCircleQuestionMark size={24} />
+            <div class="flex items-center gap-4">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path><path
+                    d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path
+                    d="M12 17h.01"></path>
+                </svg>
+              </div>
+              <span>¿Cómo mejoran mi Google Business?</span>
+            </div>
+            <span
+              class="text-blue-600 font-medium text-2xl group-open:rotate-45 transition-transform duration-300 origin-center"
+              >+</span
+            >
+          </summary>
+          <div
+            class="mt-4 text-gray-500 text-sm leading-relaxed pl-11 animate-fade-in-down"
+          >
+            Optimizamos tu Perfil de Empresa y automatizamos la captación de
+            reseñas de tus mejores clientes para mejorar tu SEO local.
           </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
-            ¿Cómo mejoran mi SEO Local o Google Business?
-          </h3>
-          <p class="text-gray-500 leading-relaxed">
-            Optimizamos tu Perfil de Empresa, implementamos estrategias para
-            adquirir reseñas automáticas de tus mejores clientes y mejoramos tus
-            ránkings en los mapas locales.
-          </p>
-        </div>
+        </details>
 
         <!-- FAQ 4 -->
-        <div
-          class="bg-white p-8 md:p-10 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300"
+        <details
+          class="group bg-white rounded-[24px] border border-gray-100 p-6 md:p-8 shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden open:pb-8"
         >
-          <div
-            class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-6"
+          <summary
+            class="flex items-center justify-between font-bold text-lg md:text-xl text-gray-900 list-none [&::-webkit-details-marker]:hidden"
           >
-            <MessageCircleQuestionMark size={24} />
+            <div class="flex items-center gap-4">
+              <div
+                class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path><path
+                    d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path
+                    d="M12 17h.01"></path>
+                </svg>
+              </div>
+              <span>¿Para qué industrias trabajan?</span>
+            </div>
+            <span
+              class="text-blue-600 font-medium text-2xl group-open:rotate-45 transition-transform duration-300 origin-center"
+              >+</span
+            >
+          </summary>
+          <div
+            class="mt-4 text-gray-500 text-sm leading-relaxed pl-11 animate-fade-in-down"
+          >
+            Trabajamos con diversos sectores: hostelería, clínicas,
+            inmobiliarias, e-commerce, y empresas de servicios B2B. Adaptamos
+            nuestra metodología a cada nicho.
           </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
-            ¿Qué ofrecen para restaurantes y hostelería?
-          </h3>
-          <p class="text-gray-500 leading-relaxed">
-            Digitalizamos desde tu carta en formato QR inteligente, hasta
-            sistemas avanzados de reservas online, centralizando la gestión de
-            mesas y pedidos en herramientas automáticas.
-          </p>
-        </div>
+        </details>
       </div>
     </div>
   </section>

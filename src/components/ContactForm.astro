@@ -1,145 +1,256 @@
-<div
-  class="bg-white border-2 border-[#0e44f9]/20 p-6 md:p-8 lg:p-10 rounded-[24px] md:rounded-[32px] shadow-2xl shadow-blue-900/5 relative z-20"
->
-  <div class="mb-8 lg:mb-10">
-    <h2
-      class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 tracking-tight"
+---
+---
+
+<form id="contactForm" class="w-full max-w-2xl mx-auto relative z-0">
+  <!-- DECORATIVE BLOBS TO FILL SIDES -->
+  <div
+    class="absolute top-[10%] left-[-20%] lg:left-[-40%] w-[300px] lg:w-[400px] h-[300px] lg:h-[400px] bg-blue-100/50 rounded-full blur-[80px] -z-10 pointer-events-none fade-in-up"
+  >
+  </div>
+  <div
+    class="absolute bottom-[10%] right-[-20%] lg:right-[-40%] w-[300px] lg:w-[400px] h-[300px] lg:h-[400px] bg-[#0e44f9]/10 rounded-full blur-[80px] -z-10 pointer-events-none fade-in-up"
+  >
+  </div>
+
+  <div
+    class="flex flex-col items-center justify-center text-center mt-4 mb-8 fade-in-up"
+  >
+    <div
+      class="inline-flex items-center space-x-2 bg-blue-50 text-blue-700 rounded-full px-4 py-1.5 mb-6 font-bold text-[10px] tracking-widest uppercase border border-blue-100 w-fit"
     >
-      Formulario Directo
-    </h2>
-    <p class="text-gray-500 text-base">
-      ¿Preparado para arrancar? Cuéntanos tu desafío y nos pondremos en
-      contacto.
+      <span>Hablemos</span>
+    </div>
+
+    <h1
+      class="text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 leading-[1.05] mb-3"
+      style="animation-delay: 50ms;"
+    >
+      Ponte en <span class="text-blue-600 font-bold">contacto.</span>
+    </h1>
+
+    <p
+      class="text-xs md:text-sm text-gray-500 max-w-md leading-relaxed mb-2"
+      style="animation-delay: 100ms;"
+    >
+      Estamos listos para transformar tu negocio. Completa la solicitud o
+      envíanos directamente una nota de voz.
     </p>
   </div>
 
-  <form id="contactForm" class="space-y-5">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-      <div>
+  <div
+    class="bg-white/80 backdrop-blur-3xl border border-white/50 p-6 md:p-10 rounded-[40px] shadow-[0_8px_40px_rgb(0,0,0,0.04)] fade-in-up flex flex-col gap-8 relative z-10"
+    style="animation-delay: 150ms;"
+  >
+    <!-- CONTROLS SIDE BY SIDE -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6">
+      <div class="relative group">
         <label
           for="name"
-          class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide"
+          class="block text-sm md:text-base font-bold text-gray-900 mb-2 transition-colors group-focus-within:text-[#0e44f9]"
         >
-          Nombre
+          ¿Cómo te llamas?
         </label>
         <input
           type="text"
           id="name"
           name="firstname"
-          placeholder="Tu nombre"
-          class="w-full px-4 py-3 text-sm bg-gray-50 border-transparent rounded-[12px] focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none"
+          placeholder="Escribe tu nombre aquí..."
+          class="w-full bg-transparent border-0 border-b border-gray-200 px-0 py-2 text-sm text-gray-900 placeholder-gray-400 focus:ring-0 focus:border-[#0e44f9] transition-colors outline-none"
           required
         />
       </div>
-      <div>
+
+      <div class="relative group">
         <label
           for="phone"
-          class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide"
+          class="block text-sm md:text-base font-bold text-gray-900 mb-2 transition-colors group-focus-within:text-[#0e44f9]"
         >
-          Teléfono / WhatsApp
+          ¿Dónde te contactamos?
         </label>
         <input
           type="text"
           id="phone"
           name="telefono"
-          placeholder="+34 600 000 000"
-          class="w-full px-4 py-3 text-sm bg-gray-50 border-transparent rounded-[12px] focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none"
+          placeholder="Tu teléfono o WhatsApp..."
+          class="w-full bg-transparent border-0 border-b border-gray-200 px-0 py-2 text-sm text-gray-900 placeholder-gray-400 focus:ring-0 focus:border-[#0e44f9] transition-colors outline-none"
           required
         />
       </div>
     </div>
 
-    <div>
-      <label
-        for="message"
-        class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide"
+    <!-- SERVICIOS DE INTERÉS (Seleccionables) -->
+    <div class="w-full text-center fade-in-up" style="animation-delay: 150ms;">
+      <p
+        class="text-[11px] md:text-xs font-bold text-gray-400 uppercase tracking-widest mb-3"
       >
-        Detalles del proyecto (opcional)
-      </label>
-      <textarea
-        id="message"
-        name="descripcion"
-        rows="3"
-        placeholder="Escríbenos sobre tu idea o metas..."
-        class="w-full px-4 py-3 text-sm bg-gray-50 border-transparent rounded-[12px] focus:bg-white focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none resize-none"
-      ></textarea>
+        Quiero consultar sobre:
+      </p>
+      <div
+        class="flex flex-wrap items-center justify-center gap-2"
+        id="serviceTagsContainer"
+      >
+        <button
+          type="button"
+          class="service-tag px-4 py-1.5 rounded-full border border-gray-200 text-xs font-medium text-gray-600 focus:outline-none transition-all duration-200 shrink-0"
+          data-service="Diseño Web">Diseño Web</button
+        >
+        <button
+          type="button"
+          class="service-tag px-4 py-1.5 rounded-full border border-gray-200 text-xs font-medium text-gray-600 focus:outline-none transition-all duration-200 shrink-0"
+          data-service="SEO y Posicionamiento">SEO</button
+        >
+        <button
+          type="button"
+          class="service-tag px-4 py-1.5 rounded-full border border-gray-200 text-xs font-medium text-gray-600 focus:outline-none transition-all duration-200 shrink-0"
+          data-service="IA / Chatbots">IA / Chatbots</button
+        >
+        <button
+          type="button"
+          class="service-tag px-4 py-1.5 rounded-full border border-gray-200 text-xs font-medium text-gray-600 focus:outline-none transition-all duration-200 shrink-0"
+          data-service="Automatizaciones">Automatizaciones</button
+        >
+        <button
+          type="button"
+          class="service-tag px-4 py-1.5 rounded-full border border-gray-200 text-xs font-medium text-gray-600 focus:outline-none transition-all duration-200 shrink-0"
+          data-service="Rebranding">Rebranding</button
+        >
+      </div>
+      <input
+        type="hidden"
+        id="selectedServices"
+        name="servicios_de_interes"
+        value=""
+      />
     </div>
 
-    <!-- Audio Record Section (Simple and Clean) -->
-    <div class="bg-gray-50/50 p-4 rounded-[16px] border border-gray-100">
-      <p class="text-xs text-gray-500 mb-3 text-center">
-        Si te da pereza escribir, envíanos una nota de voz con los detalles:
-      </p>
+    <!-- AUDIO PROTAGONIST CARD WITH MESSAGE BTN -->
+    <div
+      class="bg-white p-6 md:p-8 rounded-[32px] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-[#0e44f9]/5 bg-gradient-to-br from-white to-blue-50/20 flex flex-col items-center justify-center relative transition-all duration-300 w-full"
+    >
+      <div class="text-center mb-6">
+        <h3 class="text-sm md:text-base font-bold text-gray-900 mb-1">
+          Más rápido y fácil ⚡️
+        </h3>
+        <p class="text-gray-500 text-[11px] md:text-xs text-balance">
+          Explícanos tu idea en un mensaje de voz.
+        </p>
+      </div>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+      <div
+        class="flex flex-row items-center justify-center gap-3 w-full max-w-[280px]"
+      >
+        <!-- BOTÓN GRABAR -->
         <button
           type="button"
           id="recordButton"
-          class="flex items-center justify-center gap-2 bg-white text-gray-700 font-medium text-sm px-5 py-2.5 rounded-full border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm"
+          class="group relative flex-1 flex items-center justify-center gap-2 bg-white text-gray-900 font-bold text-xs md:text-sm px-4 py-3 rounded-full border border-gray-200 hover:border-[#0e44f9] hover:bg-blue-50/50 hover:shadow-md hover:shadow-[#0e44f9]/10 transition-all duration-300 active:scale-95"
         >
           <svg
             id="micIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-[#0e44f9] group-hover:scale-110 transition-transform duration-300"
+          >
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"
+            ></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" x2="12" y1="19" y2="22"></line>
+          </svg>
+          <span id="recordButtonText" class="tracking-tight">Grabar</span>
+        </button>
+
+        <!-- BOTÓN MENSAJE TEXTO (TOGGLE) -->
+        <button
+          type="button"
+          id="toggleTextButton"
+          class="group relative flex-1 flex items-center justify-center gap-2 bg-white text-gray-900 font-bold text-xs md:text-sm px-4 py-3 rounded-full border border-gray-200 hover:border-[#0e44f9] hover:bg-blue-50/50 hover:shadow-md hover:shadow-[#0e44f9]/10 transition-all duration-300 active:scale-95"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-[#0e44f9] group-hover:scale-110 transition-transform duration-300"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <span class="tracking-tight">Mensaje</span>
+        </button>
+      </div>
+
+      <!-- TEXT AREA (Oculto por defecto) -->
+      <div
+        id="textMessageContainer"
+        class="hidden w-full mt-6 transition-all duration-300 scale-95 opacity-0 origin-top"
+      >
+        <textarea
+          id="message"
+          name="descripcion"
+          rows="3"
+          placeholder="Cuéntanos los detalles de tu proyecto aquí..."
+          class="w-full px-4 py-3 text-xs md:text-sm bg-gray-50/50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-2 focus:ring-[#0e44f9]/30 focus:border-[#0e44f9] transition-all outline-none resize-none"
+        ></textarea>
+      </div>
+
+      <div
+        id="audioPlaybackContainer"
+        class="hidden items-center justify-between gap-2 w-full bg-[#0e44f9]/10 px-4 py-3 rounded-full border border-[#0e44f9]/30 shadow-sm mt-4"
+      >
+        <audio
+          id="audioPlayback"
+          controls
+          class="h-10 w-full scale-[0.85] origin-left"></audio>
+        <button
+          type="button"
+          id="deleteAudioButton"
+          class="text-red-500 p-1.5 hover:bg-white rounded-full transition-colors shrink-0 shadow-sm"
+          title="Eliminar y grabar de nuevo"
+        >
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
+            stroke-width="2.5"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="text-blue-600"
-            ><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"
-            ></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line
-              x1="12"
-              x2="12"
-              y1="19"
-              y2="22"></line>
-          </svg>
-          <span id="recordButtonText">Grabar Audio</span>
-        </button>
-
-        <div
-          id="audioPlaybackContainer"
-          class="hidden items-center gap-3 w-full sm:w-auto bg-blue-50/50 px-3 py-1.5 rounded-full border border-blue-100"
-        >
-          <audio id="audioPlayback" controls class="h-8 w-[150px]"></audio>
-          <button
-            type="button"
-            id="deleteAudioButton"
-            class="text-red-500 p-1.5 hover:bg-red-100 rounded-full transition-colors shrink-0"
-            title="Eliminar audio"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              ><path d="M3 6h18"></path><path
-                d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path
-                d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line
-                x1="10"
-                x2="10"
-                y1="11"
-                y2="17"></line><line x1="14" x2="14" y1="11" y2="17"></line>
-            </svg>
-          </button>
-        </div>
+            <path d="M3 6h18"></path><path
+              d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path
+              d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line
+              x1="10"
+              x2="10"
+              y1="11"
+              y2="17"></line><line x1="14" x2="14" y1="11" y2="17"></line>
+          </svg>
+        </button>
       </div>
+
       <p
         id="recordStatusMessage"
-        class="text-[11px] text-red-500 mt-2 font-medium hidden text-center animate-pulse"
+        class="text-xs text-red-500 font-bold hidden text-center mt-4 animate-pulse w-full bg-red-50 py-1.5 rounded-md border border-red-100"
       >
-        🔴 Grabando... Haz clic otra vez para detener.
+        🔴 Grabando tu mensaje... Haz clic para detener.
       </p>
     </div>
 
-    <!-- Honeypot (Anti-Spam invisible para usuarios) -->
+    <!-- Honeypot -->
     <div class="absolute left-[-5000px]" aria-hidden="true">
       <input
         type="text"
@@ -151,35 +262,93 @@
       />
     </div>
 
+    <!-- Botón de Enviar final -->
     <button
       type="submit"
-      class="w-full flex items-center justify-center gap-2 bg-[#0e44f9] text-white font-semibold text-base px-6 py-4 rounded-full hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/20 active:scale-[0.98]"
+      class="w-full flex items-center justify-center gap-2 bg-[#0e44f9] text-white font-semibold text-sm px-4 py-4 rounded-full hover:bg-blue-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 shadow-md shadow-[#0e44f9]/30 active:scale-[0.98] group mt-2"
     >
       <span>Enviar Solicitud</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="18"
-        height="18"
+        width="16"
+        height="16"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
+        stroke-width="2.5"
         stroke-linecap="round"
         stroke-linejoin="round"
+        class="group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform"
       >
         <line x1="22" y1="2" x2="11" y2="13"></line>
         <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
       </svg>
     </button>
 
-    <p
-      id="responseMessage"
-      class="mt-5 text-center text-sm font-semibold text-[#0ebf6e] bg-[#0ebf6e]/10 py-3 rounded-[12px] hidden"
+    <!-- INFO DE CONTACTO EMPRESA -->
+    <div
+      class="mt-1 text-center flex flex-col items-center justify-center gap-2 w-full fade-in-up"
+      style="animation-delay: 200ms;"
     >
-      ¡Solicitud enviada! Nos pondremos en contacto pronto.
-    </p>
-  </form>
-</div>
+      <p
+        id="responseMessage"
+        class="text-center text-xs font-semibold text-[#0ebf6e] bg-[#0ebf6e]/10 px-4 py-2 rounded-lg hidden w-full mb-2"
+      >
+        ¡Solicitud enviada! Nos pondremos en contacto pronto.
+      </p>
+
+      <p
+        class="text-xs font-semibold text-gray-400 uppercase tracking-widest mt-2 mb-1"
+      >
+        O si prefieres un trato más directo:
+      </p>
+
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-10 mt-2"
+      >
+        <!-- Número Real de Contacto Marea Creativa -->
+        <a
+          href="tel:+34900000000"
+          class="inline-flex items-center gap-2 text-sm md:text-base font-bold text-gray-800 hover:text-[#0e44f9] transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+            ></path>
+          </svg>
+          <span>+34 624 38 18 10</span>
+        </a>
+        <span
+          class="inline-flex items-center gap-2 text-sm md:text-base font-bold text-gray-800"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
+            ></path><circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <span>Alicante, España</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</form>
 
 <script>
   async function enviarAFormSubmit(datos) {
@@ -188,6 +357,7 @@
     const data = {
       Nombre: datos.name,
       Teléfono: datos.phone || "No proporcionado",
+      Servicios: datos.servicios || "Ninguno en especial",
       "Detalles del Proyecto":
         datos.message || "(Audio adjunto enviado a Telegram)",
       _subject: `Nueva solicitud de proyecto de ${datos.name}`,
@@ -217,7 +387,8 @@
     const mensaje =
       `🚨 *Nueva Solicitud Web*\n\n` +
       `👤 *Nombre:* ${datos.name}\n` +
-      `📞 *Teléfono:* ${datos.phone}\n\n` +
+      `📞 *Teléfono:* ${datos.phone}\n` +
+      `🏷️ *Servicios:* ${datos.servicios || "Ninguno"}\n\n` +
       `📝 *Detalles:*\n${
         datos.message || "*(Enviado por nota de voz adjunta)*"
       }`;
@@ -347,10 +518,59 @@
       );
       micIcon.classList.remove("text-red-600");
       micIcon.classList.add("text-blue-600");
-      recordButtonText.innerText = "Grabar Audio";
     });
   }
   // ------------------------------------
+
+  // --- Lógica de Mostrar Mensaje de Texto ---
+  const toggleTextButton = document.getElementById("toggleTextButton");
+  const textMessageContainer = document.getElementById("textMessageContainer");
+
+  if (toggleTextButton && textMessageContainer) {
+    toggleTextButton.addEventListener("click", () => {
+      const isHidden = textMessageContainer.classList.contains("hidden");
+
+      if (isHidden) {
+        textMessageContainer.classList.remove("hidden");
+        // small timeout for animation
+        setTimeout(() => {
+          textMessageContainer.classList.remove("scale-95", "opacity-0");
+          textMessageContainer.classList.add("scale-100", "opacity-100");
+        }, 10);
+
+        // Active styling
+        toggleTextButton.classList.add(
+          "bg-blue-50",
+          "border-blue-500",
+          "text-blue-700",
+        );
+        toggleTextButton.classList.remove(
+          "bg-white",
+          "border-gray-200",
+          "text-gray-900",
+        );
+      } else {
+        textMessageContainer.classList.add("scale-95", "opacity-0");
+        textMessageContainer.classList.remove("scale-100", "opacity-100");
+
+        setTimeout(() => {
+          textMessageContainer.classList.add("hidden");
+        }, 300);
+
+        // Revert styling
+        toggleTextButton.classList.remove(
+          "bg-blue-50",
+          "border-blue-500",
+          "text-blue-700",
+        );
+        toggleTextButton.classList.add(
+          "bg-white",
+          "border-gray-200",
+          "text-gray-900",
+        );
+      }
+    });
+  }
 
   document
     .getElementById("contactForm")
@@ -380,6 +600,7 @@
       const datosFormulario = {
         name: document.getElementById("name").value,
         phone: document.getElementById("phone").value,
+        servicios: document.getElementById("selectedServices").value,
         message: mensajeTexto,
       };
 
@@ -402,4 +623,29 @@
         btn.disabled = false;
       }
     });
+  // --- Lógica Servicio de Interés ---
+  const serviceTags = document.querySelectorAll(".service-tag");
+  const selectedServicesInput = document.getElementById("selectedServices");
+
+  if (serviceTags && selectedServicesInput) {
+    serviceTags.forEach((tag) => {
+      tag.addEventListener("click", () => {
+        // Toggle active visual states
+        tag.classList.toggle("bg-[#0e44f9]");
+        tag.classList.toggle("text-white");
+        tag.classList.toggle("border-[#0e44f9]");
+
+        // Remove inactive state utilities
+        tag.classList.toggle("text-gray-600");
+        tag.classList.toggle("border-gray-200");
+
+        // Update hidden input
+        const selected = Array.from(serviceTags)
+          .filter((t) => t.classList.contains("bg-[#0e44f9]"))
+          .map((t) => t.dataset.service);
+
+        selectedServicesInput.value = selected.join(", ");
+      });
+    });
+  }
 </script>

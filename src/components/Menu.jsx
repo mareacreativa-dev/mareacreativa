@@ -29,14 +29,16 @@ const Menu = () => {
 					href="/"
 					className="text-white flex justify-center items-center gap-2 font-bold z-50"
 				>
-					<img
-						src="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756154116/logo_blanco_icono_ylvs82.svg"
-						alt="Marea Creativa Logo"
-						className="h-8"
-						title="Marea Creativa Logo"
-						draggable="false"
-					/>
-					<span>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 765.74 611.6"
+						className="h-14 md:h-16 text-primary"
+						fill="currentColor"
+						aria-label="Marea Creativa Logo"
+					>
+						<path d="M432.28,398.94c2.4,2.41,8.32,3.59,11.76,3.35,21.95-1.5,78.89-61.69,100.76-77.24,20.53-14.59,62.7-37.84,79.99-7.07,15.2,27.05-11.71,61.33-14.99,89.01-9,75.91,47.04,71.56,104.17,63.25-36.56,56.14-164.12,68.92-169.5-15.44-2.16-33.9,18.18-68.94-36.37-30.92-38.08,26.54-107.91,121.7-159.04,77.44-30.42-26.33-12.33-86.75-2.21-120.11,12.79-42.19,33.36-81.64,44.86-124.3-8.87-33.34-49.95-3.03-65.9,10.08-80.44,66.1-121.07,153.01-174.3,237.96-8.54,13.63-14.83,21.96-32.16,24.31-25.17,3.41-74.54,3.26-67.41-33.47C126.51,364.4,236.05,194.7,372.25,121.44c58.29-31.35,172.06-57.32,137.7,50.17-15.18,47.48-44.74,93.51-62.77,140.53-6.58,17.16-28.92,72.73-14.9,86.8Z" />
+					</svg>
+					<span className="hidden md:inline">
 						MAREA <span className="font-light">CREATIVA</span>
 					</span>
 				</a>
