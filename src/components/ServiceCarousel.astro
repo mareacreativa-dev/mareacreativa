@@ -74,7 +74,7 @@ const filteredServices = allServices.filter(
 );
 ---
 
-<div class="w-full relative max-w-[1400px] mx-auto group">
+<div class="w-full relative max-w-[1400px] mx-auto group carousel-wrapper">
   <!-- Gradient mask to indicate more content to the right -->
   <div
     class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-gray-50/90 to-transparent z-10 transition-opacity"
@@ -88,7 +88,7 @@ const filteredServices = allServices.filter(
   </div>
 
   <div
-    class="grab-slider flex overflow-x-auto gap-6 sm:gap-8 pb-12 pt-4 snap-x snap-mandatory hide-scrollbar px-4 md:px-8 cursor-grab"
+    class="grab-slider flex overflow-x-auto gap-6 sm:gap-8 pb-14 pt-8 snap-x snap-mandatory hide-scrollbar px-4 md:px-8 cursor-grab"
   >
     {
       filteredServices.map((service, index) => (
@@ -110,66 +110,73 @@ const filteredServices = allServices.filter(
     <!-- Espaciador extra al final para que la última tarjeta no quede pegada bajo el gradiente -->
     <div class="shrink-0 w-12 md:w-24"></div>
   </div>
+
+  <!-- Puntos de slide (Dots) -->
+  <div
+    class="absolute bottom-0 left-0 right-0 flex justify-center items-center gap-2 pb-6 carousel-dots z-20 pointer-events-none"
+  >
+    {
+      filteredServices.map((_, index) => (
+        <button
+          class={`w-2.5 h-2.5 rounded-full transition-colors duration-300 carousel-dot pointer-events-auto ${
+            index === 0 ? "bg-primary" : "bg-gray-300 hover:bg-gray-400"
+          }`}
+          aria-label={`Ir a tarjeta ${index + 1}`}
+          type="button"
+        />
+      ))
+    }
+  </div>
 </div>
 
 <script>
   // @ts-nocheck
-  // Script para permitir arrastrar y soltar con el ratón (Grab to Pan)
-  document.addEventListener("DOMContentLoaded", () => {
-    const sliders = document.querySelectorAll(".grab-slider");
+  document.addEventListener("astro:page-load", () => {
+    const wrappers = document.querySelectorAll(".carousel-wrapper");
 
-    sliders.forEach((sliderNode) => {
-      const slider = /** @type {HTMLElement} */ sliderNode;
+    wrappers.forEach((wrapperNode) => {
+      const slider = wrapperNode.querySelector(".grab-slider");
+      if (!slider) return;
+
       let isDown = false;
       let startX = 0;
       let scrollLeft = 0;
       let isDragging = false;
 
-      // Handle Mouse Wheel for Horizontal Scroll
-      slider.addEventListener("wheel", (e) => {
-        if (e.deltaY !== 0 && slider.scrollWidth > slider.clientWidth) {
-          e.preventDefault();
-          slider.scrollLeft += e.deltaY;
-        }
-      });
-
-      slider.addEventListener("mousedown", (e) => {
-        const mouseEvent = /** @type {MouseEvent} */ e;
+      const startDrag = (e) => {
         isDown = true;
         isDragging = false;
         slider.classList.add("cursor-grabbing");
-        slider.classList.remove("cursor-grab", "snap-x", "snap-mandatory"); // Quitamos el 'snap' al arrastrar para que sea fluido
-        startX = mouseEvent.pageX - slider.offsetLeft;
+        slider.classList.remove("cursor-grab", "snap-x", "snap-mandatory");
+        startX = e.pageX - slider.offsetLeft;
         scrollLeft = slider.scrollLeft;
-      });
+      };
 
-      slider.addEventListener("mouseleave", () => {
+      const stopDrag = () => {
         isDown = false;
         slider.classList.remove("cursor-grabbing");
         slider.classList.add("cursor-grab", "snap-x", "snap-mandatory");
-      });
+      };
 
-      slider.addEventListener("mouseup", () => {
-        isDown = false;
-        slider.classList.remove("cursor-grabbing");
-        slider.classList.add("cursor-grab", "snap-x", "snap-mandatory");
-      });
-
-      slider.addEventListener("mousemove", (e) => {
+      const moveDrag = (e) => {
         if (!isDown) return;
-        e.preventDefault();
-        const mouseEvent = /** @type {MouseEvent} */ e;
-        const x = mouseEvent.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 2; // Multiplicador de velocidad de arrastre
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2;
 
         if (Math.abs(walk) > 5) {
-          isDragging = true; // Si se mueve más de 5px consideramos que es arrastre
+          isDragging = true;
+          e.preventDefault();
         }
 
         slider.scrollLeft = scrollLeft - walk;
-      });
+      };
 
-      // Prevenir el clic en enlaces si el usuario estaba arrastrando
+      slider.addEventListener("mousedown", startDrag);
+      slider.addEventListener("mouseleave", stopDrag);
+      slider.addEventListener("mouseup", stopDrag);
+      slider.addEventListener("mousemove", moveDrag);
+
+      // Prevent click if we dragged
       slider.addEventListener(
         "click",
         (e) => {
@@ -178,13 +185,60 @@ const filteredServices = allServices.filter(
             e.stopPropagation();
           }
         },
-        true, // Capturar en la fase bajada antes de que el enlace hijo lo dispare
+        true,
       );
 
-      // Prevenir el arrastre nativo de imágenes/enlaces para que no interfiera
       slider.addEventListener("dragstart", (e) => {
         e.preventDefault();
       });
+
+      // Dots Intersection Observer Logic
+      const cards = Array.from(
+        slider.querySelectorAll(".snap-center:not(.w-12)"),
+      );
+      const dotsContainer = wrapperNode.querySelector(".carousel-dots");
+      const dots = dotsContainer
+        ? Array.from(dotsContainer.querySelectorAll(".carousel-dot"))
+        : [];
+
+      if (cards.length > 0 && dots.length > 0) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                const index = cards.indexOf(entry.target);
+                if (index !== -1 && dots[index]) {
+                  dots.forEach((d) => {
+                    d.classList.remove("bg-primary");
+                    d.classList.add("bg-gray-300");
+                  });
+                  dots[index].classList.remove("bg-gray-300");
+                  dots[index].classList.add("bg-primary");
+                }
+              }
+            });
+          },
+          {
+            root: slider,
+            threshold: 0.5,
+          },
+        );
+
+        cards.forEach((card) => {
+          observer.observe(card);
+        });
+
+        // Clic on dots
+        dots.forEach((dot, index) => {
+          dot.addEventListener("click", () => {
+            cards[index].scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+              inline: "center",
+            });
+          });
+        });
+      }
     });
   });
 </script>
