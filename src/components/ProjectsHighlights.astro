@@ -4,37 +4,37 @@ import Project from "../projects/data.json";
 ---
 
 <section class="py-16">
-	<div class="container mx-auto px-4">
-		<div class="text-center mb-12">
-			<h2 class="text-3xl font-bold mb-4">Proyectos Destacados</h2>
-			<p class="text-gray-600 max-w-2xl mx-auto">
-				Explora algunos de nuestros trabajos más recientes y descubre cómo hemos
-				ayudado a nuestros clientes a alcanzar sus objetivos.
-			</p>
-		</div>
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold mb-4">Proyectos Destacados</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Explora algunos de nuestros trabajos más recientes y descubre cómo hemos
+        ayudado a nuestros clientes a alcanzar sus objetivos.
+      </p>
+    </div>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-			{
-				Project.map((project) => (
-					<ProjectCard
-						title={project.title}
-						description={project.description}
-						image={project.image}
-						tags={project.tags}
-						url={project.url}
-						pais={project.pais}
-					/>
-				)).slice(0, 4)
-			}
-		</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {
+        Project.map((project) => (
+          <ProjectCard
+            title={project.title}
+            description={project.description}
+            image={project.image}
+            tags={project.tags}
+            url={project.url}
+            pais={project.pais}
+          />
+        )).slice(0, 4)
+      }
+    </div>
 
-		<div class="text-center mt-12">
-			<a
-				href="/proyectos"
-				class="inline-block bg-gradient-to-r from-primary to-primary-500 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors border border-blue-600"
-			>
-				Ver todos los proyectos
-			</a>
-		</div>
-	</div>
+    <div class="text-center mt-12">
+      <a
+        href="/proyectos"
+        class="inline-block bg-gradient-to-r from-primary to-primary-500 text-white font-medium px-6 py-3 rounded-full hover:bg-blue-700 transition-colors border border-blue-600"
+      >
+        Ver todos los proyectos
+      </a>
+    </div>
+  </div>
 </section>
