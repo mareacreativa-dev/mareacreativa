@@ -1,6 +1,8 @@
-import { useState } from "react";
+import * as React from "react";
+const { useState } = React;
 
 const Menu = () => {
+	if (!useState) return null;
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [isServicesOpen, setIsServicesOpen] = useState(false);
 
