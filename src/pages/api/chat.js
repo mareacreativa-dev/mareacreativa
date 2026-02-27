@@ -1,8 +1,8 @@
 export const prerender = false;
 
 // Revisa si tenemos los secretos de Telegram
-const telegramBotToken = import.meta.env.TELEGRAM_BOT_TOKEN;
-const telegramChatId = import.meta.env.TELEGRAM_CHAT_ID;
+const telegramBotToken = import.meta.env.TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN || "8396220653:AAGdOZCOCn3nXnpl6VCU02XMUqEUIGdfoow";
+const telegramChatId = import.meta.env.TELEGRAM_CHAT_ID || process.env.TELEGRAM_CHAT_ID || "7202779540";
 
 // Función asíncrona para notificar por Telegram (se ejecuta en segundo plano)
 async function sendTelegramAlert(message) {
@@ -75,9 +75,10 @@ REGLAS ABSOLUTAS Y CRÍTICAS:
    - Chatbots Personalizados
    - SEO y Marketing Local
    - Rebranding e Identidad Visual
-3. SI TE PREGUNTAN DE OTRA COSA (política, chistes, etc.): Desvíalo amablemente aclarando que tu enfoque es responder sobre los servicios de la agencia.
-4. CAPTURA PROACTIVA DE CONTACTOS: Si notas que el usuario está interesado en un servicio, quiere saber precios o comenzar un proyecto, ¡PÍDELE SUS DATOS DIRECTAMENTE EN EL CHAT! No lo envíes de inmediato al formulario web. Dile algo como: "Si nos dejas tu nombre y número de teléfono, nuestro equipo te llamará hoy mismo para asesorarte". Tu objetivo es conseguir su contacto directamente en la conversación.
-5. SÉ EXTREMADAMENTE BREVE: Da respuestas de máximo 2 o 3 oraciones cortas. Al grano y conciso, nadie lee párrafos inmensos.
+3. NUNCA DES PRECIOS ni cotizaciones inventadas: Cada proyecto es a medida. Si preguntan "¿Cuánto sale?" diles que necesitamos conocer los detalles para cotizar y pídeles su teléfono para llamarles.
+4. SI TE PREGUNTAN DE OTRA COSA (política, chistes, etc.): Desvíalo amablemente aclarando que tu enfoque es responder sobre los servicios de la agencia.
+5. CAPTURA PROACTIVA DE CONTACTOS: Si notas que el usuario está interesado en un servicio, quiere saber precios o comenzar un proyecto, ¡PÍDELE SUS DATOS DIRECTAMENTE EN EL CHAT! No lo envíes de inmediato al formulario web. Dile algo como: "Si nos dejas tu nombre y número de teléfono, nuestro equipo te llamará hoy mismo para asesorarte". Tu objetivo es conseguir su contacto directamente en la conversación.
+6. SÉ EXTREMADAMENTE BREVE: Da respuestas de máximo 2 o 3 oraciones cortas. Al grano y conciso, nadie lee párrafos inmensos.
 6. SI EL USUARIO TE DA SUS DATOS: Una vez que el usuario te dé su nombre y teléfono, dile que acabas de enviar sus datos al equipo y que lo llamarán muy pronto. ¡Ya no le pidas más datos ni lo envíes al formulario! PARA ENVIAR SUS DATOS a Telegram internamente, agrega al final de tu mensaje este bloque oculto: ||LEAD:Nombre|Telefono|Servicio|Detalles|| . Ejemplo: ¡Perfecto Jorge! Acabo de pasarle tu teléfono al equipo, en breve te llamaremos. ¿Te ayudo con algo más? ||LEAD:Jorge|+341234567|Sitio Web|Quiere vender zapatos||
 7. NAVEGACIÓN DE LA WEB: Si el usuario quiere ver trabajos previos o servicios, usa el comando de navegación al final de tu mensaje: ||NAVIGATE:/ruta|| . Rutas permitidas: '/' (inicio), '/proyectos', '/servicios', '/diseno-y-desarrollo-web', '/automatizacion-de-procesos', '/chatbots-personalizados', '/servicios-negocios-locales', '/rebranding-identidad', '/gestion-hosteleria'. Ejemplo: ¡Claro, te llevo a ver nuestros proyectos! ||NAVIGATE:/proyectos|| . EXCEPCIÓN: Si acabas de pedir o recibir datos de contacto, NUNCA uses NAVIGATE.`
     };
@@ -124,12 +125,12 @@ REGLAS ABSOLUTAS Y CRÍTICAS:
     let reply = data.choices[0]?.message?.content || "Sin respuesta";
     let navigateTo = null;
 
-    // 1. Detectar comando de Captura de Lead
-    const leadMatch = reply.match(/\|\|LEAD:(.+?)\|(.+?)\|(.*)\|(.+?)\|\|/);
+    // 1. Detectar comando de Captura de Lead (con soporte multilinea para detalles extensos)
+    const leadMatch = reply.match(/\|\|LEAD:(.+?)\|(.+?)\|(.*?)\|([\s\S]+?)\|\|/);
     if (leadMatch) {
       const [, name, phone, service, details] = leadMatch;
       // Enviar al telegram en segundo plano sin bloquear el chat
-      sendTelegramLead(name, phone, service, details);
+      sendTelegramLead(name.trim(), phone.trim(), service.trim(), details.trim());
       // Ocultar el bloque del texto final que ve el usuario
       reply = reply.replace(leadMatch[0], "").trim();
     }

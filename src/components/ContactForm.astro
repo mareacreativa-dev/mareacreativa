@@ -585,15 +585,9 @@
         return;
       }
 
-      const mensajeTexto = document.getElementById("message").value;
-      if (!mensajeTexto.trim() && !audioBlob) {
-        alert(
-          "Por favor, escríbenos los detalles de tu proyecto o añádenos una nota de voz.",
-        );
-        return;
-      }
-
       const btn = form.querySelector('button[type="submit"]');
+      const mensajeInput = document.getElementById("message");
+      const mensajeTexto = mensajeInput ? mensajeInput.value : "";
       const oldText = btn.innerHTML;
       btn.innerHTML = "Enviando...";
       btn.disabled = true;
