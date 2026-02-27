@@ -41,6 +41,34 @@ import { ClientRouter } from "astro:transitions";
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={image} />
+
+    <!-- Schema Markup para Google -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://mareacreativa.com/#website",
+            url: "https://mareacreativa.com",
+            name: "Marea Creativa",
+            description: "Diseño Web, Inteligencia Artificial y SEO Local",
+            inLanguage: "es",
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://mareacreativa.com/#organization",
+            name: "Marea Creativa",
+            url: "https://mareacreativa.com",
+            logo: "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756154116/logo_m_blanco_y3leyc.svg",
+            description:
+              "Agencia especialista en diseño web estratégico, automatización con inteligencia artificial y posicionamiento SEO local.",
+            sameAs: ["https://www.instagram.com/marea.creativa"],
+          },
+        ],
+      })}
+    ></script>
   </head>
   <body>
     <header>
