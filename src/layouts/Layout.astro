@@ -2,6 +2,7 @@
 import Footer from "../components/Footer.astro";
 import Menu from "../components/Menu";
 import CookieBanner from "../components/CookieBanner.astro";
+import ChatWidget from "../components/ChatWidget";
 import "../styles/global.css";
 const {
   title = "Marea Creativa | Diseño Web, Inteligencia Artificial y SEO Local",
@@ -79,6 +80,7 @@ import { ClientRouter } from "astro:transitions";
     </main>
     <Footer />
     <CookieBanner />
+    <ChatWidget client:load />
     <style>
       html,
       body {
