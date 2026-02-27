@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('marea_chat_is_open');
+      const saved = sessionStorage.getItem('marea_chat_is_open');
       return saved === 'true';
     }
     return false;
@@ -13,7 +13,7 @@ export default function ChatWidget() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('marea_chat_is_open', isOpen);
+      sessionStorage.setItem('marea_chat_is_open', isOpen);
     }
   }, [isOpen]);
   
@@ -23,7 +23,7 @@ export default function ChatWidget() {
 
   const [messages, setMessages] = useState(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('marea_chat_history');
+      const saved = sessionStorage.getItem('marea_chat_history');
       if (saved) {
         return JSON.parse(saved);
       }
@@ -47,7 +47,7 @@ export default function ChatWidget() {
       scrollToBottom();
     }
     if (typeof window !== 'undefined') {
-      localStorage.setItem('marea_chat_history', JSON.stringify(messages));
+      sessionStorage.setItem('marea_chat_history', JSON.stringify(messages));
     }
   }, [messages, isOpen]);
 
