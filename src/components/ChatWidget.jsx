@@ -35,11 +35,13 @@ export default function ChatWidget() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [fatalError, setFatalError] = useState(false);
-  const [toast, setToast] = useState(null); // { message, type: 'success'|'error' }
+  const [toast, setToast] = useState(null);
+  const toastCount = useRef(0);
   const chatContainerRef = useRef(null);
 
   const showToast = (message, type = 'success') => {
-    setToast({ message, type });
+    toastCount.current += 1;
+    setToast({ message, type, id: toastCount.current });
     setTimeout(() => setToast(null), 4000);
   };
 
@@ -125,10 +127,10 @@ export default function ChatWidget() {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Toast de confirmación Telegram */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {toast && (
           <motion.div
-            key="toast"
+            key={toast.id}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
