@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, X, Send, Loader2 } from 'lucide-react';
+import { MessageSquare, X, Send, Loader2, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { navigate } from 'astro:transitions/client';
 
@@ -19,7 +19,7 @@ export default function ChatWidget() {
   }, [isOpen]);
   
   const defaultMessages = [
-    { role: 'assistant', content: '¡Hola! Soy el asistente virtual de Marea Creativa. ¿En qué te puedo ayudar?' }
+    { role: 'assistant', content: '¡Hola! Soy el asistente virtual de Marea Creativa. ¿Cómo puedo ayudarte hoy?' }
   ];
 
   const [messages, setMessages] = useState(() => {
@@ -53,7 +53,7 @@ export default function ChatWidget() {
 
   useEffect(() => {
     if (isOpen) {
-      scrollToBottom();
+      setTimeout(scrollToBottom, 100);
     }
     if (typeof window !== 'undefined') {
       sessionStorage.setItem('marea_chat_history', JSON.stringify(messages));
@@ -99,110 +99,116 @@ export default function ChatWidget() {
 
       // Toast de confirmación de Telegram cuando hay lead
       if (data.telegramSent === true) {
-        showToast('✅ Datos enviados al equipo correctamente', 'success');
+        showToast('✅ Datos enviados correctamente', 'success');
       } else if (data.telegramSent === false) {
-        showToast('⚠️ Hubo un problema enviando los datos. Intenta llamarnos directamente.', 'error');
+        showToast('⚠️ Hubo un problema enviando los datos.', 'error');
       }
 
     } catch (error) {
       console.error('Error enviando mensaje:', error);
-      // Notificarle al usuario en el chat
       setMessages(prev => [
         ...prev, 
-        { role: 'assistant', content: 'Lo siento, ha ocurrido un error grave de conexión.' }
+        { role: 'assistant', content: 'Lo siento, ha ocurrido un error de conexión. ¿Podrías intentarlo de nuevo?' }
       ]);
-      // Ocultar el chat después de unos segundos porque se rompió
-      setTimeout(() => {
-        setFatalError(true);
-      }, 3000);
     } finally {
       setIsLoading(false);
     }
   };
 
-  if (fatalError) {
-    return null; // El chat desaparece de la UI si hay un error no manejable
-  }
+  if (fatalError) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end max-w-[calc(100vw-3rem)]">
+      
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl shadow-2xl w-[350px] max-w-[calc(100vw-3rem)] max-h-[80vh] flex flex-col overflow-hidden mb-4"
+            initial={{ opacity: 0, y: 40, scale: 0.8, filter: 'blur(15px)' }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: 40, scale: 0.8, filter: 'blur(15px)' }}
+            transition={{ type: "spring", damping: 20, stiffness: 150 }}
+            className="backdrop-blur-3xl bg-zinc-950/95 border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.6)] w-full sm:w-[400px] flex flex-col rounded-[2.5rem] overflow-hidden mb-6"
           >
-            {/* Header */}
-            <div className="bg-primary text-white p-4 flex justify-between items-center rounded-t-2xl">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  <MessageSquare size={16} />
+            {/* Minimalist Premium Header */}
+            <div className="px-6 pt-6 pb-2 flex justify-between items-center bg-gradient-to-b from-white/5 to-transparent">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="w-10 h-10 bg-gradient-to-br from-primary/20 to-indigo-600/20 rounded-full flex items-center justify-center border border-primary/30 shadow-[0_0_15px_rgba(14,68,249,0.15)]">
+                    <MessageSquare size={16} className="text-primary fill-primary/10" />
+                  </div>
+                  <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-zinc-950 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-sm">Marea Asistente</h3>
-                  <p className="text-xs text-white/80">Respondemos al instante</p>
+                <div className="flex flex-col">
+                  <span className="text-[12px] font-bold uppercase tracking-[0.15em] text-white/90">Marea Assistant AI</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] font-semibold text-primary drop-shadow-[0_0_3px_rgba(14,68,249,0.5)]">Activo - Beta Test</span>
+                  </div>
                 </div>
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="text-white/80 hover:text-white transition-colors p-1"
+                className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10 text-white/40 hover:text-white transition-all duration-300 group"
               >
-                <X size={20} />
+                <X size={18} className="group-hover:rotate-90 transition-transform duration-300" />
               </button>
             </div>
 
-            {/* Chat Area */}
-            <div 
-              ref={chatContainerRef}
-              className="flex-1 p-4 overflow-y-auto h-[350px] flex flex-col gap-3 bg-gray-50 dark:bg-zinc-950/50 text-sm"
-            >
-              {messages.map((msg, index) => (
-                <div 
-                  key={index} 
-                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div 
-                    className={`max-w-[85%] p-3 rounded-2xl ${
-                      msg.role === 'user' 
-                        ? 'bg-primary text-white rounded-tr-sm' 
-                        : 'bg-white dark:bg-zinc-800 dark:text-zinc-200 text-gray-800 shadow-sm border border-gray-100 dark:border-zinc-700 rounded-tl-sm'
-                    }`}
+            {/* Content Area - Optimized for Assistant Role */}
+            <div className="px-6 py-5 min-h-[100px]">
+              <AnimatePresence mode="wait">
+                {isLoading ? (
+                  <motion.div 
+                    key="loader"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex items-center gap-3 py-3"
                   >
-                    {msg.content}
-                  </div>
-                </div>
-              ))}
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-white dark:bg-zinc-800 text-gray-800 dark:text-zinc-200 p-3 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 dark:border-zinc-700 flex items-center gap-2">
-                    <Loader2 size={16} className="animate-spin text-primary" />
-                    <span className="text-xs text-gray-500">Escribiendo...</span>
-                  </div>
-                </div>
-              )}
+                    <div className="flex gap-1.5">
+                      <motion.span animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1, delay: 0 }} className="w-2 h-2 bg-primary rounded-full shadow-[0_0_8px_rgba(14,68,249,0.4)]" />
+                      <motion.span animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="w-2 h-2 bg-primary rounded-full shadow-[0_0_8px_rgba(14,68,249,0.4)]" />
+                      <motion.span animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="w-2 h-2 bg-primary rounded-full shadow-[0_0_8px_rgba(14,68,249,0.4)]" />
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div 
+                    key={messages.length}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex flex-col gap-4"
+                  >
+                    {messages.length > 0 && (
+                      <div className={`p-5 rounded-[2rem] text-[14.5px] font-medium leading-[1.6] transition-all duration-700 ${
+                        messages[messages.length - 1].role === 'user'
+                        ? 'bg-gradient-to-br from-primary via-primary-700 to-indigo-900 text-white rounded-br-none ml-auto max-w-[90%] shadow-xl shadow-primary/20 border border-white/10'
+                        : 'bg-white/5 backdrop-blur-md text-zinc-100 rounded-tl-none border border-white/10 shadow-inner'
+                      }`}>
+                        {messages[messages.length - 1].content}
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
-            {/* Input Area */}
-            <div className="p-3 bg-white dark:bg-zinc-900 border-t border-gray-100 dark:border-zinc-800">
-              <form onSubmit={handleSubmit} className="relative flex items-center">
+            {/* Premium Input Area */}
+            <div className="p-6 pt-0">
+              <form onSubmit={handleSubmit} className="relative flex items-center group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-indigo-500/20 rounded-full blur-md opacity-0 group-focus-within:opacity-100 transition-opacity duration-500" />
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Escribe tu mensaje..."
-                  className="w-full bg-gray-100 dark:bg-zinc-800 text-gray-800 dark:text-gray-100 rounded-full py-3 pl-4 pr-12 focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm transition-all"
+                  placeholder="¿En qué puedo ayudarte?"
+                  className="w-full relative z-10 bg-white/5 text-white rounded-full py-4 pl-6 pr-16 focus:outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-primary/40 text-[14px] transition-all placeholder:text-zinc-500"
                   disabled={isLoading}
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || isLoading}
-                  className="absolute right-2 p-2 bg-primary text-white rounded-full disabled:opacity-50 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors"
+                  className="absolute right-2 z-20 w-11 h-11 flex items-center justify-center bg-gradient-to-tr from-primary to-indigo-600 text-white rounded-full disabled:opacity-20 transition-all hover:scale-110 active:scale-90 shadow-lg shadow-primary/30"
                 >
-                  <Send size={16} className="ml-0.5" />
+                  <Send size={18} />
                 </button>
               </form>
             </div>
@@ -210,27 +216,45 @@ export default function ChatWidget() {
         )}
       </AnimatePresence>
 
-      {/* Floating Button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className={`${isOpen ? 'bg-zinc-800 hover:bg-zinc-700' : 'bg-primary hover:bg-primary/90'} text-white rounded-full p-4 shadow-xl transition-colors flex items-center justify-center`}
-        aria-label="Abrir chat de asistencia"
-      >
-        {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
-      </motion.button>
-      {/* Toast sutil debajo del botón */}
+      {/* Floating Button - The "Heart" of the UI */}
+      <div className="relative">
+        <AnimatePresence>
+          {!isOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1.3 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="absolute inset-0 bg-primary/30 rounded-full animate-pulse-slow"
+              style={{ filter: 'blur(10px)' }}
+            />
+          )}
+        </AnimatePresence>
+        
+        <motion.button
+          whileHover={{ scale: 1.15, rotate: 5 }}
+          whileTap={{ scale: 0.9, rotate: -5 }}
+          onClick={() => setIsOpen(!isOpen)}
+          className={`relative z-10 w-16 h-16 flex items-center justify-center rounded-2xl transition-all duration-500 shadow-2xl text-white ${
+            isOpen 
+            ? 'bg-zinc-900 border border-white/20 rotate-180 shadow-none' 
+            : 'bg-gradient-to-br from-primary via-primary to-indigo-700 shadow-primary/40'
+          }`}
+          aria-label="Toggle Asistente"
+        >
+          {isOpen ? <X size={28} /> : <MessageSquare size={28} className="drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" />}
+        </motion.button>
+      </div>
+
+      {/* Improved Toast */}
       <AnimatePresence mode="wait">
         {toast && (
           <motion.div
             key={toast.id}
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.2 }}
-            className={`mt-2 px-3 py-1 rounded-full text-xs font-medium text-white shadow-md ${
-              toast.type === 'success' ? 'bg-green-600/90' : 'bg-red-500/90'
+            initial={{ opacity: 0, scale: 0.9, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className={`mt-4 px-4 py-2 rounded-xl text-xs font-semibold text-white shadow-xl backdrop-blur-md ${
+              toast.type === 'success' ? 'bg-green-500/90' : 'bg-red-500/90'
             }`}
           >
             {toast.message}
