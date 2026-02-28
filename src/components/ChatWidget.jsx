@@ -126,23 +126,7 @@ export default function ChatWidget() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-      {/* Toast de confirmación Telegram */}
-      <AnimatePresence mode="wait">
-        {toast && (
-          <motion.div
-            key={toast.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.25 }}
-            className={`mb-3 px-4 py-2 rounded-xl text-sm font-medium shadow-lg text-white max-w-[280px] text-center ${
-              toast.type === 'success' ? 'bg-green-600' : 'bg-red-500'
-            }`}
-          >
-            {toast.message}
-          </motion.div>
-        )}
-      </AnimatePresence>
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -236,6 +220,23 @@ export default function ChatWidget() {
       >
         {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
       </motion.button>
+      {/* Toast sutil debajo del botón */}
+      <AnimatePresence mode="wait">
+        {toast && (
+          <motion.div
+            key={toast.id}
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.2 }}
+            className={`mt-2 px-3 py-1 rounded-full text-xs font-medium text-white shadow-md ${
+              toast.type === 'success' ? 'bg-green-600/90' : 'bg-red-500/90'
+            }`}
+          >
+            {toast.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
