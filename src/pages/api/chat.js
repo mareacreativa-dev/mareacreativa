@@ -155,19 +155,29 @@ ${knowledgeBaseText}`
     let navigateTo = null;
     let telegramSent = null;
 
-    // 1. Detectar comando de Captura de Lead (con soporte multilinea para detalles extensos)
-    const leadMatch = reply.match(/\|\|LEAD:([^\|]+)\|([^\|]+)\|([^\|]*)\|([\s\S]+?)\|\|/);
+    // 1. Detectar comando de Captura de Lead - Regex flexible (acepta 2-4 campos)
+    console.log("[CHAT] Raw reply del modelo:", reply.substring(0, 500));
+
+    const leadMatch = reply.match(/\|\|LEAD:([\s\S]+?)\|\|/);
     if (leadMatch) {
-      const [, name, phone, service, details] = leadMatch;
-      // Enviar al telegram bloqueando para saber si falló
-      telegramSent = await sendTelegramLead(name.trim(), phone.trim(), service.trim(), details.trim());
-      // Forzar confirmación visual al cliente si el bot olvidó agregar texto confirmatorio
-      if (reply.replace(leadMatch[0], '').trim().length < 5) {
+      const parts = leadMatch[1].split('|').map(p => p.trim());
+      const [name = '', phone = '', service = '', details = ''] = parts;
+      console.log("[CHAT] Lead detectado → nombre:", name, "| tel:", phone, "| servicio:", service);
+      if (name && phone) {
+        telegramSent = await sendTelegramLead(name, phone, service, details);
+      } else {
+        console.warn("[CHAT] Lead detectado pero faltan nombre/teléfono, ignorado.");
+      }
+      // Forzar confirmación visual si el bot olvidó hacerlo
+      const replyWithoutLead = reply.replace(leadMatch[0], '').trim();
+      if (replyWithoutLead.length < 5) {
          reply = "¡Perfecto! Acabo de enviar tus datos a nuestro equipo. Te contactaremos muy pronto. ¿Puedo ayudarte con algo más?";
       }
+    } else {
+      console.log("[CHAT] No se detectó ningún lead en esta respuesta.");
     }
     
-    // Limpieza agresiva: Ocultar el bloque oculto y cualquier intento fallido que el bot haya querido escupir
+    // Limpieza agresiva: Ocultar el bloque oculto y cualquier variante mal formateada
     reply = reply.replace(/\|\|LEAD[\s\S]*?\|\|/g, "").trim();
 
     // 2. Detectar comando de Navegación
