@@ -12,6 +12,10 @@ export default function ChatWidget() {
     return false;
   });
 
+  const handleOpenChat = () => {
+    setIsOpen(true);
+  };
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       sessionStorage.setItem('marea_chat_is_open', isOpen);
@@ -19,7 +23,17 @@ export default function ChatWidget() {
   }, [isOpen]);
   
   const defaultMessages = [
-    { role: 'assistant', content: '¡Hola! Soy el asistente virtual de Marea Creativa. ¿Cómo puedo ayudarte hoy?' }
+    { 
+      role: 'assistant', 
+      content: '¡Hola! Soy tu asistente IA de Marea Creativa. Estoy aquí para guiarte por la web, mostrarte nuestro trabajo o agendar una llamada contigo. ¿Por dónde empezamos?',
+      isInitial: true 
+    }
+  ];
+
+  const actionChips = [
+    { label: '🚀 Servicios', query: 'Muéstrame los servicios que ofrecéis en Marea Creativa' },
+    { label: '✨ Proyectos', query: 'Quiero ver algunos de vuestros proyectos destacados' },
+    { label: '📞 ¿Te llamamos?', query: 'Me gustaría que me llamaseis para hablar de mi proyecto' }
   ];
 
   const [messages, setMessages] = useState(() => {
@@ -39,32 +53,13 @@ export default function ChatWidget() {
   const toastCount = useRef(0);
   const chatContainerRef = useRef(null);
 
-  const showToast = (message, type = 'success') => {
-    toastCount.current += 1;
-    setToast({ message, type, id: toastCount.current });
-    setTimeout(() => setToast(null), 4000);
+  const handleChipClick = (query) => {
+    if (isLoading) return;
+    processMessage(query);
   };
 
-  const scrollToBottom = () => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(scrollToBottom, 100);
-    }
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('marea_chat_history', JSON.stringify(messages));
-    }
-  }, [messages, isOpen]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading) return;
-
-    const userMessage = { role: 'user', content: input.trim() };
+  const processMessage = async (text) => {
+    const userMessage = { role: 'user', content: text.trim() };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
@@ -76,14 +71,11 @@ export default function ChatWidget() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          messages: [...messages, userMessage],
+          messages: [...messages.map(m => ({ role: m.role, content: m.content })), userMessage],
         }),
       });
 
-      if (!response.ok) {
-        throw new Error('Error crítico en el endpoint');
-      }
-
+      if (!response.ok) throw new Error('Error crítico en el endpoint');
       const data = await response.json();
       
       setMessages(prev => [
@@ -92,12 +84,9 @@ export default function ChatWidget() {
       ]);
 
       if (data.navigateTo) {
-        setTimeout(() => {
-          navigate(data.navigateTo);
-        }, 1500);
+        setTimeout(() => navigate(data.navigateTo), 1500);
       }
 
-      // Toast de confirmación de Telegram cuando hay lead
       if (data.telegramSent === true) {
         showToast('✅ Datos enviados correctamente', 'success');
       } else if (data.telegramSent === false) {
@@ -115,6 +104,31 @@ export default function ChatWidget() {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+    processMessage(input);
+  };
+
+  const showToast = (message, type = 'success') => {
+    toastCount.current += 1;
+    setToast({ message, type, id: toastCount.current });
+    setTimeout(() => setToast(null), 4000);
+  };
+
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) setTimeout(scrollToBottom, 100);
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('marea_chat_history', JSON.stringify(messages));
+    }
+  }, [messages, isOpen]);
+
   if (fatalError) return null;
 
   return (
@@ -127,14 +141,16 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, y: 40, scale: 0.8, filter: 'blur(15px)' }}
             transition={{ type: "spring", damping: 20, stiffness: 150 }}
-            className="backdrop-blur-3xl bg-zinc-950/95 border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.6)] w-full sm:w-[400px] flex flex-col rounded-[2.5rem] overflow-hidden mb-6"
+            className="backdrop-blur-3xl bg-zinc-950/95 border-2 border-primary/60 shadow-[0_0_50px_rgba(14,68,249,0.3)] w-full sm:w-[400px] flex flex-col rounded-[2.5rem] overflow-hidden mb-6"
           >
             {/* Minimalist Premium Header */}
             <div className="px-6 pt-6 pb-2 flex justify-between items-center bg-gradient-to-b from-white/5 to-transparent">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-10 h-10 bg-gradient-to-br from-primary/20 to-indigo-600/20 rounded-full flex items-center justify-center border border-primary/30 shadow-[0_0_15px_rgba(14,68,249,0.15)]">
-                    <MessageSquare size={16} className="text-primary fill-primary/10" />
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center border border-white/20 shadow-[0_0_15px_rgba(14,68,249,0.3)]">
+                    <span className="text-[12px] font-black tracking-tight text-white uppercase">
+                      IA
+                    </span>
                   </div>
                   <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-zinc-950 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.5)]"></span>
                 </div>
@@ -154,7 +170,7 @@ export default function ChatWidget() {
             </div>
 
             {/* Content Area - Optimized for Assistant Role */}
-            <div className="px-6 py-5 min-h-[100px]">
+            <div className="px-6 py-5 min-h-[100px] max-h-[400px] overflow-y-auto scroll-smooth [ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <AnimatePresence mode="wait">
                 {isLoading ? (
                   <motion.div 
@@ -177,13 +193,34 @@ export default function ChatWidget() {
                     animate={{ opacity: 1, y: 0 }}
                     className="flex flex-col gap-4"
                   >
+                    {/* Solo mostramos la última respuesta si no es el mensaje inicial, o el mensaje inicial si es el primero */}
                     {messages.length > 0 && (
-                      <div className={`p-5 rounded-[2rem] text-[15.5px] font-medium leading-[1.6] transition-all duration-700 ${
-                        messages[messages.length - 1].role === 'user'
-                        ? 'bg-gradient-to-br from-primary via-primary-700 to-indigo-900 text-white rounded-br-none ml-auto max-w-[90%] shadow-xl shadow-primary/20 border border-white/10'
-                        : 'bg-white/5 backdrop-blur-md text-zinc-100 rounded-tl-none border border-white/10 shadow-inner'
-                      }`}>
-                        {messages[messages.length - 1].content}
+                      <div className="flex flex-col gap-4">
+                        <div className={`p-5 rounded-[2rem] text-[15.5px] font-medium leading-[1.6] transition-all duration-700 ${
+                          messages[messages.length - 1].role === 'user'
+                          ? 'bg-gradient-to-br from-primary via-primary-700 to-indigo-900 text-white rounded-br-none ml-auto max-w-[90%] shadow-xl shadow-primary/20 border border-white/10'
+                          : 'bg-white/5 backdrop-blur-md text-zinc-100 rounded-tl-none border border-white/10 shadow-inner'
+                        }`}>
+                          {messages[messages.length - 1].content}
+                        </div>
+
+                        {/* Chips interactivos solo si el último mensaje es del asistente y es el inicial */}
+                        {messages[messages.length - 1].role === 'assistant' && messages[messages.length - 1].isInitial && (
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {actionChips.map((chip, i) => (
+                              <motion.button
+                                key={i}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 + (i * 0.1) }}
+                                onClick={() => handleChipClick(chip.query)}
+                                className="px-4 py-2 bg-white/5 hover:bg-primary/20 border border-white/10 hover:border-primary/50 text-zinc-300 hover:text-white rounded-full text-[12px] font-semibold transition-all duration-300"
+                              >
+                                {chip.label}
+                              </motion.button>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     )}
                   </motion.div>
@@ -234,14 +271,27 @@ export default function ChatWidget() {
           whileHover={{ scale: 1.15, rotate: 5 }}
           whileTap={{ scale: 0.9, rotate: -5 }}
           onClick={() => setIsOpen(!isOpen)}
-          className={`relative z-10 w-16 h-16 flex items-center justify-center rounded-2xl transition-all duration-500 shadow-2xl text-white ${
+          className={`relative z-10 w-16 h-16 flex items-center justify-center rounded-2xl transition-all duration-500 text-white border-2 shadow-[0_0_40px_rgba(14,68,249,0.5)] ${
             isOpen 
-            ? 'bg-zinc-900 border border-white/20 rotate-180 shadow-none' 
-            : 'bg-gradient-to-br from-primary via-primary to-indigo-700 shadow-primary/40'
+            ? 'bg-zinc-900 border-primary/70 rotate-180 shadow-none' 
+            : 'bg-zinc-950 border-primary shadow-primary/30'
           }`}
           aria-label="Toggle Asistente"
         >
-          {isOpen ? <X size={28} /> : <MessageSquare size={28} className="drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" />}
+          {isOpen ? (
+            <X size={28} />
+          ) : (
+            <div className="relative flex items-center justify-center">
+              <MessageSquare size={34} className="text-primary fill-primary/10 drop-shadow-[0_0_10px_rgba(14,68,249,0.5)]" />
+              <span className="absolute inset-0 flex items-center justify-center text-[10px] font-black tracking-tighter text-white drop-shadow-md pb-0.5">
+                IA
+              </span>
+            </div>
+          )}
+          {/* Subtle Glow Overlay */}
+          {!isOpen && (
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-primary/10 to-transparent pointer-events-none" />
+          )}
         </motion.button>
       </div>
 
