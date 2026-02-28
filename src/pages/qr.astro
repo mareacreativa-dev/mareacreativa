@@ -1,0 +1,309 @@
+---
+import { ClientRouter } from "astro:transitions";
+import ChatWidget from "../components/ChatWidget";
+import "../styles/global.css";
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Marea Creativa | Connect</title>
+    <ClientRouter />
+    <meta
+      name="description"
+      content="Automatizamos tu atención al cliente con Inteligencia Artificial."
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756154116/logo_m_blanco_y3leyc.svg"
+    />
+    <style>
+      @keyframes shimmer {
+        100% {
+          transform: translateX(100%);
+        }
+      }
+      .animate-shimmer {
+        animation: shimmer 2.5s infinite;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-[#f0f4fc] text-secondary min-h-[100dvh] flex flex-col items-center font-sans antialiased overflow-x-hidden"
+  >
+    <!-- Header Navbar (Matching Home) -->
+    <header
+      id="header-nav"
+      class="w-full bg-secondary p-4 flex justify-center items-center shadow-md z-20 sticky top-0"
+    >
+      <a
+        href="/"
+        class="text-white flex justify-center items-center gap-2 font-bold"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 765.74 611.6"
+          class="h-10 md:h-12 text-primary"
+          fill="currentColor"
+          aria-label="Marea Creativa Logo"
+        >
+          <path
+            d="M432.28,398.94c2.4,2.41,8.32,3.59,11.76,3.35,21.95-1.5,78.89-61.69,100.76-77.24,20.53-14.59,62.7-37.84,79.99-7.07,15.2,27.05-11.71,61.33-14.99,89.01-9,75.91,47.04,71.56,104.17,63.25-36.56,56.14-164.12,68.92-169.5-15.44-2.16-33.9,18.18-68.94-36.37-30.92-38.08,26.54-107.91,121.7-159.04,77.44-30.42-26.33-12.33-86.75-2.21-120.11,12.79-42.19,33.36-81.64,44.86-124.3-8.87-33.34-49.95-3.03-65.9,10.08-80.44,66.1-121.07,153.01-174.3,237.96-8.54,13.63-14.83,21.96-32.16,24.31-25.17,3.41-74.54,3.26-67.41-33.47C126.51,364.4,236.05,194.7,372.25,121.44c58.29-31.35,172.06-57.32,137.7,50.17-15.18,47.48-44.74,93.51-62.77,140.53-6.58,17.16-28.92,72.73-14.9,86.8Z"
+          ></path>
+        </svg>
+        <span class="text-xl">
+          MAREA <span class="font-light">CREATIVA</span>
+        </span>
+      </a>
+    </header>
+
+    <!-- Content Container -->
+    <main
+      id="main-content"
+      class="w-full max-w-sm mx-auto flex flex-col gap-6 z-10 px-6 py-10"
+    >
+      <!-- Hero Title -->
+      <div id="hero-title-container" class="text-center mb-2">
+        <h1
+          id="hero-title"
+          class="text-[20px] font-black leading-snug text-gray-900 tracking-tight"
+        >
+          Automatizamos tu atención al cliente con <span class="text-primary"
+            >Inteligencia Artificial</span
+          >
+        </h1>
+      </div>
+      <!-- Interactive VCard Button / Wallet Card -->
+      <button
+        id="download-vcard"
+        class="relative w-full aspect-[1.586/1] rounded-3xl overflow-hidden group hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 mb-2 shadow-2xl text-left focus:outline-none focus:ring-4 focus:ring-primary/30"
+      >
+        <!-- Background changed to solid black -->
+        <div class="absolute inset-0 bg-black border border-gray-800 z-0"></div>
+        <!-- Background image with opacity -->
+        <div
+          id="card-bg-img"
+          class="absolute inset-0 z-0 bg-cover bg-center opacity-30 mix-blend-lighten"
+          style="background-image: url('https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756216204/marea_background_ico_dh5xdc.svg')"
+        >
+        </div>
+
+        <!-- Metallic sheen animated -->
+        <div
+          id="card-sheen"
+          class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer z-0 skew-x-12"
+        >
+        </div>
+
+        <!-- Card Content -->
+        <div
+          id="card-content-wrapper"
+          class="relative z-10 p-6 flex flex-col h-full justify-between"
+        >
+          <!-- Top Row -->
+          <div id="card-top-row" class="flex justify-between items-start">
+            <!-- Text on the left now -->
+            <span
+              id="card-company-name"
+              class="text-lg font-bold text-white tracking-wide mt-1"
+            >
+              Marea Creativa
+            </span>
+            <!-- Logo on the right now -->
+            <img
+              id="card-company-logo"
+              src="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756154116/logo_m_blanco_y3leyc.svg"
+              alt="Logo mini"
+              class="w-8 h-8 opacity-90 drop-shadow-md"
+            />
+          </div>
+
+          <!-- Bottom Row -->
+          <!-- CTA inside card (No icon, aligned right, fit width, different color) -->
+          <div
+            id="card-cta-button"
+            class="mt-4 inline-flex items-center justify-center bg-black border-2 border-primary self-end px-5 py-2 rounded-full shadow-lg transition-transform group-hover:bg-zinc-900"
+          >
+            <span
+              id="card-cta-text"
+              class="text-[12px] font-bold text-white uppercase tracking-widest"
+              >Guardar Contacto</span
+            >
+          </div>
+        </div>
+      </button>
+
+      <!-- Secondary Actions container -->
+      <div id="secondary-actions-container" class="flex flex-col gap-3 w-full">
+        <!-- WhatsApp -->
+        <a
+          id="link-whatsapp"
+          href="https://wa.me/34661848529?text=Hola,%20vengo%20del%20QR%20y%20quiero%20más%20información."
+          target="_blank"
+          class="flex items-center bg-black hover:bg-zinc-900 h-[56px] rounded-2xl transition-all shadow-md relative w-full group"
+        >
+          <div
+            class="absolute left-6 text-white group-hover:scale-110 transition-transform"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path><path
+                d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"
+              ></path>
+            </svg>
+          </div>
+          <span
+            class="w-full text-center text-[15px] font-bold text-white tracking-wide"
+            >WhatsApp</span
+          >
+        </a>
+
+        <!-- Instagram -->
+        <a
+          id="link-instagram"
+          href="https://www.instagram.com/marea.creativa/"
+          target="_blank"
+          class="flex items-center bg-black hover:bg-zinc-900 h-[56px] rounded-2xl transition-all shadow-md relative w-full group"
+        >
+          <div
+            class="absolute left-6 text-white group-hover:scale-110 transition-transform"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                d="M4 4m0 4a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z"
+              ></path><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"
+              ></path><path d="M16.5 7.5l0 .01"></path>
+            </svg>
+          </div>
+          <span
+            class="w-full text-center text-[15px] font-bold text-white tracking-wide"
+            >Instagram</span
+          >
+        </a>
+
+        <!-- Website -->
+        <a
+          id="link-website"
+          href="/"
+          class="flex items-center bg-black hover:bg-zinc-900 h-[56px] rounded-2xl transition-all shadow-md relative w-full group"
+        >
+          <div
+            class="absolute left-6 text-white group-hover:scale-110 transition-transform"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+                d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"
+              ></path><path d="M3.6 9h16.8"></path><path d="M3.6 15h16.8"
+              ></path><path d="M11.5 3a17 17 0 0 0 0 18"></path><path
+                d="M12.5 3a17 17 0 0 1 0 18"></path>
+            </svg>
+          </div>
+          <span
+            class="w-full text-center text-[15px] font-bold text-white tracking-wide"
+            >www.mareacreativa.com</span
+          >
+        </a>
+        <!-- Chatbot Button -->
+        <button
+          id="btn-chat"
+          class="flex items-center bg-black hover:bg-zinc-900 h-[56px] rounded-2xl transition-all shadow-md relative w-full group"
+        >
+          <div
+            class="absolute left-6 text-white group-hover:scale-110 transition-transform"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
+            </svg>
+          </div>
+          <span
+            class="w-full text-center text-[15px] font-bold text-white tracking-wide"
+            >Abrir Chatbot</span
+          >
+        </button>
+      </div>
+    </main>
+
+    <!-- Chat Widget mounted globally but hidden until opened -->
+    <ChatWidget client:load hideTrigger={true} />
+
+    <!-- Script for VCF logic and event listeners -->
+    <script>
+      // VCF Download Logic
+      document
+        .getElementById("download-vcard")
+        ?.addEventListener("click", () => {
+          const vcardData = `BEGIN:VCARD
+VERSION:3.0
+N:Creativa;Marea;;;
+FN:Marea Creativa
+ORG:Marea Creativa
+TITLE:Agencia de Inteligencia Artificial y Diseño Web
+TEL;TYPE=WORK,VOICE:+34661848529
+EMAIL;TYPE=PREF,INTERNET:hola@mareacreativa.com
+URL:https://mareacreativa.com
+NOTE:Automatizamos tu atención al cliente con Inteligencia Artificial.
+END:VCARD`;
+
+          const blob = new Blob([vcardData], {
+            type: "text/vcard;charset=utf-8;",
+          });
+          // For iOS compatibility, try to open in new tab if blob download is blocked,
+          // but standard HTML5 download usually works.
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "contacto_marea_creativa.vcf");
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+
+      // Trigger Chat
+      document.getElementById("btn-chat")?.addEventListener("click", () => {
+        window.dispatchEvent(new Event("open-marea-chat"));
+      });
+    </script>
+  </body>
+</html>

@@ -3,8 +3,9 @@ import { MessageSquare, X, Send, Loader2, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { navigate } from 'astro:transitions/client';
 
-export default function ChatWidget() {
+export default function ChatWidget ({ inline = false, hideTrigger = false }) {
   const [isOpen, setIsOpen] = useState(() => {
+    if (inline) return true;
     if (typeof window !== 'undefined') {
       const saved = sessionStorage.getItem('marea_chat_is_open');
       return saved === 'true';
@@ -21,12 +22,20 @@ export default function ChatWidget() {
       sessionStorage.setItem('marea_chat_is_open', isOpen);
     }
   }, [isOpen]);
-  
+
+  useEffect(() => {
+    const handleOpenChatEvent = () => setIsOpen(true);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('open-marea-chat', handleOpenChatEvent);
+      return () => window.removeEventListener('open-marea-chat', handleOpenChatEvent);
+    }
+  }, []);
+
   const defaultMessages = [
-    { 
-      role: 'assistant', 
+    {
+      role: 'assistant',
       content: '¡Hola! Soy tu asistente IA de Marea Creativa. Estoy aquí para guiarte por la web, mostrarte nuestro trabajo o agendar una llamada contigo. ¿Por dónde empezamos?',
-      isInitial: true 
+      isInitial: true
     }
   ];
 
@@ -80,9 +89,9 @@ export default function ChatWidget() {
 
       if (!response.ok) throw new Error('Error crítico en el endpoint');
       const data = await response.json();
-      
+
       setMessages(prev => [
-        ...prev, 
+        ...prev,
         { role: 'assistant', content: data.reply }
       ]);
 
@@ -90,7 +99,7 @@ export default function ChatWidget() {
         // Navegación automática
         setTimeout(() => {
           navigate(data.navigateTo);
-          
+
           // Efecto de minimizado automático tras navegar si el usuario no interactúa
           setTimeout(() => {
             if (!userInteractedAfterNav.current) {
@@ -109,7 +118,7 @@ export default function ChatWidget() {
     } catch (error) {
       console.error('Error enviando mensaje:', error);
       setMessages(prev => [
-        ...prev, 
+        ...prev,
         { role: 'assistant', content: 'Lo siento, ha ocurrido un error de conexión. ¿Podrías intentarlo de nuevo?' }
       ]);
     } finally {
@@ -145,17 +154,17 @@ export default function ChatWidget() {
   if (fatalError) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end max-w-[calc(100vw-3rem)]">
-      
+    <div className={inline ? "w-full relative z-20 flex flex-col mt-4 mb-10" : "fixed bottom-6 right-6 z-50 flex flex-col items-end max-w-[calc(100vw-3rem)]"}>
+
       <AnimatePresence>
-        {isOpen && (
+        {(isOpen || inline) && (
           <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.8, filter: 'blur(15px)' }}
+            initial={inline ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : { opacity: 0, y: 40, scale: 0.8, filter: 'blur(15px)' }}
             animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, y: 40, scale: 0.8, filter: 'blur(15px)' }}
+            exit={inline ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : { opacity: 0, y: 40, scale: 0.8, filter: 'blur(15px)' }}
             transition={{ type: "spring", damping: 20, stiffness: 150 }}
             onPointerDown={() => { userInteractedAfterNav.current = true; }}
-            className="backdrop-blur-3xl bg-zinc-950/95 border-2 border-primary/60 shadow-[0_0_50px_rgba(14,68,249,0.3)] w-full sm:w-[400px] flex flex-col rounded-[2.5rem] overflow-hidden mb-6"
+            className={`backdrop-blur-3xl bg-zinc-950/95 border-2 border-primary/60 shadow-[0_0_50px_rgba(14,68,249,0.3)] flex flex-col overflow-hidden w-full ${inline ? 'rounded-3xl min-h-[450px]' : 'rounded-[2.5rem] mb-6 sm:w-[400px]'}`}
           >
             {/* Minimalist Premium Header */}
             <div className="px-6 pt-6 pb-2 flex justify-between items-center bg-gradient-to-b from-white/5 to-transparent">
@@ -175,19 +184,21 @@ export default function ChatWidget() {
                   </div>
                 </div>
               </div>
-              <button 
-                onClick={() => setIsOpen(false)}
-                className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10 text-white/40 hover:text-white transition-all duration-300 group"
-              >
-                <X size={18} className="group-hover:rotate-90 transition-transform duration-300" />
-              </button>
+              {!inline && (
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10 text-white/40 hover:text-white transition-all duration-300 group"
+                >
+                  <X size={18} className="group-hover:rotate-90 transition-transform duration-300" />
+                </button>
+              )}
             </div>
 
             {/* Content Area - Optimized for Assistant Role */}
-            <div className="px-6 py-5 min-h-[100px] max-h-[400px] overflow-y-auto scroll-smooth [ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className={`px-6 py-5 overflow-y-auto scroll-smooth [ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${inline ? 'flex-1' : 'min-h-[100px] max-h-[400px]'}`}>
               <AnimatePresence mode="wait">
                 {isLoading ? (
-                  <motion.div 
+                  <motion.div
                     key="loader"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -201,7 +212,7 @@ export default function ChatWidget() {
                     </div>
                   </motion.div>
                 ) : (
-                  <motion.div 
+                  <motion.div
                     key={messages.length}
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -210,11 +221,10 @@ export default function ChatWidget() {
                     {/* Solo mostramos la última respuesta si no es el mensaje inicial, o el mensaje inicial si es el primero */}
                     {messages.length > 0 && (
                       <div className="flex flex-col gap-4">
-                        <div className={`p-5 rounded-[2rem] text-[15.5px] font-medium leading-[1.6] transition-all duration-700 ${
-                          messages[messages.length - 1].role === 'user'
+                        <div className={`p-5 rounded-[2rem] text-[15.5px] font-medium leading-[1.6] transition-all duration-700 ${messages[messages.length - 1].role === 'user'
                           ? 'bg-gradient-to-br from-primary via-primary-700 to-indigo-900 text-white rounded-br-none ml-auto max-w-[90%] shadow-xl shadow-primary/20 border border-white/10'
                           : 'bg-white/5 backdrop-blur-md text-zinc-100 rounded-tl-none border border-white/10 shadow-inner'
-                        }`}>
+                          }`}>
                           {messages[messages.length - 1].content}
                         </div>
 
@@ -268,46 +278,47 @@ export default function ChatWidget() {
       </AnimatePresence>
 
       {/* Floating Button - The "Heart" of the UI */}
-      <div className="relative">
-        <AnimatePresence>
-          {!isOpen && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1.3 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              className="absolute inset-0 bg-primary/30 rounded-full animate-pulse-slow"
-              style={{ filter: 'blur(10px)' }}
-            />
-          )}
-        </AnimatePresence>
-        
-        <motion.button
-          whileHover={{ scale: 1.15, rotate: 5 }}
-          whileTap={{ scale: 0.9, rotate: -5 }}
-          onClick={() => setIsOpen(!isOpen)}
-          className={`relative z-10 w-16 h-16 flex items-center justify-center rounded-2xl transition-all duration-500 text-white border-2 shadow-[0_0_40px_rgba(14,68,249,0.5)] ${
-            isOpen 
-            ? 'bg-zinc-900 border-primary/70 rotate-180 shadow-none' 
-            : 'bg-zinc-950 border-primary shadow-primary/30'
-          }`}
-          aria-label="Toggle Asistente"
-        >
-          {isOpen ? (
-            <X size={28} />
-          ) : (
-            <div className="relative flex items-center justify-center">
-              <MessageSquare size={34} className="text-primary fill-primary/10 drop-shadow-[0_0_10px_rgba(14,68,249,0.5)]" />
-              <span className="absolute inset-0 flex items-center justify-center text-[10px] font-black tracking-tighter text-white drop-shadow-md pb-0.5">
-                IA
-              </span>
-            </div>
-          )}
-          {/* Subtle Glow Overlay */}
-          {!isOpen && (
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-primary/10 to-transparent pointer-events-none" />
-          )}
-        </motion.button>
-      </div>
+      {!inline && !hideTrigger && (
+        <div className="relative">
+          <AnimatePresence>
+            {!isOpen && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1.3 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className="absolute inset-0 bg-primary/30 rounded-full animate-pulse-slow"
+                style={{ filter: 'blur(10px)' }}
+              />
+            )}
+          </AnimatePresence>
+
+          <motion.button
+            whileHover={{ scale: 1.15, rotate: 5 }}
+            whileTap={{ scale: 0.9, rotate: -5 }}
+            onClick={() => setIsOpen(!isOpen)}
+            className={`relative z-10 w-16 h-16 flex items-center justify-center rounded-2xl transition-all duration-500 text-white border-2 shadow-[0_0_40px_rgba(14,68,249,0.5)] ${isOpen
+              ? 'bg-zinc-900 border-primary/70 rotate-180 shadow-none'
+              : 'bg-zinc-950 border-primary shadow-primary/30'
+              }`}
+            aria-label="Toggle Asistente"
+          >
+            {isOpen ? (
+              <X size={28} />
+            ) : (
+              <div className="relative flex items-center justify-center">
+                <MessageSquare size={34} className="text-primary fill-primary/10 drop-shadow-[0_0_10px_rgba(14,68,249,0.5)]" />
+                <span className="absolute inset-0 flex items-center justify-center text-[10px] font-black tracking-tighter text-white drop-shadow-md pb-0.5">
+                  IA
+                </span>
+              </div>
+            )}
+            {/* Subtle Glow Overlay */}
+            {!isOpen && (
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-primary/10 to-transparent pointer-events-none" />
+            )}
+          </motion.button>
+        </div>
+      )}
 
       {/* Improved Toast */}
       <AnimatePresence mode="wait">
@@ -317,9 +328,8 @@ export default function ChatWidget() {
             initial={{ opacity: 0, scale: 0.9, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className={`mt-4 px-4 py-2 rounded-xl text-xs font-semibold text-white shadow-xl backdrop-blur-md ${
-              toast.type === 'success' ? 'bg-green-500/90' : 'bg-red-500/90'
-            }`}
+            className={`mt-4 px-4 py-2 rounded-xl text-xs font-semibold text-white shadow-xl backdrop-blur-md ${toast.type === 'success' ? 'bg-green-500/90' : 'bg-red-500/90'
+              }`}
           >
             {toast.message}
           </motion.div>
