@@ -178,7 +178,7 @@ export default function ChatWidget() {
                     className="flex flex-col gap-4"
                   >
                     {messages.length > 0 && (
-                      <div className={`p-5 rounded-[2rem] text-[14.5px] font-medium leading-[1.6] transition-all duration-700 ${
+                      <div className={`p-5 rounded-[2rem] text-[15.5px] font-medium leading-[1.6] transition-all duration-700 ${
                         messages[messages.length - 1].role === 'user'
                         ? 'bg-gradient-to-br from-primary via-primary-700 to-indigo-900 text-white rounded-br-none ml-auto max-w-[90%] shadow-xl shadow-primary/20 border border-white/10'
                         : 'bg-white/5 backdrop-blur-md text-zinc-100 rounded-tl-none border border-white/10 shadow-inner'
@@ -200,7 +200,7 @@ export default function ChatWidget() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="¿En qué puedo ayudarte?"
-                  className="w-full relative z-10 bg-white/5 text-white rounded-full py-4 pl-6 pr-16 focus:outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-primary/40 text-[14px] transition-all placeholder:text-zinc-500"
+                  className="w-full relative z-10 bg-white/5 text-white rounded-full py-4 pl-6 pr-16 focus:outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-primary/40 text-[16px] transition-all placeholder:text-zinc-500"
                   disabled={isLoading}
                 />
                 <button
