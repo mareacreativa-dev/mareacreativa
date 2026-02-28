@@ -15,13 +15,14 @@ async function sendTelegramAlert(message) {
   
   try {
     const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+    const safeMessage = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: telegramChatId,
-        text: `🚨 *Alerta del Chat (Marea Creativa)*\n\n${message}`,
-        parse_mode: "Markdown"
+        text: `🚨 <b>Alerta del Chat (Marea Creativa)</b>\n\n${safeMessage}`,
+        parse_mode: "HTML"
       })
     });
   } catch (error) {
@@ -29,24 +30,36 @@ async function sendTelegramAlert(message) {
   }
 }
 
+// Función para enviar leads con HTML parsing mucho más estable
 async function sendTelegramLead(name, phone, service, details) {
-  if (!telegramBotToken || !telegramChatId) return;
+  if (!telegramBotToken || !telegramChatId) return false;
+  
+  const sanitize = (text) => text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;") : "";
+  
   const mensaje = 
-    `🚨 *Nueva Solicitud Web (Recogida por CHATBOT)*\n\n` +
-    `👤 *Nombre:* ${name}\n` +
-    `📞 *Contacto:* ${phone}\n` +
-    `🏷️ *Servicios:* ${service || "Ninguno"}\n\n` +
-    `📝 *Detalles:*\n${details || "No indicó detalles"}`;
+    `🚨 <b>Nueva Solicitud Web (Recogida por CHATBOT)</b>\n\n` +
+    `👤 <b>Nombre:</b> ${sanitize(name)}\n` +
+    `📞 <b>Contacto:</b> ${sanitize(phone)}\n` +
+    `🏷️ <b>Servicios:</b> ${sanitize(service) || "Ninguno"}\n\n` +
+    `📝 <b>Detalles:</b>\n${sanitize(details) || "No indicó detalles"}`;
 
   try {
     const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
-    await fetch(url, {
+    const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: telegramChatId, text: mensaje, parse_mode: "Markdown" })
+      body: JSON.stringify({ chat_id: telegramChatId, text: mensaje, parse_mode: "HTML" })
     });
+    
+    if (!res.ok) {
+        const errorText = await res.text();
+        console.error("Telegram rechazó el mensaje:", errorText);
+        return false;
+    }
+    return true;
   } catch (error) {
     console.error("Error al enviar lead:", error);
+    return false;
   }
 }
 
@@ -128,13 +141,14 @@ ${knowledgeBaseText}`
     const data = await response.json();
     let reply = data.choices[0]?.message?.content || "Sin respuesta";
     let navigateTo = null;
+    let telegramSent = null;
 
     // 1. Detectar comando de Captura de Lead (con soporte multilinea para detalles extensos)
     const leadMatch = reply.match(/\|\|LEAD:([^\|]+)\|([^\|]+)\|([^\|]*)\|([\s\S]+?)\|\|/);
     if (leadMatch) {
       const [, name, phone, service, details] = leadMatch;
       // Enviar al telegram bloqueando para saber si falló
-      await sendTelegramLead(name.trim(), phone.trim(), service.trim(), details.trim());
+      telegramSent = await sendTelegramLead(name.trim(), phone.trim(), service.trim(), details.trim());
       // Forzar confirmación visual al cliente si el bot olvidó agregar texto confirmatorio
       if (reply.replace(leadMatch[0], '').trim().length < 5) {
          reply = "¡Perfecto! Acabo de enviar tus datos a nuestro equipo. Te contactaremos muy pronto. ¿Puedo ayudarte con algo más?";
@@ -153,7 +167,7 @@ ${knowledgeBaseText}`
     }
 
     return new Response(
-      JSON.stringify({ reply, navigateTo }),
+      JSON.stringify({ reply, navigateTo, telegramSent }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {

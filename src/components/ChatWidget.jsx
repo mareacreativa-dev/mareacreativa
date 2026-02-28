@@ -35,7 +35,13 @@ export default function ChatWidget() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [fatalError, setFatalError] = useState(false);
+  const [toast, setToast] = useState(null); // { message, type: 'success'|'error' }
   const chatContainerRef = useRef(null);
+
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 4000);
+  };
 
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
@@ -86,7 +92,14 @@ export default function ChatWidget() {
       if (data.navigateTo) {
         setTimeout(() => {
           navigate(data.navigateTo);
-        }, 1500); // Pequeño retraso para que el usuario pueda leer el mensaje antes de viajar
+        }, 1500);
+      }
+
+      // Toast de confirmación de Telegram cuando hay lead
+      if (data.telegramSent === true) {
+        showToast('✅ Datos enviados al equipo correctamente', 'success');
+      } else if (data.telegramSent === false) {
+        showToast('⚠️ Hubo un problema enviando los datos. Intenta llamarnos directamente.', 'error');
       }
 
     } catch (error) {
@@ -111,6 +124,23 @@ export default function ChatWidget() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+      {/* Toast de confirmación Telegram */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            key="toast"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.25 }}
+            className={`mb-3 px-4 py-2 rounded-xl text-sm font-medium shadow-lg text-white max-w-[280px] text-center ${
+              toast.type === 'success' ? 'bg-green-600' : 'bg-red-500'
+            }`}
+          >
+            {toast.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
       <AnimatePresence>
         {isOpen && (
           <motion.div
