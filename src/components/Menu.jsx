@@ -13,6 +13,11 @@ const Menu = () => {
 		setIsServicesOpen(!isServicesOpen);
 	};
 
+	const closeMenu = () => {
+		setIsMenuOpen(false);
+		setIsServicesOpen(false);
+	};
+
 	const servicesParams = [
 		{ name: "Diseño Web y Desarrollo", href: "/diseno-y-desarrollo-web" },
 		{ name: "Rebranding e Identidad", href: "/rebranding-identidad" },
@@ -27,6 +32,7 @@ const Menu = () => {
 			<nav className="flex justify-between items-center max-w-7xl mx-auto w-full">
 				<a
 					href="/"
+					onClick={closeMenu}
 					className="text-white flex justify-center items-center gap-2 font-bold z-50"
 				>
 					<svg
@@ -128,9 +134,9 @@ const Menu = () => {
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${isServicesOpen ? 'rotate-180' : ''}`}><path d="m6 9 6 6 6-6"/></svg>
 						</button>
 						<div className={`flex flex-col pl-4 mt-2 space-y-3 border-l border-gray-700 transition-all overflow-hidden ${isServicesOpen ? 'max-h-[500px] opacity-100 mb-2' : 'max-h-0 opacity-0'}`}>
-							<a href="/servicios" className="text-gray-400 font-medium py-1">➔ Ver todos los servicios</a>
+							<a href="/servicios" onClick={closeMenu} className="text-gray-400 font-medium py-1">➔ Ver todos los servicios</a>
 							{servicesParams.map((service, idx) => (
-								<a key={idx} href={service.href} className="text-gray-300 hover:text-white py-1 transition-colors">
+								<a key={idx} href={service.href} onClick={closeMenu} className="text-gray-300 hover:text-white py-1 transition-colors">
 									{service.name}
 								</a>
 							))}
@@ -139,12 +145,14 @@ const Menu = () => {
 
 					<a
 						href="/proyectos"
+						onClick={closeMenu}
 						className="py-2 font-medium text-xl text-white hover:text-primary transition-colors"
 					>
 						Proyectos
 					</a>
 					<a
 						href="/contacto"
+						onClick={closeMenu}
 						className="mt-4 text-center bg-primary text-white font-medium px-6 py-4 rounded-full hover:bg-blue-700 transition-colors"
 					>
 						Habla con nosotros
