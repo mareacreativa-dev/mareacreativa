@@ -1,5 +1,4 @@
-import fs from 'fs';
-import path from 'path';
+import knowledgeBaseText from '../../data/conocimiento-chatbot.md?raw';
 
 export const prerender = false;
 
@@ -66,14 +65,6 @@ export async function POST({ request }) {
       );
     }
 
-    // Leemos el archivo local markdown con los conocimientos
-    const knowledgePath = path.resolve('./src/data/conocimiento-chatbot.md');
-    let knowledgeBase = "No se pudo cargar la base de conocimientos.";
-    try {
-      knowledgeBase = fs.readFileSync(knowledgePath, 'utf8');
-    } catch (err) {
-      console.error("Error cargando conocimiento-chatbot.md:", err);
-    }
 
     const systemPrompt = {
       role: "system",
@@ -88,7 +79,7 @@ export async function POST({ request }) {
 6. NAVEGACIÓN (Comando oculto): Si un usuario te solicita ver portafolios, precios u otras páginas, mira las Rutas de Navegación Permitidas en tu base de conocimientos y adjunta: ||NAVIGATE:/ruta|| al final. EXCEPCIÓN: NUNCA uses NAVIGATE si acabas de pedirles o te acaban de dar sus datos de teléfono.
 
 === BASE DE CONOCIMIENTOS ===
-${knowledgeBase}`
+${knowledgeBaseText}`
     };
 
     // Utilizamos los modelos gratuitos más potentes y ultra rápidos (Llama 3.1 8B es brutalmente veloz como principal, y Stepfun como fallback)
@@ -134,14 +125,15 @@ ${knowledgeBase}`
     let navigateTo = null;
 
     // 1. Detectar comando de Captura de Lead (con soporte multilinea para detalles extensos)
-    const leadMatch = reply.match(/\|\|LEAD:(.+?)\|(.+?)\|(.*?)\|([\s\S]+?)\|\|/);
+    const leadMatch = reply.match(/\|\|LEAD:([^\|]+)\|([^\|]+)\|([^\|]*)\|([\s\S]+?)\|\|/);
     if (leadMatch) {
       const [, name, phone, service, details] = leadMatch;
       // Enviar al telegram en segundo plano sin bloquear el chat
       sendTelegramLead(name.trim(), phone.trim(), service.trim(), details.trim());
-      // Ocultar el bloque del texto final que ve el usuario
-      reply = reply.replace(leadMatch[0], "").trim();
     }
+    
+    // Limpieza agresiva: Ocultar el bloque oculto y cualquier intento fallido que el bot haya querido escupir
+    reply = reply.replace(/\|\|LEAD[\s\S]*?\|\|/g, "").trim();
 
     // 2. Detectar comando de Navegación
     const navMatch = reply.match(/\|\|NAVIGATE:(.+?)\|\|/);
