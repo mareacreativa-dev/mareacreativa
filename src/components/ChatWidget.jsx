@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { navigate } from 'astro:transitions/client';
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(() => {
@@ -84,7 +85,7 @@ export default function ChatWidget() {
 
       if (data.navigateTo) {
         setTimeout(() => {
-          window.location.href = data.navigateTo;
+          navigate(data.navigateTo);
         }, 1500); // Pequeño retraso para que el usuario pueda leer el mensaje antes de viajar
       }
 

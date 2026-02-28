@@ -133,8 +133,12 @@ ${knowledgeBaseText}`
     const leadMatch = reply.match(/\|\|LEAD:([^\|]+)\|([^\|]+)\|([^\|]*)\|([\s\S]+?)\|\|/);
     if (leadMatch) {
       const [, name, phone, service, details] = leadMatch;
-      // Enviar al telegram en segundo plano sin bloquear el chat
-      sendTelegramLead(name.trim(), phone.trim(), service.trim(), details.trim());
+      // Enviar al telegram bloqueando para saber si falló
+      await sendTelegramLead(name.trim(), phone.trim(), service.trim(), details.trim());
+      // Forzar confirmación visual al cliente si el bot olvidó agregar texto confirmatorio
+      if (reply.replace(leadMatch[0], '').trim().length < 5) {
+         reply = "¡Perfecto! Acabo de enviar tus datos a nuestro equipo. Te contactaremos muy pronto. ¿Puedo ayudarte con algo más?";
+      }
     }
     
     // Limpieza agresiva: Ocultar el bloque oculto y cualquier intento fallido que el bot haya querido escupir

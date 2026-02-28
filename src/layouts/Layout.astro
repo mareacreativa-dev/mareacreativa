@@ -73,14 +73,14 @@ import { ClientRouter } from "astro:transitions";
   </head>
   <body>
     <header>
-      <Menu client:load />
+      <Menu client:load transition:persist="menu" />
     </header>
     <main class="flex-grow bg-tertiary">
       <slot />
     </main>
-    <Footer />
-    <CookieBanner />
-    <ChatWidget client:load />
+    <Footer transition:persist="footer" />
+    <CookieBanner transition:persist="cookie-banner" />
+    <ChatWidget client:load transition:persist="chat-widget" />
     <style>
       html,
       body {
