@@ -58,11 +58,14 @@ export default function ChatWidget() {
     processMessage(query);
   };
 
+  const userInteractedAfterNav = useRef(false);
+
   const processMessage = async (text) => {
     const userMessage = { role: 'user', content: text.trim() };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
+    userInteractedAfterNav.current = false; // Reset al enviar
 
     try {
       const response = await fetch('/api/chat', {
@@ -84,7 +87,17 @@ export default function ChatWidget() {
       ]);
 
       if (data.navigateTo) {
-        setTimeout(() => navigate(data.navigateTo), 1500);
+        // Navegación automática
+        setTimeout(() => {
+          navigate(data.navigateTo);
+          
+          // Efecto de minimizado automático tras navegar si el usuario no interactúa
+          setTimeout(() => {
+            if (!userInteractedAfterNav.current) {
+              setIsOpen(false);
+            }
+          }, 4500); // Damos tiempo a ver la nueva página
+        }, 1500);
       }
 
       if (data.telegramSent === true) {
@@ -141,6 +154,7 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, y: 40, scale: 0.8, filter: 'blur(15px)' }}
             transition={{ type: "spring", damping: 20, stiffness: 150 }}
+            onPointerDown={() => { userInteractedAfterNav.current = true; }}
             className="backdrop-blur-3xl bg-zinc-950/95 border-2 border-primary/60 shadow-[0_0_50px_rgba(14,68,249,0.3)] w-full sm:w-[400px] flex flex-col rounded-[2.5rem] overflow-hidden mb-6"
           >
             {/* Minimalist Premium Header */}
