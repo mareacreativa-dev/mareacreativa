@@ -32,9 +32,15 @@ async function sendTelegramAlert(message) {
 
 // Función para enviar leads con HTML parsing mucho más estable
 async function sendTelegramLead(name, phone, service, details) {
-  if (!telegramBotToken || !telegramChatId) return false;
+  if (!telegramBotToken || !telegramChatId) {
+    console.error("[TELEGRAM] Sin token o chatId — no se puede enviar el lead.");
+    return false;
+  }
   
-  const sanitize = (text) => text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;") : "";
+  // IMPORTANTE: & debe ir primero para no doble-encodear &lt; en &amp;lt;
+  const sanitize = (text) => text 
+    ? text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") 
+    : "";
   
   const mensaje = 
     `🚨 <b>Nueva Solicitud Web (Recogida por CHATBOT)</b>\n\n` +
@@ -42,6 +48,9 @@ async function sendTelegramLead(name, phone, service, details) {
     `📞 <b>Contacto:</b> ${sanitize(phone)}\n` +
     `🏷️ <b>Servicios:</b> ${sanitize(service) || "Ninguno"}\n\n` +
     `📝 <b>Detalles:</b>\n${sanitize(details) || "No indicó detalles"}`;
+
+  console.log("[TELEGRAM] Intentando enviar lead a chat_id:", telegramChatId);
+  console.log("[TELEGRAM] Mensaje:", mensaje.substring(0, 200));
 
   try {
     const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
@@ -51,14 +60,17 @@ async function sendTelegramLead(name, phone, service, details) {
       body: JSON.stringify({ chat_id: telegramChatId, text: mensaje, parse_mode: "HTML" })
     });
     
+    const resJson = await res.json();
+    console.log("[TELEGRAM] Respuesta completa:", JSON.stringify(resJson));
+
     if (!res.ok) {
-        const errorText = await res.text();
-        console.error("Telegram rechazó el mensaje:", errorText);
+        console.error("[TELEGRAM] ERROR - Telegram rechazó el mensaje. status:", res.status, "body:", JSON.stringify(resJson));
         return false;
     }
+    console.log("[TELEGRAM] ✅ Lead enviado correctamente.");
     return true;
   } catch (error) {
-    console.error("Error al enviar lead:", error);
+    console.error("[TELEGRAM] Excepción al enviar lead:", error.message);
     return false;
   }
 }
