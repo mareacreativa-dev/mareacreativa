@@ -31,7 +31,7 @@ async function sendTelegramAlert(message) {
 }
 
 // Función para enviar leads con HTML parsing mucho más estable
-async function sendTelegramLead(name, phone, service, details) {
+async function sendTelegramLead(name, contact, service, details) {
   if (!telegramBotToken || !telegramChatId) {
     console.error("[TELEGRAM] Sin token o chatId — no se puede enviar el lead.");
     return false;
@@ -45,7 +45,7 @@ async function sendTelegramLead(name, phone, service, details) {
   const mensaje = 
     `🚨 <b>Nueva Solicitud Web (Recogida por CHATBOT)</b>\n\n` +
     `👤 <b>Nombre:</b> ${sanitize(name)}\n` +
-    `📞 <b>Contacto:</b> ${sanitize(phone)}\n` +
+    `📞 <b>Contacto:</b> ${sanitize(contact)}\n` +
     `🏷️ <b>Servicios:</b> ${sanitize(service) || "Ninguno"}\n\n` +
     `📝 <b>Detalles:</b>\n${sanitize(details) || "No indicó detalles"}`;
 
@@ -95,7 +95,7 @@ export async function POST({ request }) {
     const isFirstInteraction = messages.length <= 2;
     const dynamicInstructions = isFirstInteraction 
       ? "\n\n⚠️ INSTRUCCIÓN DINÁMICA ACTUAL: Como es la primera vez que el cliente habla, BAJO NINGUNA CIRCUNSTANCIA LE PIDAS NINGÚN DATO DE CONTACTO (salvo que el cliente lo ofrezca explícitamente desde el primer mensaje). Simplemente saluda con entusiasmo, respóndele su duda usando la base de conocimiento y acompáñalo navegando a la subpágina correspondiente si aplica."
-      : "\n\n⚠️ INSTRUCCIÓN DINÁMICA ACTUAL: El cliente ya está conversando contigo. Si ahora detectas intención de compra explícita o interés maduro, puedes pedirle su teléfono y nombre para que lo contactemos.";
+      : "\n\n⚠️ INSTRUCCIÓN DINÁMICA ACTUAL: El cliente ya está conversando contigo. Si ahora detectas intención de compra explícita o interés maduro, puedes pedirle su NOMBRE y un medio de contacto (TELÉFONO o EMAIL). RECUERDA: Una vez que te de los datos, DEBES pedirle autorización explícita para contactar con una frase como: ¿Me autorizas a que te contactemos para tratar tus datos?";
 
     const systemPrompt = {
       role: "system",
@@ -106,7 +106,7 @@ export async function POST({ request }) {
 2. NUNCA DE MÁS PRECIOS: Nunca intentes calcular o suponer montos económicos.
 3. EXTREMA BREVEDAD: Responde siempre en un máximo de 2 o 3 oraciones.
 4. NAVEGACIÓN PROACTIVA (Comando oculto ||NAVIGATE:/ruta||): Eres un experto guiando en la web. Si el cliente dice "me interesa una web", "quiero SEO" o notas que hacen match con alguno de tus servicios, AÑADE AUTOMÁTICAMENTE el comando de navegación al final de tu respuesta (revisa las Rutas Permitidas al final) para transportarlo mientras chatean. Ejemplo: ¡Claro! Hacemos webs increíbles, te llevo a la sección para que lo veas ||NAVIGATE:/diseno-y-desarrollo-web||.
-5. CAPTURA DE LEADS (Comando oculto ||LEAD:Nombre|Telefono|Servicio|Detalles||): Si envían sus datos, confirma la recepción en el texto y PON EL COMANDO AL FINAL. NO le envíes links a formularios si ya tienes sus datos. IMPORTANTE: NO uses NAVIGATE si estás pidiendo o confirmando datos de Lead. Si el usuario luego se equivoca y TE CORRIGE algún dato (ej. cambia su teléfono), VUELVE A PONER EL COMANDO ||LEAD:...|| oculto con los datos actualizados.${dynamicInstructions}
+5. CAPTURA DE LEADS (Comando oculto ||LEAD:Nombre|Contacto|Servicio|Detalles||): Si envían sus datos (Nombre y Teléfono/Email) Y ADEMÁS TE HAN DADO SU CONSENTIMIENTO EXPLÍCITO para contactar, confirma la recepción en el texto y PON EL COMANDO AL FINAL. NO pongas el comando LEAD hasta que el usuario te autorice explícitamente (ej. 'sí', 'adelante', 'vale').${dynamicInstructions}
 
 === BASE DE CONOCIMIENTOS ===
 ${knowledgeBaseText}`
@@ -161,12 +161,12 @@ ${knowledgeBaseText}`
     const leadMatch = reply.match(/\|\|LEAD:([\s\S]+?)\|\|/);
     if (leadMatch) {
       const parts = leadMatch[1].split('|').map(p => p.trim());
-      const [name = '', phone = '', service = '', details = ''] = parts;
-      console.log("[CHAT] Lead detectado → nombre:", name, "| tel:", phone, "| servicio:", service);
-      if (name && phone) {
-        telegramSent = await sendTelegramLead(name, phone, service, details);
+      const [name = '', contact = '', service = '', details = ''] = parts;
+      console.log("[CHAT] Lead detectado → nombre:", name, "| contacto:", contact, "| servicio:", service);
+      if (name && contact) {
+        telegramSent = await sendTelegramLead(name, contact, service, details);
       } else {
-        console.warn("[CHAT] Lead detectado pero faltan nombre/teléfono, ignorado.");
+        console.warn("[CHAT] Lead detectado pero faltan nombre/contacto, ignorado.");
       }
       // Forzar confirmación visual si el bot olvidó hacerlo
       const replyWithoutLead = reply.replace(leadMatch[0], '').trim();
