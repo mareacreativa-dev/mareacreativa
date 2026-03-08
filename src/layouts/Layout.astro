@@ -57,7 +57,29 @@ import { ClientRouter } from "astro:transitions";
         font-family: system-ui, Roboto;
       }
     </style>
-    <script type="text/javascript">
+    <script>
+      window.chatwootSettings = {
+        position: "right",
+        type: "standard",
+        launcherTitle: "",
+      };
+      (function (d, t) {
+        var BASE_URL = "https://app.chatwoot.com";
+        var g = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+        g.src = BASE_URL + "/packs/js/sdk.js";
+        g.async = true;
+        s.parentNode.insertBefore(g, s);
+        g.onload = function () {
+          window.chatwootSDK.run({
+            websiteToken: "K26xq3GqR7bxUw925H7CP7jB",
+            baseUrl: BASE_URL,
+          });
+        };
+      })(document, "script");
+    </script>
+
+    <!-- <script type="text/javascript">
       (function (d, t) {
         var v = d.createElement(t),
           s = d.getElementsByTagName(t)[0];
@@ -75,6 +97,6 @@ import { ClientRouter } from "astro:transitions";
         v.type = "text/javascript";
         s.parentNode.insertBefore(v, s);
       })(document, "script");
-    </script>
+    </script> -->
   </body>
 </html>
