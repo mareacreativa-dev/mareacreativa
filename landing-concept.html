@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marea Creativa — Tecnología e IA para Empresas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --accent: #0E44F9;
+      --accent-glow: rgba(14, 68, 249, 0.35);
+      --accent-muted: rgba(14, 68, 249, 0.12);
+      --purple: #6B8AFF;
+      --purple-muted: rgba(107, 138, 255, 0.15);
+      --bg: #070A1A;
+      --bg-card: rgba(255,255,255,0.035);
+      --border: rgba(255,255,255,0.08);
+      --text: #EAF0FF;
+      --muted: #8A94B8;
+      --subtle: #6B7494;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Manrope', sans-serif;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    @keyframes drift {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-28px); }
+    }
+    @keyframes driftR {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(20px); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--accent); }
+      50% { opacity: 0.5; box-shadow: 0 0 4px var(--accent); }
+    }
+
+    /* ===================== AMBIENT ===================== */
+    .ambient {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .glow-top {
+      position: absolute;
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1100px;
+      height: 760px;
+      background: radial-gradient(ellipse at center, rgba(14,68,249,0.18), transparent 62%);
+      filter: blur(24px);
+      animation: drift 18s ease-in-out infinite;
+    }
+    .glow-right {
+      position: absolute;
+      top: 1000px;
+      right: -200px;
+      width: 620px;
+      height: 620px;
+      background: radial-gradient(circle, rgba(107,138,255,0.22), transparent 65%);
+      filter: blur(30px);
+      animation: driftR 22s ease-in-out infinite;
+    }
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, #000 0%, transparent 55%);
+    }
+
+    /* ===================== NAV ===================== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(7,10,26,0.65);
+      border-bottom: 1px solid var(--border);
+    }
+    nav {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+    }
+    .logo svg {
+      height: 36px;
+      color: var(--accent);
+      filter: drop-shadow(0 0 10px rgba(14,68,249,0.5));
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-size: 15px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .nav-links a:hover { color: #fff; transition: color .2s; }
+    .btn-primary {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--accent);
+      padding: 11px 20px;
+      border-radius: 11px;
+      box-shadow: 0 0 28px var(--accent-glow);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 36px var(--accent-glow); }
+
+    /* ===================== HERO ===================== */
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 100px 32px 72px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #c6cee6;
+      letter-spacing: 0.02em;
+      margin-bottom: 30px;
+    }
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(44px, 6vw, 68px);
+      line-height: 1.04;
+      letter-spacing: -0.025em;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .gradient-text {
+      background: linear-gradient(120deg, var(--accent), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p {
+      font-size: 20px;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 660px;
+      margin: 28px auto 0;
+    }
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .btn-hero {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--accent);
+      padding: 16px 30px;
+      border-radius: 13px;
+      box-shadow: 0 0 38px var(--accent-glow);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-hero:hover { transform: translateY(-2px); box-shadow: 0 0 52px var(--accent-glow); }
+    .btn-ghost {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 16px 28px;
+      border-radius: 13px;
+      transition: background .2s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 54px;
+      margin-top: 66px;
+      flex-wrap: wrap;
+    }
+    .stat-divider { width: 1px; background: rgba(255,255,255,0.1); }
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .stat-label { font-size: 14px; color: var(--subtle); margin-top: 4px; }
+
+    /* ===================== LOGOS ===================== */
+    .logos {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 32px 60px;
+      text-align: center;
+    }
+    .logos-label {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+    .logos-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .logo-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 22px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.025);
+    }
+    .logo-dot { width: 9px; height: 9px; border-radius: 3px; background: var(--accent); }
+    .logo-dot.purple { border-radius: 50%; background: var(--purple); }
+    .logo-pill span:last-child {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: #d6ddf0;
+    }
+
+    /* ===================== SECTIONS ===================== */
+    section.content-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 80px 32px;
+    }
+    .section-label {
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(32px, 4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+    .section-sub {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 18px;
+    }
+    .section-header { max-width: 680px; margin-bottom: 54px; }
+
+    /* ===================== SERVICE CARDS ===================== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .service-card {
+      padding: 32px 28px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012));
+      transition: border-color .25s, transform .25s;
+    }
+    .service-card:hover {
+      border-color: rgba(14,68,249,0.55);
+      transform: translateY(-4px);
+    }
+    .icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+    .icon-box.blue { background: var(--accent-muted); }
+    .icon-box.purple { background: var(--purple-muted); }
+    .service-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 21px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .service-card p { font-size: 15.5px; color: #9aa3c2; line-height: 1.62; }
+
+    /* ===================== PROCESS ===================== */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      position: relative;
+    }
+    .process-line {
+      position: absolute;
+      top: 30px;
+      left: 7%;
+      right: 7%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      z-index: 0;
+    }
+    .process-step { position: relative; z-index: 1; }
+    .step-num {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #0b0f22;
+      border: 1px solid rgba(14,68,249,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--accent);
+      box-shadow: 0 0 22px rgba(14,68,249,0.22);
+      margin-bottom: 22px;
+    }
+    .process-step h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .process-step p { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+    /* ===================== CASES ===================== */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+    .case-card {
+      padding: 34px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012));
+    }
+    .case-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .case-logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+    }
+    .case-badge {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .case-card p { font-size: 15.5px; color: #9aa3c2; line-height: 1.62; margin-bottom: 26px; }
+    .case-stats { display: flex; gap: 32px; }
+    .case-stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .case-stat-num.purple { color: var(--purple); }
+    .case-stat-label { font-size: 13px; color: var(--subtle); margin-top: 2px; }
+
+    /* ===================== TESTIMONIALS ===================== */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .testimonial-card {
+      padding: 32px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.025);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .testimonial-card p { font-size: 16.5px; line-height: 1.6; color: #dde3f3; }
+    .testimonial-author { margin-top: auto; }
+    .testimonial-name { font-weight: 700; font-size: 15px; }
+    .testimonial-company { font-size: 14px; color: var(--muted); }
+
+    /* ===================== CTA FINAL ===================== */
+    .cta-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1240px;
+      margin: 40px auto 0;
+      padding: 0 32px 110px;
+    }
+    .cta-box {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 1px solid rgba(14,68,249,0.3);
+      background: linear-gradient(135deg, rgba(14,68,249,0.1), rgba(107,138,255,0.1));
+      padding: 72px 56px;
+      text-align: center;
+    }
+    .cta-glow {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 380px;
+      background: radial-gradient(ellipse, rgba(14,68,249,0.28), transparent 65%);
+      filter: blur(20px);
+      pointer-events: none;
+    }
+    .cta-box h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(36px, 4.5vw, 52px);
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      max-width: 760px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-box p {
+      font-size: 19px;
+      color: #c2cae0;
+      max-width: 560px;
+      margin: 22px auto 0;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .btn-cta {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--accent);
+      padding: 18px 36px;
+      border-radius: 14px;
+      box-shadow: 0 0 44px var(--accent-glow);
+      transition: transform .2s;
+    }
+    .btn-cta:hover { transform: translateY(-2px); }
+    .btn-email {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.16);
+      padding: 18px 32px;
+      border-radius: 14px;
+      transition: background .2s;
+    }
+    .btn-email:hover { background: rgba(255,255,255,0.12); }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 48px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-links { display: flex; gap: 28px; font-size: 14.5px; color: var(--muted); font-weight: 500; }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy { font-size: 13.5px; color: var(--subtle); }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-line { display: none; }
+      .cases-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .hero { padding: 70px 20px 50px; }
+      .cta-box { padding: 48px 24px; }
+      section.content-section { padding: 60px 20px; }
+      .stats { gap: 28px; }
+      .stat-divider { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Ambient background -->
+<div class="ambient" aria-hidden="true">
+  <div class="glow-top"></div>
+  <div class="glow-right"></div>
+  <div class="grid-overlay"></div>
+</div>
+
+<!-- ===================== NAV ===================== -->
+<header>
+  <nav>
+    <a href="#top" class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 765.74 611.6" fill="currentColor" aria-label="Marea Creativa Logo">
+        <path d="M432.28,398.94c2.4,2.41,8.32,3.59,11.76,3.35,21.95-1.5,78.89-61.69,100.76-77.24,20.53-14.59,62.7-37.84,79.99-7.07,15.2,27.05-11.71,61.33-14.99,89.01-9,75.91,47.04,71.56,104.17,63.25-36.56,56.14-164.12,68.92-169.5-15.44-2.16-33.9,18.18-68.94-36.37-30.92-38.08,26.54-107.91,121.7-159.04,77.44-30.42-26.33-12.33-86.75-2.21-120.11,12.79-42.19,33.36-81.64,44.86-124.3-8.87-33.34-49.95-3.03-65.9,10.08-80.44,66.1-121.07,153.01-174.3,237.96-8.54,13.63-14.83,21.96-32.16,24.31-25.17,3.41-74.54,3.26-67.41-33.47C126.51,364.4,236.05,194.7,372.25,121.44c58.29-31.35,172.06-57.32,137.7,50.17-15.18,47.48-44.74,93.51-62.77,140.53-6.58,17.16-28.92,72.73-14.9,86.8Z"/>
+      </svg>
+      MAREA <span style="font-weight:400">CREATIVA</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:28px">
+      <div class="nav-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#casos">Casos</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <a href="#contacto" class="btn-primary">Agendar diagnóstico</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section id="top" class="hero">
+  <div class="badge">
+    <span class="badge-dot"></span>
+    Consultoría tecnológica · Inteligencia artificial aplicada
+  </div>
+  <h1>
+    Implementamos tecnología e <span class="gradient-text">IA en tu empresa</span> para que venda más y opere mejor
+  </h1>
+  <p>
+    Ayudamos a pymes a automatizar procesos, captar más clientes y construir software a medida. Tecnología real, resultados medibles, sin complicaciones técnicas.
+  </p>
+  <div class="hero-ctas">
+    <a href="#contacto" class="btn-hero">Agendar diagnóstico gratuito →</a>
+    <a href="#casos" class="btn-ghost">Ver casos de éxito</a>
+  </div>
+  <div class="stats">
+    <div>
+      <div class="stat-num">+40%</div>
+      <div class="stat-label">más ventas en promedio</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div>
+      <div class="stat-num">-65%</div>
+      <div class="stat-label">tareas manuales</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div>
+      <div class="stat-num">4 sem.</div>
+      <div class="stat-label">a la primera solución</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LOGOS ===================== -->
+<div class="logos">
+  <p class="logos-label">Empresas que ya operan con nosotros</p>
+  <div class="logos-row">
+    <div class="logo-pill"><span class="logo-dot"></span><span>TodoCoches</span></div>
+    <div class="logo-pill"><span class="logo-dot purple"></span><span>Wash &amp; Plus</span></div>
+    <div class="logo-pill"><span class="logo-dot" style="border-radius:2px;transform:rotate(45deg)"></span><span>MP Pharma</span></div>
+    <div class="logo-pill"><span class="logo-dot purple" style="border:2.5px solid var(--purple);background:transparent"></span><span>Second Language</span></div>
+  </div>
+</div>
+
+<!-- ===================== SERVICIOS ===================== -->
+<section id="servicios" class="content-section">
+  <div class="section-header">
+    <p class="section-label">Qué hacemos</p>
+    <h2 class="section-title">Soluciones que mueven el negocio, no solo la tecnología</h2>
+    <p class="section-sub">Cada proyecto parte de un objetivo de negocio claro: vender más, operar mejor o ambos.</p>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="icon-box blue">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <h3>Automatización de procesos con IA</h3>
+      <p>Eliminamos el trabajo repetitivo: facturación, reportes, atención y flujos internos que se ejecutan solos.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="icon-box purple">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M9 7V5a3 3 0 0 1 6 0v2M9 13h.01M15 13h.01M12 2v2"/></svg>
+      </div>
+      <h3>Agentes de IA a medida</h3>
+      <p>Asistentes que atienden, califican leads y responden 24/7 entrenados con el conocimiento de tu empresa.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="icon-box blue">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3-6 9 6 9M16 3l6 9-6 9"/></svg>
+      </div>
+      <h3>Software a medida</h3>
+      <p>Apps y plataformas internas diseñadas para tu operación real, no plantillas genéricas que tienes que forzar.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="icon-box purple">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 3-4 4 3 4-6"/></svg>
+      </div>
+      <h3>CRM & Captación de leads</h3>
+      <p>Sistemas que atraen leads, los nutren automáticamente y avisan a tu equipo en el momento exacto de cerrar.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="icon-box blue">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+      </div>
+      <h3>Web & Presencia digital</h3>
+      <p>Sites y landing pages optimizados para convertir visitas en clientes. Rápidos, profesionales, orientados a venta.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="icon-box purple">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.5-1.5"/></svg>
+      </div>
+      <h3>Integración de sistemas</h3>
+      <p>Conectamos tu CRM, ERP y aplicaciones para que la información fluya sin copiar y pegar entre sistemas.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== PROCESO ===================== -->
+<section id="proceso" class="content-section">
+  <div class="section-header">
+    <p class="section-label">Cómo funciona</p>
+    <h2 class="section-title">De la idea al resultado en cuatro pasos</h2>
+  </div>
+  <div class="process-grid">
+    <div class="process-line"></div>
+
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <h3>Diagnóstico gratuito</h3>
+      <p>Analizamos tu operación y detectamos dónde la tecnología genera más impacto en tu facturación.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <h3>Hoja de ruta</h3>
+      <p>Diseñamos la solución y priorizamos por retorno: qué se hace primero y por qué genera más valor.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <h3>Implementación</h3>
+      <p>Construimos y desplegamos con tu equipo, en sprints cortos y con resultados visibles desde el primer mes.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <h3>Optimización y soporte</h3>
+      <p>Medimos, ajustamos y acompañamos para que la solución siga creciendo contigo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CASOS ===================== -->
+<section id="casos" class="content-section">
+  <div class="section-header">
+    <p class="section-label">Casos de éxito</p>
+    <h2 class="section-title">Resultados reales en sectores distintos</h2>
+  </div>
+  <div class="cases-grid">
+
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-logo">
+          <span style="width:11px;height:11px;border-radius:3px;background:var(--accent);display:inline-block"></span>
+          TodoCoches
+        </div>
+        <span class="case-badge">Automotriz</span>
+      </div>
+      <p>Implementamos un agente de IA que califica leads y agenda visitas automáticamente desde el portal. Ningún interesado sin respuesta en menos de 2 minutos.</p>
+      <div class="case-stats">
+        <div>
+          <div class="case-stat-num">+38%</div>
+          <div class="case-stat-label">leads cualificados</div>
+        </div>
+        <div>
+          <div class="case-stat-num">-60%</div>
+          <div class="case-stat-label">tiempo de respuesta</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-logo">
+          <span style="width:11px;height:11px;border-radius:50%;background:var(--purple);display:inline-block"></span>
+          Wash &amp; Plus
+        </div>
+        <span class="case-badge">Hospitalidad</span>
+      </div>
+      <p>Automatizamos la agenda y los recordatorios de reservas, eliminando llamadas manuales y huecos sin ocupar en la agenda del equipo.</p>
+      <div class="case-stats">
+        <div>
+          <div class="case-stat-num purple">+45%</div>
+          <div class="case-stat-label">reservas online</div>
+        </div>
+        <div>
+          <div class="case-stat-num purple">-80%</div>
+          <div class="case-stat-label">gestión manual</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-logo">
+          <span style="width:11px;height:11px;border-radius:2px;transform:rotate(45deg);background:var(--accent);display:inline-block"></span>
+          MP Pharma
+        </div>
+        <span class="case-badge">Farmacéutico</span>
+      </div>
+      <p>Software a medida para control de stock e informes que antes se llevaban a mano en hojas de cálculo. Visibilidad total del inventario en tiempo real.</p>
+      <div class="case-stats">
+        <div>
+          <div class="case-stat-num">-70%</div>
+          <div class="case-stat-label">tareas manuales</div>
+        </div>
+        <div>
+          <div class="case-stat-num">100%</div>
+          <div class="case-stat-label">trazabilidad</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-logo">
+          <span style="width:11px;height:11px;border-radius:50%;border:2.5px solid var(--purple);display:inline-block"></span>
+          Second Language
+        </div>
+        <span class="case-badge">Educación</span>
+      </div>
+      <p>Sistema de captación y seguimiento que nutre a cada interesado hasta la matriculación. Sin que el equipo tenga que recordar llamar a nadie.</p>
+      <div class="case-stats">
+        <div>
+          <div class="case-stat-num purple">+52%</div>
+          <div class="case-stat-label">matriculaciones</div>
+        </div>
+        <div>
+          <div class="case-stat-num purple">3x</div>
+          <div class="case-stat-label">seguimiento de leads</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIOS ===================== -->
+<section class="content-section">
+  <div class="section-header">
+    <p class="section-label">Lo que dicen</p>
+    <h2 class="section-title">Empresas que ya operan mejor</h2>
+  </div>
+  <div class="testimonials-grid">
+
+    <div class="testimonial-card">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="var(--accent)" opacity=".9"><path d="M9.5 4C6 4 3 7 3 10.5V20h7v-7H6.5c0-2.5 1.5-4 3-4.5V4zm11 0C17 4 14 7 14 10.5V20h7v-7h-3.5c0-2.5 1.5-4 3-4.5V4z"/></svg>
+      <p>"Pasamos de perder leads por no responder a tiempo a cerrar visitas el mismo día. El agente trabaja por nosotros."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-name">Dirección comercial</div>
+        <div class="testimonial-company">TodoCoches</div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="var(--purple)" opacity=".9"><path d="M9.5 4C6 4 3 7 3 10.5V20h7v-7H6.5c0-2.5 1.5-4 3-4.5V4zm11 0C17 4 14 7 14 10.5V20h7v-7h-3.5c0-2.5 1.5-4 3-4.5V4z"/></svg>
+      <p>"Entendieron nuestro negocio antes de proponer tecnología. La hoja de ruta nos ahorró meses de prueba y error."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-name">Gerencia</div>
+        <div class="testimonial-company">MP Pharma</div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="var(--accent)" opacity=".9"><path d="M9.5 4C6 4 3 7 3 10.5V20h7v-7H6.5c0-2.5 1.5-4 3-4.5V4zm11 0C17 4 14 7 14 10.5V20h7v-7h-3.5c0-2.5 1.5-4 3-4.5V4z"/></svg>
+      <p>"El seguimiento automático cambió todo. Cada interesado recibe la información correcta sin que tengamos que estar encima."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-name">Coordinación académica</div>
+        <div class="testimonial-company">Second Language</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== CTA FINAL ===================== -->
+<div id="contacto" class="cta-wrap">
+  <div class="cta-box">
+    <div class="cta-glow"></div>
+    <h2>¿Listo para que tu empresa venda más y opere mejor?</h2>
+    <p>Agenda un diagnóstico gratuito de 30 minutos. Sin compromiso: te mostramos exactamente dónde la tecnología puede generar más impacto.</p>
+    <div class="cta-buttons">
+      <a href="https://mareacreativa.com/contacto" class="btn-cta">Agendar diagnóstico gratuito →</a>
+      <a href="mailto:hola@mareacreativa.com" class="btn-email">hola@mareacreativa.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="footer-inner">
+    <a href="#top" class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 765.74 611.6" fill="currentColor" style="height:28px;color:var(--accent)">
+        <path d="M432.28,398.94c2.4,2.41,8.32,3.59,11.76,3.35,21.95-1.5,78.89-61.69,100.76-77.24,20.53-14.59,62.7-37.84,79.99-7.07,15.2,27.05-11.71,61.33-14.99,89.01-9,75.91,47.04,71.56,104.17,63.25-36.56,56.14-164.12,68.92-169.5-15.44-2.16-33.9,18.18-68.94-36.37-30.92-38.08,26.54-107.91,121.7-159.04,77.44-30.42-26.33-12.33-86.75-2.21-120.11,12.79-42.19,33.36-81.64,44.86-124.3-8.87-33.34-49.95-3.03-65.9,10.08-80.44,66.1-121.07,153.01-174.3,237.96-8.54,13.63-14.83,21.96-32.16,24.31-25.17,3.41-74.54,3.26-67.41-33.47C126.51,364.4,236.05,194.7,372.25,121.44c58.29-31.35,172.06-57.32,137.7,50.17-15.18,47.48-44.74,93.51-62.77,140.53-6.58,17.16-28.92,72.73-14.9,86.8Z"/>
+      </svg>
+      MAREA <span style="font-weight:400">CREATIVA</span>
+    </a>
+    <div class="footer-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#casos">Casos</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <p class="footer-copy">© 2026 Marea Creativa · Tecnología e IA para empresas</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+---
+const stats = [
+  { num: "+40%", label: "más ventas en promedio" },
+  { num: "-65%", label: "tareas manuales eliminadas" },
+  { num: "4 sem.", label: "a la primera solución" },
+];
+---
+
+<div class="relative bg-secondary overflow-hidden">
+  <!-- Subtle glow -->
+  <div
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[160px] pointer-events-none"
+    style="background: radial-gradient(ellipse at center, rgba(14,68,249,0.18), transparent 65%); filter: blur(28px);"
+  ></div>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-center gap-0">
+    {stats.map((stat, i) => (
+      <div class="flex items-center">
+        <!-- Stat -->
+        <div class="text-center px-10 py-2">
+          <div
+            class="font-bold text-white"
+            style="font-family:'Space Grotesk',sans-serif; font-size: clamp(28px, 4vw, 38px); letter-spacing: -0.02em;"
+          >
+            {stat.num}
+          </div>
+          <div class="text-sm mt-1" style="color: #8A94B8;">{stat.label}</div>
+        </div>
+        <!-- Divider (not after last) -->
+        {i < stats.length - 1 && (
+          <div class="hidden sm:block w-px h-10 bg-white/10 flex-shrink-0"></div>
+        )}
+      </div>
+    ))}
+  </div>
+</div>

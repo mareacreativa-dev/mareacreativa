@@ -1,0 +1,85 @@
+---
+const steps = [
+  {
+    num: "01",
+    title: "Diagnóstico gratuito",
+    desc: "Analizamos tu operación y detectamos exactamente dónde la tecnología puede generar más impacto en tu facturación.",
+  },
+  {
+    num: "02",
+    title: "Hoja de ruta",
+    desc: "Diseñamos la solución y priorizamos por retorno: qué implementamos primero y por qué genera más valor.",
+  },
+  {
+    num: "03",
+    title: "Implementación",
+    desc: "Construimos y desplegamos con tu equipo en sprints cortos. Resultados visibles desde el primer mes.",
+  },
+  {
+    num: "04",
+    title: "Optimización y soporte",
+    desc: "Medimos, ajustamos y acompañamos para que la solución siga creciendo contigo.",
+  },
+];
+---
+
+<section class="relative bg-secondary overflow-hidden py-24 px-4 md:px-8">
+  <!-- Ambient glow top right -->
+  <div
+    class="absolute top-0 right-0 w-[500px] h-[400px] pointer-events-none"
+    style="background: radial-gradient(circle at top right, rgba(14,68,249,0.15), transparent 65%); filter: blur(40px);"
+  ></div>
+  <!-- Grid overlay -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 64px 64px; mask-image: linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent);"
+  ></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="mb-16 max-w-xl">
+      <p
+        class="text-xs font-bold uppercase tracking-widest mb-4"
+        style="color: #0E44F9; letter-spacing: 0.14em;"
+      >
+        Cómo funciona
+      </p>
+      <h2
+        class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight"
+        style="font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em;"
+      >
+        De la idea al resultado en cuatro pasos
+      </h2>
+    </div>
+
+    <!-- Steps grid -->
+    <div class="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Connecting line (desktop only) -->
+      <div
+        class="hidden lg:block absolute top-[30px] left-[7%] right-[7%] h-px pointer-events-none"
+        style="background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); z-index: 0;"
+      ></div>
+
+      {steps.map((step) => (
+        <div class="relative z-10">
+          <!-- Circle number -->
+          <div
+            class="w-[60px] h-[60px] rounded-full flex items-center justify-center mb-6 flex-shrink-0"
+            style="background: #0a0e1f; border: 1px solid rgba(14,68,249,0.5); box-shadow: 0 0 22px rgba(14,68,249,0.2); font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: #0E44F9;"
+          >
+            {step.num}
+          </div>
+          <h3
+            class="text-white font-semibold text-lg mb-3"
+            style="font-family: 'Space Grotesk', sans-serif;"
+          >
+            {step.title}
+          </h3>
+          <p class="text-sm leading-relaxed" style="color: #8A94B8;">
+            {step.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

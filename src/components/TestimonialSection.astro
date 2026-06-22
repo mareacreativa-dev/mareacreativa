@@ -1,34 +1,96 @@
 ---
-import Testimonial from "./Testimonial.astro";
+const cases = [
+  {
+    company: "TodoCoches",
+    sector: "Automotriz",
+    quote: "Pasamos de perder leads por no responder a tiempo a cerrar visitas el mismo día. El agente trabaja por nosotros las 24 horas.",
+    author: "Matias V.",
+    role: "Dirección comercial",
+    stats: [
+      { num: "+38%", label: "leads cualificados" },
+      { num: "-60%", label: "tiempo de respuesta" },
+    ],
+    accentBlue: true,
+  },
+  {
+    company: "Wash & Plus",
+    sector: "Hospitalidad",
+    quote: "Automatizaron nuestra agenda y los recordatorios. Eliminaron las llamadas manuales y los huecos sin ocupar de un plumazo.",
+    author: "Gabriel S.",
+    role: "CEO",
+    stats: [
+      { num: "+45%", label: "reservas online" },
+      { num: "-80%", label: "gestión manual" },
+    ],
+    accentBlue: false,
+  },
+  {
+    company: "MP Pharma",
+    sector: "Farmacéutico",
+    quote: "Entendieron nuestro negocio antes de proponer tecnología. La hoja de ruta nos ahorró meses de prueba y error.",
+    author: "Salvador G.",
+    role: "CEO",
+    stats: [
+      { num: "-70%", label: "tareas manuales" },
+      { num: "100%", label: "trazabilidad" },
+    ],
+    accentBlue: true,
+  },
+];
 ---
 
-<section class="py-16">
-  <div class="container mx-auto px-4 md:px-8 max-w-7xl">
-    <div class="text-center mb-12">
-      <span class="text-3xl font-bold mb-4">Lo que dicen nuestros clientes</span
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-4 md:px-8 max-w-6xl">
+    <!-- Header -->
+    <div class="text-center mb-14 max-w-2xl mx-auto">
+      <div
+        class="inline-flex items-center space-x-2 bg-blue-50 text-blue-700 rounded-full px-4 py-1.5 mb-6 font-semibold text-xs tracking-wider uppercase border border-blue-100 w-fit"
       >
-      <p class="text-gray-600 max-w-2xl mx-auto">
-        Descubre por qué nuestros clientes confían en nosotros para sus
-        proyectos digitales.
-      </p>
+        <span>Lo que dicen nuestros clientes</span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
+        Resultados reales. Empresas reales.
+      </h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <Testimonial
-        quote="Estamos muy contentos con el trabajo que hicieron en nuestra página. La comunicación fue excelente y el resultado final superó nuestras expectativas. ¡Recomendamos totalmente sus servicios!"
-        author="Matias V."
-        company="TodoCoches Elche"
-      />
-      <Testimonial
-        quote="Hicieron un trabajo increíble con nuestro nuevo logotipo. Capturaron perfectamente la esencia de nuestra marca y lograron un diseño moderno y fácil de integrar. ¡Nos encanta el resultado!"
-        author="Gabriel S."
-        company="CEO, Food Pack & Carry LLC"
-      />
-      <Testimonial
-        quote="La tienda online que crearon para nosotros es justo lo que necesitábamos. Patricio entendió nuestras necesidades comerciales y ofreció una solución atractiva y fácil de usar."
-        author="Salvador G."
-        company="CEO, MpPharma LLC"
-      />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {cases.map((c) => (
+        <div class="flex flex-col bg-[#f8f9fb] border border-gray-100 rounded-[28px] p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+          <!-- Top: company + sector -->
+          <div class="flex items-center justify-between mb-6">
+            <span class="font-bold text-gray-900 text-lg" style="font-family: 'Space Grotesk', sans-serif;">{c.company}</span>
+            <span class="text-xs font-semibold text-gray-400 px-3 py-1 rounded-full border border-gray-200 bg-white">{c.sector}</span>
+          </div>
+
+          <!-- Quote -->
+          <blockquote class="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
+            "{c.quote}"
+          </blockquote>
+
+          <!-- Author -->
+          <div class="text-sm mb-6">
+            <span class="font-semibold text-gray-800">{c.author}</span>
+            <span class="text-gray-400"> · {c.role}</span>
+          </div>
+
+          <!-- Stats bar -->
+          <div
+            class="flex gap-6 pt-5 border-t border-gray-200"
+          >
+            {c.stats.map((s) => (
+              <div>
+                <div
+                  class="text-2xl font-bold"
+                  style={`font-family:'Space Grotesk',sans-serif; color: ${c.accentBlue ? '#0E44F9' : '#6B8AFF'};`}
+                >
+                  {s.num}
+                </div>
+                <div class="text-xs text-gray-400 mt-0.5">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   </div>
 </section>

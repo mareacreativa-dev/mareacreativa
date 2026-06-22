@@ -1,8 +1,10 @@
 ---
 import HeroIndex from "../components/HeroIndex.astro";
+import HeroStats from "../components/HeroStats.astro";
 import Layout from "../layouts/Layout.astro";
 import ServiceSection from "../components/ServiceSection.astro";
 import PainPoints from "../components/PainPoints.astro";
+import ProcessSteps from "../components/ProcessSteps.astro";
 import CompanyLogos from "../components/CompanyLogos.astro";
 import TestimonialSection from "../components/TestimonialSection.astro";
 import CtaSection from "../components/CtaSection.astro";
@@ -19,11 +21,12 @@ import CtaSection from "../components/CtaSection.astro";
       title="Tecnología que resuelve problemas reales en tu empresa."
       subtitle="Implementamos IA, automatizamos procesos y desarrollamos software a medida para que tu equipo deje de hacer trabajo repetitivo y se enfoque en lo que genera dinero."
       badge="Partner Tecnológico para Empresas"
-      ctaText="Hablar con un experto"
+      ctaText="Agendar una cita"
     />
+    <HeroStats />
     <PainPoints />
     <ServiceSection />
-
+    <ProcessSteps />
     <CompanyLogos />
     <TestimonialSection />
     <CtaSection />
