@@ -1,0 +1,87 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroService from "../components/HeroService.astro";
+import ServiceCarousel from "../components/ServiceCarousel.astro";
+---
+
+<Layout
+  title="Integración de Sistemas para Empresas | Marea Creativa"
+  description="Conectamos WhatsApp, CRM, ERP, facturación y calendarios en tiempo real. Todos tus sistemas sincronizados, sin duplicar datos ni trabajo manual."
+  keywords="integracion de sistemas, conectar aplicaciones empresa, integracion crm erp, sincronizacion herramientas empresa, make zapier integracion, apis empresariales"
+  image="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771930116/salon_v2_dbpsof.png"
+>
+  <HeroService
+    badge="Integración de Sistemas"
+    title="Tus herramientas, finalmente hablando entre sí."
+    subtitle="Conectamos WhatsApp, CRM, ERP, facturación, calendarios y cualquier sistema que uses — para que los datos fluyan solos y tu equipo deje de copiar información entre pantallas."
+    image="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771930116/salon_v2_dbpsof.png"
+  />
+
+  <section
+    class="max-w-4xl mx-auto py-20 px-6 md:px-8 text-gray-600 text-lg leading-relaxed font-medium"
+  >
+    <h2 class="text-3xl font-bold text-gray-900 mb-8 tracking-tight">
+      El coste invisible de los sistemas desconectados
+    </h2>
+    <p class="mb-6">
+      Cuando WhatsApp, el CRM, la facturación y el calendario no están conectados, alguien de tu equipo tiene que copiar la información entre ellos. Eso tarda tiempo, genera errores y significa que nunca tienes una vista real de lo que está pasando en tu empresa.
+    </p>
+    <p class="mb-10">
+      Analizamos los sistemas que ya usás y los conectamos de forma inteligente usando APIs, Make, n8n o desarrollo a medida. El objetivo es simple: que un evento en un sistema dispare automáticamente lo que tiene que pasar en los demás, sin que nadie tenga que acordarse de hacerlo.
+    </p>
+
+    <div class="p-8 bg-blue-50/50 rounded-[32px] border border-blue-100 mb-10">
+      <h3 class="text-xl font-bold text-primary mb-4">
+        Integraciones que implementamos
+      </h3>
+      <ul class="space-y-4">
+        <li class="flex items-center gap-3">
+          <svg class="text-blue-500 w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+          WhatsApp Business API → CRM → calendario → confirmación automática
+        </li>
+        <li class="flex items-center gap-3">
+          <svg class="text-blue-500 w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+          ERP → facturación → contabilidad, sin doble entrada de datos
+        </li>
+        <li class="flex items-center gap-3">
+          <svg class="text-blue-500 w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+          E-commerce → inventario → alertas de stock al equipo
+        </li>
+        <li class="flex items-center gap-3">
+          <svg class="text-blue-500 w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+          Formulario de contacto → CRM → secuencia de emails → alerta en Slack
+        </li>
+      </ul>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="p-6 bg-white border border-gray-100 rounded-[24px] shadow-sm text-center">
+        <div class="text-3xl font-black text-primary mb-2">0</div>
+        <p class="text-gray-500 text-sm font-medium">Copias manuales de datos entre sistemas</p>
+      </div>
+      <div class="p-6 bg-white border border-gray-100 rounded-[24px] shadow-sm text-center">
+        <div class="text-3xl font-black text-primary mb-2">Real-time</div>
+        <p class="text-gray-500 text-sm font-medium">Sincronización instantánea entre todas las herramientas</p>
+      </div>
+      <div class="p-6 bg-white border border-gray-100 rounded-[24px] shadow-sm text-center">
+        <div class="text-3xl font-black text-primary mb-2">Tus apps</div>
+        <p class="text-gray-500 text-sm font-medium">Conectamos lo que ya usás, sin cambiar de herramienta</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="bg-gray-50 pt-10 pb-20">
+    <div class="max-w-7xl mx-auto px-4 mb-8 text-center">
+      <h3 class="text-2xl font-bold text-gray-900">Explora Otros Servicios</h3>
+    </div>
+    <ServiceCarousel currentServiceTitle="Integración de Sistemas" />
+  </div>
+</Layout>

@@ -19,12 +19,12 @@ const Menu = () => {
 	};
 
 	const servicesParams = [
-		{ name: "Diseño Web y Desarrollo", href: "/diseno-y-desarrollo-web" },
-		{ name: "Rebranding e Identidad", href: "/rebranding-identidad" },
-		{ name: "Chatbots de Inteligencia Artificial", href: "/chatbots-personalizados" },
-		{ name: "Soluciones para Negocios Locales", href: "/servicios-negocios-locales" },
+		{ name: "Web & Presencia Digital", href: "/diseno-y-desarrollo-web" },
+		{ name: "Agentes IA para tu Empresa", href: "/agentes-ia" },
 		{ name: "Automatización de Procesos", href: "/automatizacion-de-procesos" },
-		{ name: "Sistemas para Hostelería", href: "/gestion-hosteleria" },
+		{ name: "CRM & Captación de Leads", href: "/crm-captacion-leads" },
+		{ name: "Software a Medida", href: "/software-a-medida" },
+		{ name: "Integración de Sistemas", href: "/integracion-sistemas" },
 	];
 
 	return (
