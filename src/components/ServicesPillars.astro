@@ -1,0 +1,107 @@
+---
+const pillars = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="8" x="5" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 18h.01M10 18h.01"/></svg>`,
+    iconBg: "rgba(14,68,249,0.10)",
+    tag: "Desarrollo",
+    title: "Software a medida",
+    description:
+      "Construimos las herramientas internas, plataformas y aplicaciones que tu empresa necesita — diseñadas exactamente para tus procesos. Sin soluciones genéricas que no encajan.",
+    href: "/software-a-medida",
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>`,
+    iconBg: "rgba(14,68,249,0.10)",
+    tag: "Inteligencia Artificial",
+    title: "IA específica para tu negocio",
+    description:
+      "Implementamos inteligencia artificial entrenada con el conocimiento real de tu empresa: agentes que atienden clientes, analizan datos y toman decisiones dentro de tu operación.",
+    href: "/agentes-ia",
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>`,
+    iconBg: "rgba(14,68,249,0.10)",
+    tag: "Automatización",
+    title: "Automatización de procesos",
+    description:
+      "Conectamos tus herramientas y eliminamos el trabajo repetitivo: seguimientos, notificaciones, reportes, integraciones. Tu equipo deja de hacer lo que una máquina puede hacer mejor.",
+    href: "/automatizacion-de-procesos",
+  },
+];
+---
+
+<section class="py-24 bg-white">
+  <div class="container mx-auto px-4 md:px-8 max-w-6xl">
+
+    <!-- Header -->
+    <div class="text-center mb-16 max-w-2xl mx-auto">
+      <div
+        class="inline-flex items-center space-x-2 bg-blue-50 text-blue-700 rounded-full px-4 py-1.5 mb-6 font-semibold text-xs tracking-wider uppercase border border-blue-100 w-fit"
+      >
+        <span>Lo que implementamos</span>
+      </div>
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
+        Tres soluciones.<br />
+        <span class="text-blue-600">Un objetivo: que tu empresa crezca.</span>
+      </h2>
+    </div>
+
+    <!-- Pillars grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      {pillars.map((pillar, i) => (
+        <a
+          href={pillar.href}
+          class="group relative flex flex-col bg-[#f8f9fb] border border-gray-100 rounded-[28px] p-8 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer"
+        >
+          <!-- Icon -->
+          <div
+            class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 text-blue-600 group-hover:scale-105 transition-transform duration-300 flex-shrink-0"
+            style={`background: ${pillar.iconBg};`}
+          >
+            <Fragment set:html={pillar.icon} />
+          </div>
+
+          <!-- Tag -->
+          <p class="text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-2">
+            {pillar.tag}
+          </p>
+
+          <!-- Title -->
+          <h3 class="text-xl font-bold text-gray-900 mb-3 leading-tight">
+            {pillar.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-gray-500 leading-relaxed text-sm flex-1">
+            {pillar.description}
+          </p>
+
+          <!-- Link -->
+          <div class="mt-6 flex items-center gap-1.5 text-blue-600 text-sm font-semibold group-hover:gap-3 transition-all duration-300">
+            <span>Saber más</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Value statement -->
+    <div class="relative rounded-[28px] overflow-hidden bg-[#070a1a] px-8 md:px-16 py-10 text-center">
+      <!-- Glow -->
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="background: radial-gradient(ellipse at 50% 120%, rgba(14,68,249,0.25), transparent 65%);"
+      ></div>
+      <p class="relative z-10 text-lg md:text-2xl font-bold text-white leading-snug">
+        El resultado: tu empresa solo se ocupa de
+        <span class="text-blue-400"> su producto o servicio.</span>
+      </p>
+      <p class="relative z-10 mt-3 text-sm text-gray-400 max-w-lg mx-auto">
+        La tecnología trabaja por vos. Nosotros la implementamos, la mantenemos y la mejoramos contigo.
+      </p>
+    </div>
+
+  </div>
+</section>

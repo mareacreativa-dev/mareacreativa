@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import HeroService from "../components/HeroService.astro";
+import HeroServiceDark from "../components/HeroServiceDark.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import CtaSection from "../components/CtaSection.astro";
 import Project from "../projects/data.json";
@@ -12,7 +12,7 @@ import Project from "../projects/data.json";
   keywords="proyectos diseño web, portafolio de diseño web, casos de exito web, ejemplos ecommerce, ejemplos rebranding, landing pages ejemplos"
   image="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771945624/b_ntowvf.webp"
 >
-  <HeroService
+  <HeroServiceDark
     title="Nuestros Proyectos"
     subtitle="Explora una selección directa de nuestros últimos retos superados. Diseño web espectacular conectado a ingeniería que genera negocio recurrente."
     image="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771945624/b_ntowvf.webp"
@@ -34,7 +34,7 @@ import Project from "../projects/data.json";
       </div>
 
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
       >
         {
           Project?.map((project: any) => (

@@ -47,11 +47,19 @@
     "pais": "EEUU"
   },
   {
-    "title": "Second Language Mode On",
-    "description": "Plataforma que organiza experiencias virtuales en vivo, para ayudar a mejorar un idioma de forma práctica y natural, rompiendo la barrera del aula tradicional.",
-    "image": "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756239522/second_language_balnbf.jpg",
-    "tags":["Diseño Grafico", "Diseño Web",  "Identidad Corporativa"],
-    "url": "https://secondlanguagemodeon.com/",
+    "title": "Spanish Mode On",
+    "description": "Diseño y desarrollo de sitio web de turismo local para experiencias auténticas en español.",
+    "image": "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1782227968/Disen%CC%83o_sin_ti%CC%81tulo_iqm3pf.png",
+    "tags": ["Diseño Web", "SEO", "Turismo"],
+    "url": "https://www.spanishmodeon.com/",
+    "pais": "España"
+  },
+  {
+    "title": "The Cookie World",
+    "description": "Diseño y desarrollo de sitio web y e-commerce completo con gestión de pedidos, control de stock en tiempo real y experiencia de compra optimizada para una pastelería artesanal.",
+    "image": "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1782226092/the_cookie_gmfhk9.png",
+    "tags": ["Diseño Web", "E-commerce", "Desarrollo"],
+    "url": "https://thecookieworld.com/",
     "pais": "España"
   },
   {
