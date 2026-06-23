@@ -1,9 +1,8 @@
 ---
-import HeroIndex from "../components/HeroIndex.astro";
-import HeroStats from "../components/HeroStats.astro";
+import HomeHero from "../components/HomeHero.jsx";
+import HomePillars from "../components/HomePillars.jsx";
+import HomeProcess from "../components/HomeProcess.jsx";
 import Layout from "../layouts/Layout.astro";
-import ServicesPillars from "../components/ServicesPillars.astro";
-import ProcessSteps from "../components/ProcessSteps.astro";
 import TestimonialSection from "../components/TestimonialSection.astro";
 import CtaSection from "../components/CtaSection.astro";
 ---
@@ -15,15 +14,16 @@ import CtaSection from "../components/CtaSection.astro";
   image="https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771944145/home_hero_yqmogi.png"
 >
   <div id="hero">
-    <HeroIndex
+    <HomeHero
+      client:load
       title="Implementamos tecnología para que tu empresa crezca sin límites"
-      subtitle="Software a medida, inteligencia artificial específica para tu negocio y automatización de procesos — para que vos te enfoques en lo que mejor hacés."
-      badge="Partner Tecnológico para Empresas"
+      subtitle="Software a medida, inteligencia artificial específica para tu negocio y automatización de procesos — para que te enfoques en lo que mejor haces."
+      badge="Tecnología e IA para Empresas"
       ctaText="Agendar una cita"
+      ctaLink="/contacto"
     />
-    <HeroStats />
-    <ServicesPillars />
-    <ProcessSteps />
+    <HomePillars client:visible />
+    <HomeProcess client:visible />
     <TestimonialSection />
     <CtaSection />
   </div>

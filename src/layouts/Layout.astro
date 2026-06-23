@@ -5,9 +5,9 @@ import CookieBanner from "../components/CookieBanner.astro";
 import ChatWidget from "../components/ChatWidget";
 import "../styles/global.css";
 const {
-  title = "Marea Creativa | Diseño Web, Inteligencia Artificial y SEO Local",
-  description = "Agencia especialista en diseño web estratégico, automatización con inteligencia artificial y posicionamiento SEO local. Escalamos negocios físicos y digitales 24/7.",
-  keywords = "diseño web, desarrollo web, seo local, automatizacion, marketing digital, chatbots, ia, inteligencia artificial, paginas web, tiendas online",
+  title = "Marea Creativa | Software, IA y Automatización para Empresas",
+  description = "Implementamos tecnología para que tu empresa crezca: software personalizado, inteligencia artificial específica para tu negocio y automatización de procesos. Enfócate en tu producto, nosotros en la tecnología.",
+  keywords = "software a medida empresas, inteligencia artificial negocios, automatizacion procesos empresariales, agentes ia, software personalizado pymes, implementacion tecnologia empresas",
   image = "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1771944145/home_hero_yqmogi.png",
 } = Astro.props;
 import { ClientRouter } from "astro:transitions";
@@ -17,7 +17,9 @@ import { ClientRouter } from "astro:transitions";
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href={Astro.url.href} />
+    <meta name="robots" content="index, follow" />
     <link
       rel="icon"
       type="image/svg+xml"
@@ -35,6 +37,8 @@ import { ClientRouter } from "astro:transitions";
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="Marea Creativa" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -54,17 +58,18 @@ import { ClientRouter } from "astro:transitions";
             "@id": "https://mareacreativa.com/#website",
             url: "https://mareacreativa.com",
             name: "Marea Creativa",
-            description: "Diseño Web, Inteligencia Artificial y SEO Local",
+            description: "Software personalizado, IA y automatización de procesos para empresas",
             inLanguage: "es",
           },
           {
-            "@type": "Organization",
+            "@type": "ProfessionalService",
             "@id": "https://mareacreativa.com/#organization",
             name: "Marea Creativa",
             url: "https://mareacreativa.com",
             logo: "https://res.cloudinary.com/dgkdq8kzk/image/upload/v1756154116/logo_m_blanco_y3leyc.svg",
-            description:
-              "Agencia especialista en diseño web estratégico, automatización con inteligencia artificial y posicionamiento SEO local.",
+            description: "Implementamos tecnología para empresas: software a medida, inteligencia artificial específica para cada negocio y automatización de procesos.",
+            areaServed: "ES",
+            serviceType: ["Software a medida", "Inteligencia Artificial", "Automatización de procesos"],
             sameAs: ["https://www.instagram.com/marea.creativa"],
           },
         ],
